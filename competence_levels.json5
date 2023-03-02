@@ -1,0 +1,32 @@
+// All "in conversation" explanations take into consideration that I deliberately undersell myself.
+// I don't genuinely think I'm just "good" at some of my greatest skills, but it feels weird to emphasize it
+
+{
+  // I have barely any idea what I'm doing or what this is for
+  // In conversation, I'd probably say "I kinda know what X is"
+  negligible: 0,
+
+  // This was in school, I guess. I'm not sure what precisely it /is/?
+  // In conversation, I'd probably say "I've worked with X but forget basically everything"
+  tiny: 1,
+
+  // I know the very basics
+  // In conversation, I'd probably say "I've worked with X briefly"
+  low: 1.5,
+
+  // I've used this in the past, but I forget a lot of the details
+  // In conversation, I'd probably say "I've worked with X, but I forget a lot of it now"
+  rusty: 2,
+
+  // I'd use this personally if it was the best option for something
+  // In conversation, I'd probably say "I guess I'm comfortable with X"
+  decent: 3,
+
+  // I'm comfortable enough with this to use it in my free time casually for new projects without thinking twice.
+  // In conversation, I'd probably say "I know some X"
+  good: 4,
+
+  // This is among the things I'm most comfortable with
+  // In conversation, I'd probably say "I'm good at X"
+  high: 5,
+}

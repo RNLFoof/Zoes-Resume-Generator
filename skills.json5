@@ -1,0 +1,257 @@
+/*
+Impressiveness:
+  0: Useless garbage
+  1: Could be learned in its entirety in a day
+  2: Deliberately simplified at the expense of otherwise expected functionality
+  3: Has depth
+  4: Could be a make or break skill for a position
+  5: Somebody could specialize in this
+
+Competence:
+  0: I have barely any idea what I'm doing or what this is for
+  1: This was in school, I guess. I'm not sure what precisely it /is/?
+  1.5: I know the very basics
+  2: I've used this in the past, but I forget a lot of the details
+  3: I'd use this personally if it was the best option for something
+  4: I'm comfortable enough with this to use it in my free time casually for new projects without thinking twice
+  5: This is among the things I'm most comfortable with
+*/
+{
+  ".NET": {
+    impressiveness: 5,
+    competence: 1,
+    "exists within": "C#"
+  },
+  AutoHotkey: {
+    impressiveness: 3,
+    competence: 3,
+    aliases: [
+      "AHK",
+      "Auto Hotkey",
+      "Auto Hot Key"
+    ]
+  },
+  "C#": {
+    impressiveness: 5,
+    competence: 3
+  },
+  Django: {
+    impressiveness: 4,
+    competence: 3,
+    "exists within": "Python"
+  },
+  GDScript: {
+    impressiveness: 3,
+    competence: 3
+  },
+  "Game Maker Language": {
+    impressiveness: 2,
+    competence: 3,
+    aliases: [
+      "GML"
+    ],
+    "exists within": "GameMaker"
+  },
+  "GameMaker": {
+    impressiveness: 2,
+    competence: 3
+  },
+  "GameMaker Studio 2": {
+    impressiveness: 2,
+    competence: 3
+  },
+  Godot: {
+  },
+  "Google Calendar": {
+    impressiveness: 1.5,
+    competence: 4
+  },
+  "Google Calendar API": {
+    "impressiveness": 3,
+    "competence": "low",
+    "exists within": "Google Cloud Platform"
+  },
+  "Google Cloud Platform": {
+    impressiveness: 5,
+    competence: 1.5,
+    aliases: [
+      "GCP"
+    ]
+  },
+  "Hue Manager": {
+    impressiveness: 1.5,
+    competence: 3,
+    link: "https://github.com/mechalas/hue-control"
+  },
+  JSON: {
+    impressiveness: 1,
+    competence: 5,
+    aliases: [
+      "JavaScript Object Notation"
+    ],
+    "natively featured in": [
+      "Python",
+      "GDScript",
+      "GameMaker Language",
+      "C#",
+      "JavaScript"
+    ],
+    "extended into": {
+      "AutoHotKey": {
+        via: "AutoHotkey-JSON",
+        link: "https://github.com/cocobelgica/AutoHotkey-JSON"
+      }
+    },
+    "link": "https://www.json.org"
+  },
+  "JSON Schema": {
+    impressiveness: 3,
+    competence: 3,
+    aliases: [
+      "JavaScript Object Notation Schema"
+    ],
+    subset_of: [
+      "JSON"
+    ],
+    "extended into": {
+      "Python": {
+        via: "jsonschema",
+        link: "https://python-jsonschema.readthedocs.io/en/stable/"
+      },
+    }
+  },
+  JSON5: {
+    impressiveness: 1,
+    competence: 4,
+    aliases: [
+      "JavaScript Object Notation 5"
+    ],
+    "subset_of": [
+      "JSON"
+    ],
+    "extended into": {
+      "Python": {
+        "via": "pyjson5",
+        "link": "https://pypi.org/project/json5/"
+      },
+      "C#": {
+        "via": "json5-dotnet",
+        link: "https://github.com/json5/json5-dotnet"
+      }
+    },
+    link: "https://json5.org/"
+  },
+  JavaScript: {
+    impressiveness: 5,
+    competence: 3,
+    aliases: [
+      "JS",
+      "ECMAScript"
+    ]
+  },
+  NLTK: {
+    impressiveness: 3,
+    competence: 3,
+    aliases: [
+      "Natural Language Toolkit"
+    ],
+    "exists within": "Python"
+  },
+  "Node.js": {
+    impressiveness: 5,
+    competence: 1.5,
+    "exists within": "JavaScript"
+  },
+  Pillow: {
+    impressiveness: 3,
+    competence: 4,
+    aliases: [
+      "PIL",
+      "Python Imaging Library"
+    ],
+    "exists within": "Python"
+  },
+  Python: {
+    impressiveness: 5,
+    competence: 5,
+    "aliases": [
+      "Python3",
+      "Python 3"
+    ]
+  },
+  "Regular Expressions": {
+    impressiveness: 3,
+    competence: 5,
+    aliases: [
+      "Regular Expression",
+      "Regex"
+    ],
+    "natively featured in": [
+      "Python",
+      "AutoHotKey",
+      "GDScript",
+      "C#",
+      "JavaScript",
+      "Java",
+      "Kotlin",
+      "PHP",
+      "Everything",
+      "Tasker"
+    ]
+  },
+  "Sequence Unpacking / Destructuring Assignment": {
+    impressiveness: 1,
+    competence: 5,
+    "featured in": [
+      "Python",
+      "JavaScript"
+    ]
+  },
+  SharePoint: {
+    "impressiveness": 5,
+    competence: 3,
+    aliases: [
+      "SP"
+    ]
+  },
+  "SharePoint 2013": {
+    "impressiveness": 5,
+    competence: 3,
+    aliases: [
+      "SP2013"
+    ],
+    subset_of: [
+      "SharePoint"
+    ]
+  },
+  "SharePoint Online": {
+    "impressiveness": 5,
+    competence: 3,
+    aliases: [
+      "SPO"
+    ],
+    subset_of: [
+      "SharePoint"
+    ]
+  },
+  TypeScript: {
+    impressiveness: 5,
+    competence: 4,
+    aliases: [
+      "TS"
+    ],
+    "subset of": "JavaScript"
+  },
+  jQuery: {
+    impressiveness: 3,
+    competence: 3,
+    "exists within": "JavaScript"
+  },
+  "Microsoft Authentication Library": {
+    impressiveness: 1.75,
+    competence: 1.5,
+    aliases: [
+      "MSAL"
+    ]
+  }
+}

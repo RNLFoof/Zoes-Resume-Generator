@@ -1,0 +1,27 @@
+{
+  // Useless garbage
+  none: 0,
+
+  // Could be learned in its entirety in a day and has no real edges
+  // Ex. JSON
+  simple: 1,
+
+  // Has enough going on that you couldn't trivially memorize all of it, but you aren't going to have any trouble learning how to do new things.
+  // Ex. Google Calendar, Hue Manager
+  intuitive: 1.5,
+
+  // Same as intuitive, but only if you have prior knowledge about some other thing.
+  // Ex. MSAL, which would be confusing if you knew nothing about authorization.
+  "intuitive with context": 1.75,
+
+  // Deliberately simplified at the expense of otherwise expected functionality, but there's a fair bit you can do with it.
+  // Intended for people who don't know how to use better but more complicated tools.
+  // Ex. GML, Power Automate
+  beginner: 2,
+
+  deep: 3, // Has depth
+  "make or break": 4, // Could be a make or break skill for a position
+  specializable: 5, // Somebody could specialize in this
+}
+
+/*
