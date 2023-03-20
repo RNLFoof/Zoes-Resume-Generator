@@ -22,8 +22,12 @@
   // In conversation, I'd probably say "I guess I'm comfortable with X"
   decent: 3,
 
+  // I'd use this personally if it was a good option for something
+  // In conversation, I'd probably say "I'm comfortable with X"
+  "pretty good": 3.5,
+
   // I'm comfortable enough with this to use it in my free time casually for new projects without thinking twice.
-  // In conversation, I'd probably say "I know some X"
+  // In conversation, I'd probably say "I'm pretty good at X"
   good: 4,
 
   // This is among the things I'm most comfortable with
