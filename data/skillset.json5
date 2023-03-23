@@ -1,21 +1,3 @@
-/*
-Impressiveness:
-  0: Useless garbage
-  1: Could be learned in its entirety in a day
-  2: Deliberately simplified at the expense of otherwise expected functionality
-  3: Has depth
-  4: Could be a make or break skill for a position
-  5: Somebody could specialize in this
-
-Competence:
-  0: I have barely any idea what I'm doing or what this is for
-  1: This was in school, I guess. I'm not sure what precisely it /is/?
-  1.5: I know the very basics
-  2: I've used this in the past, but I forget a lot of the details
-  3: I'd use this personally if it was the best option for something
-  4: I'm comfortable enough with this to use it in my free time casually for new projects without thinking twice
-  5: This is among the things I'm most comfortable with
-*/
 {
   "skills": {
     ".NET": {
