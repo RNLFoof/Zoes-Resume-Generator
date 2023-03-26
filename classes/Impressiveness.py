@@ -19,7 +19,7 @@ class Impressiveness(Enum):
     NONE = 0, "Useless garbage"
 
     SIMPLE = 1, """ 
-        Could be learned in its entirety in a day and has no real edges
+        Could be learned in its entirety in a day, and has no real edges.
         Ex. JSON
     """
 
@@ -39,8 +39,21 @@ class Impressiveness(Enum):
         Ex. GML, Power Automate
     """
 
-    DEEP = 3, "Has depth"
+    # TODO There's a few things with this label that don't fit this description.
+    DEEP = 3, """
+        Has some amount of explorable depth. Contrasts beginner, where once you go past the basics,
+        you're mostly just trying to get around its limitations.
+        Ex. Pillow, Regular Expressions, jQuery
+    """
 
-    MAKE_OR_BREAK = 4, "Could be a make or break skill for a position"
+    # TODO This is more about how well it fits into a workplace than how challenging it is.
+    MAKE_OR_BREAK = 4, """
+        Can be so fundamental to a job that it can sway applicability on its own.
+        Ex. Kotlin, Git, Django
+    """
 
-    SPECIALIZABLE = 5, "Somebody could specialize in this"
+    # TODO Like DEEP, I think some of the things labelled as this don't fit.
+    SPECIALIZABLE = 5, """
+        Has so much going on that somebody could make a career on being really good at just this.
+        Ex. C#, Javascript
+    """
