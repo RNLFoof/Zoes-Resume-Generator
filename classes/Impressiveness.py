@@ -2,7 +2,17 @@ from enum import Enum
 
 
 class Impressiveness(Enum):
-    def __init__(self, number, description):
+    """Enum for expressing the impressiveness of a skill. That is, how much talent or knowledge goes into it.
+
+    Parameters
+    ----------
+    number : float
+        Numerical value used to weigh this skill. Very much based on gut feeling.
+    description : str
+        Clarification on what really fits this label.
+    """
+
+    def __init__(self, number: float, description: str):
         self.number = number
         self.description = description
 
