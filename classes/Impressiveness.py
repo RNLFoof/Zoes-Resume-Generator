@@ -2,7 +2,9 @@ from enum import Enum
 
 
 class Impressiveness(Enum):
-    """Enum for expressing the impressiveness of a skill. That is, how much talent or knowledge goes into it.
+    """Enum for expressing the impressiveness of a skill.
+
+    That is, how much talent or knowledge goes into it, or how challenging it is to learn or use.
 
     Parameters
     ----------
