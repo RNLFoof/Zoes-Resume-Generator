@@ -18,6 +18,28 @@ class Impressiveness(Enum):
         self.number = number
         self.description = description
 
+    @classmethod
+    def lower_bound(cls) -> float:
+        """The lowest possible numerical value that can be assigned to a skill.
+
+        Returns
+        -------
+        float
+            Said numerical value.
+        """
+        return min(item.number for item in cls)
+
+    @classmethod
+    def upper_bound(cls) -> float:
+        """The highest possible numerical value that can be assigned to a skill.
+
+        Returns
+        -------
+        float
+            Said numerical value.
+        """
+        return max(item.number for item in cls)
+
     NONE = 0, "Useless garbage"
 
     SIMPLE = 1, """ 
