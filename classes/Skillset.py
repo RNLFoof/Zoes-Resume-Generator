@@ -21,7 +21,7 @@ class Skill(BaseModel):
     impressiveness: Impressiveness
 
     def generic_value(self):
-        return self.impressiveness.value * self.competence
+        return self.impressiveness.number * self.competence
 
 
 class Skillset(BaseModel):
