@@ -17,19 +17,6 @@ SCHEMA_SAVED_TO = os.path.join(
 
 
 class Skill(BaseModel):
-    """Represents a skill. That is, a thing that I (know|could know) how to (do|use|write in).
-
-    Parameters
-    ----------
-    competence : float
-        Numerical value representing how good I am at this skill.
-    impressiveness : Impressiveness
-        Impressiveness value associated with this skill.
-
-    See Also
-    --------
-    Impressiveness.Impressiveness
-    """
     competence: float
     impressiveness: Impressiveness
 
@@ -38,9 +25,6 @@ class Skill(BaseModel):
 
 
 class SkillSet(BaseModel):
-    """
-
-    """
     skills: dict[str, Skill]
 
     @classmethod
