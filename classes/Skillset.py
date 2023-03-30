@@ -23,16 +23,6 @@ class Skill(BaseModel):
     def generic_value(self):
         return self.impressiveness.value * self.competence
 
-    class Config:
-        schema_extra = {
-            "properties": {
-                "impressiveness": {
-                    "type": "string",
-                    "enum": [impressiveness.name for impressiveness in Impressiveness]
-                }
-            }
-        }
-
 
 class Skillset(BaseModel):
     skills: dict[str, Skill]

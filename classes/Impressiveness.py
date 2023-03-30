@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Any
 
 
 class Impressiveness(Enum):
@@ -17,6 +18,11 @@ class Impressiveness(Enum):
     def __init__(self, number: float, description: str):
         self.number = number
         self.description = description
+
+    @classmethod
+    def __modify_schema__(cls, field_schema: dict[str, Any]):
+        field_schema["description"] = Impressiveness.__doc__.splitlines()[0]
+        field_schema["enum"] = [impressiveness.name for impressiveness in Impressiveness]
 
     @classmethod
     def lower_bound(cls) -> float:

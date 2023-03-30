@@ -16,40 +16,16 @@
     "definitions": {
         "Impressiveness": {
             "title": "Impressiveness",
-            "description": "Enum for expressing the impressiveness of a skill.\n\n    That is, how much talent or knowledge goes into it, or how challenging it is to learn or use.\n\n    Parameters\n    ----------\n    number : float\n        Numerical value used to weigh this skill. Very much based on gut feeling.\n    description : str\n        Clarification on what really fits this label.\n    ",
+            "description": "Enum for expressing the impressiveness of a skill.",
             "enum": [
-                [
-                    0,
-                    "Useless garbage"
-                ],
-                [
-                    1,
-                    " \n        Could be learned in its entirety in a day, and has no real edges.\n        Ex. JSON\n    "
-                ],
-                [
-                    1.5,
-                    "\n        You couldn't trivially memorize all of it, but you won't have any trouble learning how to do new things.\n        Ex. Google Calendar, Hue Manager\n    "
-                ],
-                [
-                    1.75,
-                    "     \n        Same as intuitive, but only if you have prior knowledge about some other thing.\n        Ex. MSAL, which would be confusing if you knew nothing about authorization.\n    "
-                ],
-                [
-                    2,
-                    "     \n        Deliberately simplified at the expense of otherwise expected functionality, but still versatile.\n        Intended for people who don't know how to use better but more complicated tools.\n        Ex. GML, Power Automate\n    "
-                ],
-                [
-                    3,
-                    "\n        Has some amount of explorable depth. Contrasts beginner, where once you go past the basics,\n        you're mostly just trying to get around its limitations.\n        Ex. Pillow, Regular Expressions, jQuery\n    "
-                ],
-                [
-                    4,
-                    "\n        Can be so fundamental to a job that it can sway applicability on its own.\n        Ex. Kotlin, Git, Django\n    "
-                ],
-                [
-                    5,
-                    "\n        Has so much going on that somebody could make a career on being really good at just this.\n        Ex. C#, Javascript\n    "
-                ]
+                "NONE",
+                "SIMPLE",
+                "INTUITIVE",
+                "INTUITIVE_WITH_CONTEXT",
+                "BEGINNER",
+                "DEEP",
+                "MAKE_OR_BREAK",
+                "SPECIALIZABLE"
             ]
         },
         "Skill": {
