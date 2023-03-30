@@ -1,10 +1,19 @@
-from typing import Callable, Generator, List
+import os
+from typing import Callable
 
 import json5
 from pydantic import BaseModel
 
 from Impressiveness import Impressiveness
 
+SAVED_TO = os.path.join(
+    os.path.abspath(os.path.split(__file__)[0]),
+    "../data/skillset.json5"
+)
+SCHEMA_SAVED_TO = os.path.join(
+    os.path.abspath(os.path.split(__file__)[0]),
+    "../schema/skillset.json"
+)
 
 
 class Skill(BaseModel):
