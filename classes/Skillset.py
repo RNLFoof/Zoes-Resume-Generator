@@ -4,7 +4,7 @@ from typing import Callable
 import json5
 from pydantic import BaseModel
 
-from Impressiveness import Impressiveness
+from classes.Impressiveness import Impressiveness
 
 SAVED_TO = os.path.join(
     os.path.abspath(os.path.split(__file__)[0]),
