@@ -52,7 +52,7 @@
       competence: 4
     },
     "Google Calendar API": {
-      "impressiveness": 3,
+      impressiveness: "DEEP",
       "competence": 1.5,
       "exists within": "Google Cloud Platform"
     },
@@ -127,7 +127,7 @@
       link: "https://json5.org/"
     },
     JavaScript: {
-      impressiveness: 7,
+      impressiveness: "SPECIALIZABLE",
       competence: 3,
       aliases: [
         "JS",
@@ -193,14 +193,14 @@
       ]
     },
     SharePoint: {
-      "impressiveness": 5,
+      impressiveness: "SPECIALIZABLE",
       competence: 3,
       aliases: [
         "SP"
       ]
     },
     "SharePoint 2013": {
-      "impressiveness": 5,
+      impressiveness: "SPECIALIZABLE",
       competence: 3,
       aliases: [
         "SP2013"
@@ -210,7 +210,7 @@
       ]
     },
     "SharePoint Online": {
-      "impressiveness": 5,
+      impressiveness: "SPECIALIZABLE",
       competence: 3,
       aliases: [
         "SPO"

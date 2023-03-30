@@ -21,7 +21,7 @@ class Impressiveness(Enum):
 
     @classmethod
     def __modify_schema__(cls, field_schema: dict[str, Any]):
-        """Method used by Pydantic to modify Impressivess' schema.
+        """Method used by Pydantic to modify how Impressivess is serialized.
 
         In particular, replaces the description with one not tainted with Python documentation,
         and uses Impressiveness' names instead of its significantly more unwieldy values.
@@ -31,8 +31,17 @@ class Impressiveness(Enum):
         field_schema : dict[str, Any]
             Otherwise complete schema for this type, provided by Pydantic, to be modified in place.
         """
-        field_schema["description"] = Impressiveness.__doc__.splitlines()[0]
-        field_schema["enum"] = [impressiveness.name for impressiveness in Impressiveness]
+        field_schema["description"] = cls.__doc__.splitlines()[0]
+        field_schema["enum"] = [item.name for item in cls]
+
+    # Modified version of https://github.com/pydantic/pydantic/issues/598#issuecomment-503032706
+    @classmethod
+    def __get_validators__(cls):
+        """Method used by Pydantic to modify how Impressiveness is deserialized.
+
+        In particular, takes Enum name instead of value.
+        """
+        yield lambda v: cls[v]
 
     @classmethod
     def lower_bound(cls) -> float:
