@@ -21,7 +21,7 @@ class Impressiveness(Enum):
 
     @classmethod
     def __modify_schema__(cls, field_schema: dict[str, Any]):
-        """Method used by Pydantic to modify how Impressivess is serialized.
+        """Method used by Pydantic to modify how Impressiveness is serialized.
 
         In particular, replaces the description with one not tainted with Python documentation,
         and uses Impressiveness' names instead of its significantly more unwieldy values.
