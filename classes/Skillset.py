@@ -4,14 +4,13 @@ import json5
 from pydantic import BaseModel
 from pydantic.dataclasses import dataclass
 
-SAVED_TO = "data/skillset.json5"
-SCHEMA_SAVED_TO = "schema/skillset.json"
+from Impressiveness import Impressiveness
 
 
-@dataclass
-class Skill:
-    impressiveness: float
+
+class Skill(BaseModel):
     competence: float
+    impressiveness: Impressiveness
 
     def generic_value(self):
         return self.impressiveness * self.competence
