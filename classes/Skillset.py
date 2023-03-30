@@ -23,7 +23,7 @@ class Skillset(BaseModel):
     @classmethod
     def dump_schema(cls):
         with open(SCHEMA_SAVED_TO, "w") as f:
-            f.write(cls.schema_json())
+            f.write(cls.schema_json(indent=4))
 
     @classmethod
     def all(cls):
