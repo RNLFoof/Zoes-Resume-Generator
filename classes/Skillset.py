@@ -2,7 +2,6 @@ from typing import Callable, Generator, List
 
 import json5
 from pydantic import BaseModel
-from pydantic.dataclasses import dataclass
 
 from Impressiveness import Impressiveness
 
