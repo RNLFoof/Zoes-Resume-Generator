@@ -31,8 +31,8 @@ class Impressiveness(Enum):
         field_schema : dict[str, Any]
             Otherwise complete schema for this type, provided by Pydantic, to be modified in place.
         """
-        field_schema["description"] = Impressiveness.__doc__.splitlines()[0]
-        field_schema["enum"] = [impressiveness.name for impressiveness in Impressiveness]
+        field_schema["description"] = cls.__doc__.splitlines()[0]
+        field_schema["enum"] = [item.name for item in cls]
 
     @classmethod
     def lower_bound(cls) -> float:
