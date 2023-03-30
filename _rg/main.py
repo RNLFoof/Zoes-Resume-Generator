@@ -1,9 +1,9 @@
 from pylatex import Document, Section, Itemize
 
-from classes.Skillset import SkillSet
+from classes.SkillSet import SkillSet
 
 if __name__ == '__main__':
-    SkillSet.dump_schema()
+    SkillSet._dump_schema()
     SkillSet.all()
     doc = Document('Resume')
     with doc.create(Section('Header')):
