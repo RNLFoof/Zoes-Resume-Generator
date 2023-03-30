@@ -22,7 +22,7 @@ class Skill(BaseModel):
     Parameters
     ----------
     competence : float
-        Numerical value representing how good I am at this skill.
+        Numerical value representing how good Zoe is at this skill.
     impressiveness : Impressiveness
         Impressiveness value associated with this skill.
 
