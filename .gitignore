@@ -2,3 +2,4 @@
 .idea/*
 /Resume.pdf
 /url_collection.json
+*.pyc
