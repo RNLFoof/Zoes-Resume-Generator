@@ -1,20 +1,27 @@
-from typing import Callable, Generator, List
+import os
+from typing import Callable
 
 import json5
 from pydantic import BaseModel
-from pydantic.dataclasses import dataclass
 
-SAVED_TO = "data/skillset.json5"
-SCHEMA_SAVED_TO = "schema/skillset.json"
+from Impressiveness import Impressiveness
+
+SAVED_TO = os.path.join(
+    os.path.abspath(os.path.split(__file__)[0]),
+    "../data/skillset.json5"
+)
+SCHEMA_SAVED_TO = os.path.join(
+    os.path.abspath(os.path.split(__file__)[0]),
+    "../schema/skillset.json"
+)
 
 
-@dataclass
-class Skill:
-    impressiveness: float
+class Skill(BaseModel):
     competence: float
+    impressiveness: Impressiveness
 
     def generic_value(self):
-        return self.impressiveness * self.competence
+        return self.impressiveness.value * self.competence
 
 
 class Skillset(BaseModel):
@@ -23,7 +30,7 @@ class Skillset(BaseModel):
     @classmethod
     def dump_schema(cls):
         with open(SCHEMA_SAVED_TO, "w") as f:
-            f.write(cls.schema_json())
+            f.write(cls.schema_json(indent=4))
 
     @classmethod
     def all(cls):

@@ -1,1 +1,49 @@
-{"title": "Skillset", "type": "object", "properties": {"skills": {"title": "Skills", "type": "object", "additionalProperties": {"$ref": "#/definitions/Skill"}}}, "required": ["skills"], "definitions": {"Skill": {"title": "Skill", "type": "object", "properties": {"impressiveness": {"title": "Impressiveness", "type": "number"}, "competence": {"title": "Competence", "type": "number"}}, "required": ["impressiveness", "competence"]}}}
+{
+    "title": "Skillset",
+    "type": "object",
+    "properties": {
+        "skills": {
+            "title": "Skills",
+            "type": "object",
+            "additionalProperties": {
+                "$ref": "#/definitions/Skill"
+            }
+        }
+    },
+    "required": [
+        "skills"
+    ],
+    "definitions": {
+        "Impressiveness": {
+            "title": "Impressiveness",
+            "description": "Enum for expressing the impressiveness of a skill.",
+            "enum": [
+                "NONE",
+                "SIMPLE",
+                "INTUITIVE",
+                "INTUITIVE_WITH_CONTEXT",
+                "BEGINNER",
+                "DEEP",
+                "MAKE_OR_BREAK",
+                "SPECIALIZABLE"
+            ]
+        },
+        "Skill": {
+            "title": "Skill",
+            "type": "object",
+            "properties": {
+                "competence": {
+                    "title": "Competence",
+                    "type": "number"
+                },
+                "impressiveness": {
+                    "$ref": "#/definitions/Impressiveness"
+                }
+            },
+            "required": [
+                "competence",
+                "impressiveness"
+            ]
+        }
+    }
+}

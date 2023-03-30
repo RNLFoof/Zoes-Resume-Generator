@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Any
 
 
 class Impressiveness(Enum):
@@ -17,6 +18,21 @@ class Impressiveness(Enum):
     def __init__(self, number: float, description: str):
         self.number = number
         self.description = description
+
+    @classmethod
+    def __modify_schema__(cls, field_schema: dict[str, Any]):
+        """Method used by Pydantic to modify Impressivess' schema.
+
+        In particular, replaces the description with one not tainted with Python documentation,
+        and uses Impressiveness' names instead of its significantly more unwieldy values.
+
+        Parameters
+        ----------
+        field_schema : dict[str, Any]
+            Otherwise complete schema for this type, provided by Pydantic, to be modified in place.
+        """
+        field_schema["description"] = Impressiveness.__doc__.splitlines()[0]
+        field_schema["enum"] = [impressiveness.name for impressiveness in Impressiveness]
 
     @classmethod
     def lower_bound(cls) -> float:
