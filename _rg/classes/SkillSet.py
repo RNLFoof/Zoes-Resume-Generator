@@ -1,19 +1,10 @@
 import os
-from typing import Callable
+from typing import Callable, ClassVar
 
 import json5
 from pydantic import BaseModel
 
 from _rg.classes.Impressiveness import Impressiveness
-
-SAVED_TO = os.path.join(
-    os.path.abspath(os.path.split(__file__)[0]),
-    "../data/skillSet.json5"
-)
-SCHEMA_SAVED_TO = os.path.join(
-    os.path.abspath(os.path.split(__file__)[0]),
-    "../schema/skillSet.json"
-)
 
 
 class Skill(BaseModel):
@@ -59,10 +50,19 @@ class SkillSet(BaseModel):
     """
     skills: dict[str, Skill]
 
+    SAVED_TO: ClassVar[str] = os.path.join(
+        os.path.abspath(os.path.split(__file__)[0]),
+        "../data/skillSet.json5"
+    )
+    SCHEMA_SAVED_TO: ClassVar[str] = os.path.join(
+        os.path.abspath(os.path.split(__file__)[0]),
+        "../schema/skillSet.json"
+    )
+
     @classmethod
     def _dump_schema(cls) -> None:
         """Updates the schema used to validate the skill set provided in data/skillSet.json5."""
-        with open(SCHEMA_SAVED_TO, "w") as f:
+        with open(cls.SCHEMA_SAVED_TO, "w") as f:
             f.write(cls.schema_json(indent=4))
 
     # TODO Perhaps this whole class should be a singleton, with this as a base.
@@ -76,7 +76,7 @@ class SkillSet(BaseModel):
         SkillSet
             SkillSet representing Zoe's skills (or lack thereof).
         """
-        with open(SAVED_TO, "rb") as f:
+        with open(cls.SAVED_TO, "rb") as f:
             return SkillSet(**json5.load(f))
 
     def _skills_by(self, key: Callable[[(str, Skill)], any]) -> list[str]:
