@@ -39,9 +39,15 @@ class Impressiveness(Enum):
     def __get_validators__(cls):
         """Method used by Pydantic to modify how Impressiveness is deserialized.
 
-        In particular, takes Enum name instead of value.
+        In particular, takes the Enum name, or an actual Impressiveness instance, instead of value.
         """
-        yield lambda v: cls[v]
+        def validators(value: str | Impressiveness):
+            if type(value) is str:
+                return cls[value]
+            if type(value) is Impressiveness:
+                return value
+
+        yield lambda value: validators(value)
 
     @classmethod
     def lower_bound(cls) -> float:
