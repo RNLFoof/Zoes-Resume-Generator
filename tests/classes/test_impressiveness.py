@@ -1,5 +1,3 @@
-import pytest
-
 from _rg.classes.Impressiveness import Impressiveness
 
 
