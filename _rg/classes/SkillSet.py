@@ -79,7 +79,7 @@ class SkillSet(BaseModel):
         with open(cls.SAVED_TO, "rb") as f:
             return SkillSet(**json5.load(f))
 
-    def _skills_by(self, key: Callable[[(str, Skill)], any]) -> list[str]:
+    def _skills_by(self, key: Callable[[str, Skill], any]) -> list[str]:
         """A generic function for creating other functions that return the skills sorted in some way.
 
         Parameters
@@ -92,7 +92,7 @@ class SkillSet(BaseModel):
         list[str]
             Skill names, sorted.
         """
-        return sorted(self.skills.items(), key=lambda x: key(x))
+        return sorted(self.skills.items(), key=lambda x: key(*x))
 
     def skills_by_generic_value(self) -> list[str]:
         """All skill names, sorted by descending generic value.

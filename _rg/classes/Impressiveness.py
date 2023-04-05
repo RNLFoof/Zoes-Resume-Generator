@@ -19,6 +19,9 @@ class Impressiveness(Enum):
         self.number = number
         self.description = description
 
+    def __cmp__(self, other: "Impressiveness"):
+        return self.number - other.number
+
     @classmethod
     def __modify_schema__(cls, field_schema: dict[str, Any]):
         """Method used by Pydantic to modify how Impressiveness is serialized.
