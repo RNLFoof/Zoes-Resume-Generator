@@ -19,8 +19,23 @@ class Impressiveness(Enum):
         self.number = number
         self.description = description
 
+    def __float__(self):
+        return float(self.number)
+
     def __cmp__(self, other: "Impressiveness"):
         return self.number - other.number
+
+    def __lt__(self, other: "Impressiveness"):
+        return self.number < other.number
+
+    def __gt__(self, other: "Impressiveness"):
+        return self.number > other.number
+
+    def __repr__(self):
+        return f"Impressiveness.{self.name}"
+
+    def __str__(self):
+        return f"Impressiveness.{self.name}"
 
     @classmethod
     def __modify_schema__(cls, field_schema: dict[str, Any]):
