@@ -1,7 +1,8 @@
 import json
-from inspect import getsource
 import os.path
+from inspect import getsource
 from pathlib import Path
+from typing import Callable
 
 import pytest
 from _pytest.monkeypatch import MonkeyPatch
@@ -94,26 +95,34 @@ class TestSkillSet:
         assert os.path.exists(temp_schema_saved_to)
 
     @staticmethod
+    @pytest.mark.parametrize("check, expected_value", [
+        (lambda context: context["skill_set_all"], lambda context: context["common_skill_set"]),
+        (lambda context: context["skill_set_all"].skills["Bad Skill"].name, lambda context: "Bad Skill"),
+    ])
     def test_all(common_skill_set_dict: dict, common_skill_set: SkillSet, monkeypatch: MonkeyPatch,
-                 tmp_path: Path):
+                 tmp_path: Path, check: Callable, expected_value):
         temp_saved_to = tmp_path / "skillSetSaved.json"
         monkeypatch.setattr(SkillSet, "SAVED_TO", temp_saved_to)
         with open(temp_saved_to, "w") as f:
             json.dump(common_skill_set_dict, f)
-        assert SkillSet.all() == common_skill_set
+        context = {
+            "skill_set_all": SkillSet.all(),
+            "common_skill_set": common_skill_set
+        }
+        assert check(context) == expected_value(context), f"This behavior failed: {getsource(check).strip()}"
 
     @staticmethod
     @pytest.mark.parametrize("key, expected_order", [
-        (lambda name, skill: skill.competence, [1, 3, 5]),
-        (lambda name, skill: -skill.competence, [5, 3, 1]),
-        (lambda name, skill: skill.impressiveness.number, [1, 3, 5]),
-        (lambda name, skill: skill.impressiveness, [1, 3, 5]),
-        (lambda name, skill: skill.generic_value(), [1, 3, 5]),
+        (lambda skill: skill.competence, [1, 3, 5]),
+        (lambda skill: -skill.competence, [5, 3, 1]),
+        (lambda skill: skill.impressiveness.number, [1, 3, 5]),
+        (lambda skill: skill.impressiveness, [1, 3, 5]),
+        (lambda skill: skill.generic_value(), [1, 3, 5]),
     ])
     def test_skills_by(common_skill_set: SkillSet, key, expected_order):
-        assert [skill.competence for name, skill in common_skill_set._skills_by(key)] == expected_order, \
+        assert [skill.competence for skill in common_skill_set._skills_by(key)] == expected_order, \
             f"This behavior failed: {getsource(key).strip()}"
 
     @staticmethod
     def test_skills_by_generic_value(common_skill_set: SkillSet):
-        assert [skill.competence for name, skill in common_skill_set.skills_by_generic_value()] == [5, 3, 1]
+        assert [skill.competence for skill in common_skill_set.skills_by_generic_value()] == [5, 3, 1]
