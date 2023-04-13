@@ -19,8 +19,23 @@ class Impressiveness(Enum):
         self.number = number
         self.description = description
 
+    def __float__(self):
+        return float(self.number)
+
     def __cmp__(self, other: "Impressiveness"):
         return self.number - other.number
+
+    def __lt__(self, other: "Impressiveness"):
+        return self.number < other.number
+
+    def __gt__(self, other: "Impressiveness"):
+        return self.number > other.number
+
+    def __repr__(self):
+        return f"Impressiveness.{self.name}"
+
+    def __str__(self):
+        return f"Impressiveness.{self.name}"
 
     @classmethod
     def __modify_schema__(cls, field_schema: dict[str, Any]):
@@ -34,7 +49,7 @@ class Impressiveness(Enum):
         field_schema : dict[str, Any]
             Otherwise complete schema for this type, provided by Pydantic, to be modified in place.
         """
-        field_schema["description"] = cls.__doc__.splitlines()[0]
+        field_schema["description"] = cls.__doc__.splitlines()[0]  # TODO You can embed this into the field
         field_schema["enum"] = [item.name for item in cls]
 
     # Modified version of https://github.com/pydantic/pydantic/issues/598#issuecomment-503032706

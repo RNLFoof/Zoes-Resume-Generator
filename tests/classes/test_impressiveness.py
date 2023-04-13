@@ -1,3 +1,8 @@
+from inspect import getsource
+from typing import Callable
+
+import pytest
+
 from _rg.classes.Impressiveness import Impressiveness
 
 
@@ -13,6 +18,33 @@ class TestImpressiveness:
         impressiveness = Impressiveness.NONE
         impressiveness.__init__(0, description)
         assert impressiveness.description == description
+
+    @pytest.mark.parametrize("check", [
+        lambda: Impressiveness.NONE.number == 0,
+        lambda: Impressiveness.BEGINNER.number == 2,
+        lambda: float(Impressiveness.NONE) == 0,
+        lambda: float(Impressiveness.BEGINNER) == 2,
+    ])
+    def test_float(self, check: Callable):
+        assert check(), f"This behavior failed: {getsource(check).strip()}"
+
+    @pytest.mark.parametrize("check", [
+        lambda: Impressiveness.NONE.number < Impressiveness.BEGINNER.number < Impressiveness.SPECIALIZABLE.number,
+        lambda: Impressiveness.NONE < Impressiveness.BEGINNER < Impressiveness.SPECIALIZABLE,
+    ])
+    def test_lt(self, check):
+        assert check()
+
+    @pytest.mark.parametrize("check", [
+        lambda: Impressiveness.SPECIALIZABLE.number > Impressiveness.BEGINNER.number > Impressiveness.NONE.number,
+        lambda: Impressiveness.SPECIALIZABLE > Impressiveness.BEGINNER > Impressiveness.NONE,
+    ])
+    def test_gt(self, check):
+        assert check()
+
+    def test_sort(self):
+        base = [Impressiveness.NONE, Impressiveness.BEGINNER, Impressiveness.SPECIALIZABLE]
+        assert sorted(base) == base
 
     def test_modify_schema_desc(self):
         schema = {}

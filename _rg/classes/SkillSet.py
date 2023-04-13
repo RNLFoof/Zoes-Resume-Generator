@@ -2,7 +2,8 @@ import os
 from typing import Callable, ClassVar
 
 import json5
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
+from pydantic import Field
 
 from _rg.classes.Impressiveness import Impressiveness
 
@@ -21,7 +22,7 @@ class Skill(BaseModel):
     --------
     Impressiveness.Impressiveness : Specificity on what each impressiveness value means.
     """
-    # TODO This could probably include name, which would simplify some things.
+    name: str = Field(None, repr=False)
     competence: float
     impressiveness: Impressiveness
 
@@ -59,6 +60,15 @@ class SkillSet(BaseModel):
         "../schema/skillSet.json"
     )
 
+    @validator('skills')
+    def __get_validators__(cls, skills: dict[str, Skill]):
+        """
+        """
+        for name, skill in skills.items():
+            skill.name = name
+
+        return skills
+
     @classmethod
     def _dump_schema(cls) -> None:
         """Updates the schema used to validate the skill set provided in data/skillSet.json5."""
@@ -79,20 +89,20 @@ class SkillSet(BaseModel):
         with open(cls.SAVED_TO, "rb") as f:
             return SkillSet(**json5.load(f))
 
-    def _skills_by(self, key: Callable[[str, Skill], any]) -> list[str]:
+    def _skills_by(self, key: Callable[[Skill], any]) -> list[Skill]:
         """A generic function for creating other functions that return the skills sorted in some way.
 
         Parameters
         ----------
-        key : Callable[[(str, Skill)], any]
-            Function that takes a skill's name and object representation, and returns a value that can be sorted.
+        key : Callable[[Skill], any]
+            Function that takes a skill and returns a value that can be sorted.
 
         Returns
         -------
         list[str]
             Skill names, sorted.
         """
-        return sorted(self.skills.items(), key=lambda x: key(*x))
+        return sorted(self.skills.values(), key=lambda x: key(x))
 
     def skills_by_generic_value(self) -> list[str]:
         """All skill names, sorted by descending generic value.
