@@ -19,6 +19,15 @@ class TestImpressiveness:
         impressiveness.__init__(0, description)
         assert impressiveness.description == description
 
+    @pytest.mark.parametrize("impressiveness, expected_number", [
+        (Impressiveness.NONE, 0),
+        (Impressiveness.BEGINNER, 2),
+        (Impressiveness.DEEP, 3),
+        (Impressiveness.SPECIALIZABLE, 5),
+    ])
+    def test_number(self, impressiveness: Impressiveness, expected_number: int):
+        assert impressiveness.number == expected_number
+
     @pytest.mark.parametrize("check", [
         lambda: Impressiveness.NONE.number == 0,
         lambda: Impressiveness.BEGINNER.number == 2,

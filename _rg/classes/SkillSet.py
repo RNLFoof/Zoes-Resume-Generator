@@ -112,4 +112,4 @@ class SkillSet(BaseModel):
         list[str]
             I assume that you can infer from context.
         """
-        return self._skills_by(lambda i: -i[1].generic_value())
+        return self._skills_by(lambda i: -i.generic_value())

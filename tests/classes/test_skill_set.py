@@ -17,14 +17,9 @@ def common_competence() -> int:
 
 
 @pytest.fixture
-def first_impressiveness() -> Impressiveness:
-    return list(Impressiveness)[0]
-
-
-@pytest.fixture
-def common_impressiveness(first_impressiveness: Impressiveness) -> Impressiveness:
-    first_impressiveness.__init__(3, "")
-    return first_impressiveness
+def common_impressiveness() -> Impressiveness:
+    for y in filter(lambda x: x.number == 3, list(Impressiveness)):
+        return y
 
 
 @pytest.fixture
@@ -82,8 +77,15 @@ class TestSkill:
                    common_skill.impressiveness,
                )
 
-    def test_generic_value(self, common_skill: Skill):
+    def test_generic_value_a(self, common_skill: Skill):
         assert common_skill.generic_value() == 6
+
+    @staticmethod
+    @pytest.mark.parametrize("skill_name, expected_value",
+                             [("Bad Skill", 0), ("Mediocre Skill", 6), ("Good Skill", 25)])
+    def test_generic_value_b(skill_name: str, expected_value: int, common_skill_set: SkillSet):
+        skill = common_skill_set.skills[skill_name]
+        assert skill.generic_value() == expected_value
 
 
 class TestSkillSet:
