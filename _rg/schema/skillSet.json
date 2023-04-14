@@ -1,5 +1,6 @@
 {
-    "title": "Skillset",
+    "title": "SkillSet",
+    "description": "Represents the list of skills with potential to go onto the resume.\n\nParameters\n----------\nskills : dict[str, Skill]\n    Skills by name, not necessarily ones that Zoe has.\n\nSee Also\n--------\nSkill : Specificity on what information is associated with a skill.",
     "type": "object",
     "properties": {
         "skills": {
@@ -30,8 +31,13 @@
         },
         "Skill": {
             "title": "Skill",
+            "description": "Represents a skill. That is, a thing that I (know|could know) how to (do|use|write in).\n\nParameters\n----------\ncompetence : float\n    Numerical value representing how good Zoe is at this skill.\nimpressiveness : Impressiveness\n    Impressiveness value associated with this skill.\n\nSee Also\n--------\nImpressiveness.Impressiveness : Specificity on what each impressiveness value means.",
             "type": "object",
             "properties": {
+                "name": {
+                    "title": "Name",
+                    "type": "string"
+                },
                 "competence": {
                     "title": "Competence",
                     "type": "number"

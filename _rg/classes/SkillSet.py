@@ -99,17 +99,17 @@ class SkillSet(BaseModel):
 
         Returns
         -------
-        list[str]
+        list[Skill]
             Skill names, sorted.
         """
         return sorted(self.skills.values(), key=lambda x: key(x))
 
-    def skills_by_generic_value(self) -> list[str]:
+    def skills_by_generic_value(self) -> list[Skill]:
         """All skill names, sorted by descending generic value.
 
         Returns
         -------
-        list[str]
+        list[Skill]
             I assume that you can infer from context.
         """
         return self._skills_by(lambda i: -i.generic_value())
