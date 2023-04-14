@@ -18,7 +18,7 @@ class UrlMetadata:
     consumed_at: datetime = datetime.now(tz=timezone.utc)
 
 
-url_collection_path = "url_collection.json"
+url_collection_path = "../url_collection.json"
 
 
 def main():

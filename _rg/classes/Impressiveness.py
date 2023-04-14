@@ -19,9 +19,27 @@ class Impressiveness(Enum):
         self.number = number
         self.description = description
 
+    def __float__(self):
+        return float(self.number)
+
+    def __cmp__(self, other: "Impressiveness"):
+        return self.number - other.number
+
+    def __lt__(self, other: "Impressiveness"):
+        return self.number < other.number
+
+    def __gt__(self, other: "Impressiveness"):
+        return self.number > other.number
+
+    def __repr__(self):
+        return f"Impressiveness.{self.name}"
+
+    def __str__(self):
+        return f"Impressiveness.{self.name}"
+
     @classmethod
     def __modify_schema__(cls, field_schema: dict[str, Any]):
-        """Method used by Pydantic to modify how Impressivess is serialized.
+        """Method used by Pydantic to modify how Impressiveness is serialized.
 
         In particular, replaces the description with one not tainted with Python documentation,
         and uses Impressiveness' names instead of its significantly more unwieldy values.
@@ -31,7 +49,7 @@ class Impressiveness(Enum):
         field_schema : dict[str, Any]
             Otherwise complete schema for this type, provided by Pydantic, to be modified in place.
         """
-        field_schema["description"] = cls.__doc__.splitlines()[0]
+        field_schema["description"] = cls.__doc__.splitlines()[0]  # TODO You can embed this into the field
         field_schema["enum"] = [item.name for item in cls]
 
     # Modified version of https://github.com/pydantic/pydantic/issues/598#issuecomment-503032706
@@ -39,9 +57,15 @@ class Impressiveness(Enum):
     def __get_validators__(cls):
         """Method used by Pydantic to modify how Impressiveness is deserialized.
 
-        In particular, takes Enum name instead of value.
+        In particular, takes the Enum name, or an actual Impressiveness instance, instead of value.
         """
-        yield lambda v: cls[v]
+        def validators(value: str | Impressiveness):
+            if type(value) is str:
+                return cls[value]
+            if type(value) is Impressiveness:
+                return value
+
+        yield lambda value: validators(value)
 
     @classmethod
     def lower_bound(cls) -> float:
