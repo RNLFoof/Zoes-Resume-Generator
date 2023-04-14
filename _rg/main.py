@@ -10,8 +10,8 @@ if __name__ == '__main__':
         doc.append('Zoe Zablotsky'.upper())
     with doc.create(Section('Skills')):
         with doc.create(Itemize()) as itemize:
-            for name, skill in SkillSet.all().skills_by_generic_value():
-                itemize.add_item(f"{name} ({skill.generic_value()})")
+            for skill in SkillSet.all().skills_by_generic_value():
+                itemize.add_item(f"{skill.name} ({skill.generic_value()})")
                 with doc.create(Itemize()) as subitemize:
                     subitemize.add_item(f"RELEVANT PROJECTS")
                     with doc.create(Itemize()) as subsubitemize:
