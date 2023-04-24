@@ -1,10 +1,15 @@
 from pylatex import Document, Section, Itemize
 
+from _rg.classes.Resume import Resume
 from classes.SkillSet import SkillSet
 
 if __name__ == '__main__':
     SkillSet._dump_schema()
     SkillSet.all()
+
+    Resume().generate_pdf()
+    exit()
+
     doc = Document('Resume')
     with doc.create(Section('Header')):
         doc.append('Zoe Zablotsky'.upper())
