@@ -12,7 +12,12 @@ class Resume:
             override = f.read()
             if override:
                 return override
-        for filename in ["tex/start.tex", "tex/header.tex", "tex/end.tex"]:
+        for filename in [
+            "tex/start.tex",
+            "tex/header.tex",
+            "tex/skills.tex",
+            "tex/end.tex",
+        ]:
             with open(filename, "r") as f:
                 s += f.read() + "\n"
         return s
