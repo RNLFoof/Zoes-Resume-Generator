@@ -1,0 +1,38 @@
+{
+    education: [
+        {
+            name: "Microsoft Power Platform Fundamentals",
+            completion_description: "Microsoft Certified",
+            start_year: 2022,
+            end_year: 2022
+        },
+        {
+            name: "Internet Programming and Development",
+            completion_description: "AEC Granted",
+            start_year: 2018,
+            end_year: 2017
+        },
+        {
+            name: "High School",
+            completion_description: "DEC Granted",
+            start_year: 2010,
+            end_year: 2015
+        },
+    ],
+    jobs: [
+        {
+            name: "Junior Web Developer",
+            start_year: 2020
+        },
+        {
+            name: "Customs Broker",
+            start_year: 2019,
+            end_year: 2020
+        },
+        {
+            name: "Web Development Intern",
+            start_year: 2019,
+            end_year: 2019
+        }
+    ]
+}

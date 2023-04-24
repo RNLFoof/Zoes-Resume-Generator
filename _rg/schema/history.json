@@ -1,0 +1,75 @@
+{
+    "title": "History",
+    "type": "object",
+    "properties": {
+        "jobs": {
+            "title": "Jobs",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Job"
+            }
+        },
+        "education": {
+            "title": "Education",
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Education"
+            }
+        }
+    },
+    "required": [
+        "jobs",
+        "education"
+    ],
+    "definitions": {
+        "Job": {
+            "title": "Job",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "title": "Name",
+                    "type": "string"
+                },
+                "start_year": {
+                    "title": "Start Year",
+                    "type": "integer"
+                },
+                "end_year": {
+                    "title": "End Year",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "name",
+                "start_year"
+            ]
+        },
+        "Education": {
+            "title": "Education",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "title": "Name",
+                    "type": "string"
+                },
+                "start_year": {
+                    "title": "Start Year",
+                    "type": "integer"
+                },
+                "end_year": {
+                    "title": "End Year",
+                    "type": "integer"
+                },
+                "completion_description": {
+                    "title": "Completion Description",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "start_year",
+                "completion_description"
+            ]
+        }
+    }
+}
