@@ -29,6 +29,7 @@ class Resume:
             "start",
             "header",
             "skills",
+            "history",
             "end",
         ]:
             s += self.generate_tex_section(section_name, global_variables)
