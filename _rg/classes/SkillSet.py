@@ -6,6 +6,7 @@ from pydantic import BaseModel, validator
 from pydantic import Field
 
 from _rg.classes.Impressiveness import Impressiveness
+from _rg.general import tex_escape
 
 
 class Skill(BaseModel):
@@ -62,8 +63,6 @@ class SkillSet(BaseModel):
 
     @validator('skills')
     def __get_validators__(cls, skills: dict[str, Skill]):
-        """
-        """
         for name, skill in skills.items():
             skill.name = name
 
@@ -88,6 +87,17 @@ class SkillSet(BaseModel):
         """
         with open(cls.SAVED_TO, "rb") as f:
             return SkillSet(**json5.load(f))
+
+    def tex(self):
+        s = ""
+        columns = 2
+        index = 0
+        skills = self.skills_by_generic_value()
+        while index <= len(skills) - columns:
+            s += " & ".join([tex_escape(skill.name) for skill in skills[index:index + columns]])
+            s += r"\\" + "\n"
+            index += columns
+        return s
 
     def _skills_by(self, key: Callable[[Skill], any]) -> list[Skill]:
         """A generic function for creating other functions that return the skills sorted in some way.

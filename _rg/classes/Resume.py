@@ -1,20 +1,41 @@
-from pylatex import Document, Section, Package, Command
-from pdflatex import PDFLaTeX
-import os
-from functools import cache
 import subprocess
+from functools import cache
+from typing import Any
+
+from _rg.classes.History import history
+from _rg.classes.SkillSet import SkillSet
+
 
 class Resume:
     @cache
     def tex(self):
+        skill_set = SkillSet.all()
+
+        global_variables = {
+            "skills": skill_set.tex(),
+            "history": history.tex(),
+        }
+
         s = ""
         with open("tex/override.tex", "r") as f:
             override = f.read()
             if override:
                 return override
-        for filename in ["tex/start.tex", "tex/header.tex", "tex/end.tex"]:
-            with open(filename, "r") as f:
-                s += f.read() + "\n"
+        for section_name in [
+            "start",
+            "header",
+            "skills",
+            "history",
+            "end",
+        ]:
+            s += self.generate_tex_section(section_name, global_variables)
+        return s
+    
+    def generate_tex_section(self, section_name, variables: dict[str, Any]):
+        with open(fr"tex/{section_name}.tex", "r") as f:
+            s = f.read() + "\n"
+        for name, value in variables.items():
+            s = s.replace(f"__{name}__", value)
         return s
 
     def generate_tex(self):
