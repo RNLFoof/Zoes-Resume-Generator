@@ -9,12 +9,14 @@
         {
             name: "Internet Programming and Development",
             completion_description: "AEC Granted",
+            building: "John Abbott College",
             start_year: 2018,
             end_year: 2017
         },
         {
             name: "High School",
             completion_description: "DEC Granted",
+            building: "St. Thomas High School (Lindsay Place at the time)",
             start_year: 2010,
             end_year: 2015
         },
@@ -22,17 +24,20 @@
     jobs: [
         {
             name: "Junior Web Developer",
-            start_year: 2020
+            start_year: 2020,
+            building: "Globe Electric"
         },
         {
             name: "Customs Broker",
             start_year: 2019,
-            end_year: 2020
+            end_year: 2020,
+            building: "Livingston International"
         },
         {
             name: "Web Development Intern",
             start_year: 2019,
-            end_year: 2019
+            end_year: 2019,
+            building: "Jewish General Hospital"
         }
     ]
 }
