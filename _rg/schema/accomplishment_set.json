@@ -1,0 +1,42 @@
+{
+    "title": "AccomplishmentSet",
+    "type": "object",
+    "properties": {
+        "accomplishments": {
+            "title": "Accomplishments",
+            "type": "object",
+            "additionalProperties": {
+                "$ref": "#/definitions/Accomplishment"
+            }
+        }
+    },
+    "required": [
+        "accomplishments"
+    ],
+    "definitions": {
+        "Accomplishment": {
+            "title": "Accomplishment",
+            "type": "object",
+            "properties": {
+                "description": {
+                    "title": "Description",
+                    "type": "string"
+                },
+                "demonstrates": {
+                    "title": "Demonstrates",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "required": [
+                "description",
+                "demonstrates"
+            ]
+        }
+    }
+}
