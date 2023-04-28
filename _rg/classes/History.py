@@ -1,8 +1,9 @@
-import os
-from typing import ClassVar, Union, Any
+from typing import Union, Any
 
 import json5
 from pydantic import BaseModel
+
+from _rg.classes.PotentialContent import PotentialContent
 
 
 class HistoryItem(BaseModel):
@@ -40,29 +41,14 @@ class Job(HistoryItem):
 history = None
 
 
-class History(BaseModel):
+class History(PotentialContent):
     jobs: list[Job]
     education: list[Education]
-
-    SAVED_TO: ClassVar[str] = os.path.join(
-        os.path.abspath(os.path.split(__file__)[0]),
-        "../data/history.json5"
-    )
-    SCHEMA_SAVED_TO: ClassVar[str] = os.path.join(
-        os.path.abspath(os.path.split(__file__)[0]),
-        "../schema/history.json"
-    )
 
     def __init__(self, **data: Any):
         if history is not None:
             raise Exception("Already initialized! Access though History.history instead of History.History().")
         super().__init__(**data)
-
-    @classmethod
-    def _dump_schema(cls) -> None:
-        """Updates the schema used to validate the skill set provided in data/history.json5."""
-        with open(cls.SCHEMA_SAVED_TO, "w") as f:
-            f.write(cls.schema_json(indent=4))
 
     def all(self) -> list[HistoryItem]:
         return self.jobs + self.education
@@ -73,5 +59,3 @@ class History(BaseModel):
 
 with open(History.SAVED_TO, "rb") as f:
     history = History(**json5.load(f))
-
-History._dump_schema()

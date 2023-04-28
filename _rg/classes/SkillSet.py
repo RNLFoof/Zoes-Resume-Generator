@@ -1,11 +1,11 @@
-import os
-from typing import Callable, ClassVar
+from typing import Callable
 
 import json5
 from pydantic import BaseModel, validator
 from pydantic import Field
 
 from _rg.classes.Impressiveness import Impressiveness
+from _rg.classes.PotentialContent import PotentialContent
 from _rg.general import tex_escape
 
 
@@ -38,7 +38,7 @@ class Skill(BaseModel):
         return self.impressiveness.number * self.competence
 
 
-class SkillSet(BaseModel):
+class SkillSet(PotentialContent):
     """Represents the list of skills with potential to go onto the resume.
 
     Parameters
@@ -52,15 +52,6 @@ class SkillSet(BaseModel):
     """
     skills: dict[str, Skill]
 
-    SAVED_TO: ClassVar[str] = os.path.join(
-        os.path.abspath(os.path.split(__file__)[0]),
-        "../data/skillSet.json5"
-    )
-    SCHEMA_SAVED_TO: ClassVar[str] = os.path.join(
-        os.path.abspath(os.path.split(__file__)[0]),
-        "../schema/skillSet.json"
-    )
-
     @validator('skills')
     def __get_validators__(cls, skills: dict[str, Skill]):
         for name, skill in skills.items():
@@ -68,11 +59,6 @@ class SkillSet(BaseModel):
 
         return skills
 
-    @classmethod
-    def _dump_schema(cls) -> None:
-        """Updates the schema used to validate the skill set provided in data/skillSet.json5."""
-        with open(cls.SCHEMA_SAVED_TO, "w") as f:
-            f.write(cls.schema_json(indent=4))
 
     # TODO Perhaps this whole class should be a singleton, with this as a base.
     #  "all" in particular is a weird name for it at this point.
