@@ -8,6 +8,7 @@ import pytest
 from _pytest.monkeypatch import MonkeyPatch
 
 from _rg.classes.Impressiveness import Impressiveness
+from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.SkillSet import Skill, SkillSet
 
 
@@ -48,23 +49,9 @@ def common_skill_set_dict() -> dict:
 
 
 @pytest.fixture
-def common_skill_set() -> SkillSet:
-    return SkillSet(
-        skills={
-            "Bad Skill": Skill(
-                impressiveness=Impressiveness.NONE,
-                competence=1
-            ),
-            "Mediocre Skill": Skill(
-                impressiveness=Impressiveness.BEGINNER,
-                competence=3
-            ),
-            "Good Skill": Skill(
-                impressiveness=Impressiveness.SPECIALIZABLE,
-                competence=5
-            ),
-        }
-    )
+def common_skill_set(common_skill_set_dict) -> SkillSet:
+    PotentialContent._singletons.pop(SkillSet.__name__, None)
+    return SkillSet(data_override=common_skill_set_dict)
 
 
 class TestSkill:
@@ -101,14 +88,14 @@ class TestSkillSet:
         (lambda context: context["skill_set_all"], lambda context: context["common_skill_set"]),
         (lambda context: context["skill_set_all"].skills["Bad Skill"].name, lambda context: "Bad Skill"),
     ])
-    def test_all(common_skill_set_dict: dict, common_skill_set: SkillSet, monkeypatch: MonkeyPatch,
-                 tmp_path: Path, check: Callable, expected_value):
+    def test_init(common_skill_set_dict: dict, common_skill_set: SkillSet, monkeypatch: MonkeyPatch,
+                  tmp_path: Path, check: Callable, expected_value):
         temp_saved_to = tmp_path / "skillSetSaved.json"
         monkeypatch.setattr(SkillSet, "SAVED_TO", temp_saved_to)
         with open(temp_saved_to, "w") as f:
             json.dump(common_skill_set_dict, f)
         context = {
-            "skill_set_all": SkillSet.all(),
+            "skill_set_all": SkillSet.summon(),
             "common_skill_set": common_skill_set
         }
         assert check(context) == expected_value(context), f"This behavior failed: {getsource(check).strip()}"
