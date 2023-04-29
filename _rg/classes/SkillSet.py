@@ -7,7 +7,7 @@ from pydantic import Field
 from _rg.classes.Accomplishment import Accomplishment, AccomplishmentSet
 from _rg.classes.Impressiveness import Impressiveness
 from _rg.classes.PotentialContent import PotentialContent
-from _rg.general import tex_escape
+from _rg.general import tex_escape, tex_change_emphasis
 
 
 class Skill(BaseModel):
@@ -47,13 +47,16 @@ class SkillWithElaboration:
     def tex(self):
         s = ""
         s += "{"
+        s += tex_change_emphasis(2)
         s += self.skill.name
-        s += "...\n\nAs demonstrated by my work on..."
+        s += tex_change_emphasis(3)
+        s += "\n\nAs demonstrated by my work on..."
         for accomplishment in self.relevant_accomplishments:
-            explanation = accomplishment.demonstrates["GML"]
-            s += f"\n\n...GUY, because {explanation}"
+            explanation = accomplishment.demonstrates[self.skill.name]
+            s += f"\n\n...GUY{tex_change_emphasis(4)}({accomplishment.description}),{tex_change_emphasis(3)}\n\nbecause {explanation}"
         s += "}"
         return s
+
 
 class SkillSet(PotentialContent):
     """Represents the list of skills with potential to go onto the resume.
@@ -79,20 +82,37 @@ class SkillSet(PotentialContent):
     # TODO Perhaps this whole class should be a singleton, with this as a base.
     #  "all" in particular is a weird name for it at this point.
 
-    def tex(self):
-        s = ""
-
-        s += SkillWithElaboration(
-            self.skills["Game Maker Language"],
-            [AccomplishmentSet.summon().accomplishments["Golf 2"]]).tex()
-
+    def tex(self, elaborate=False):
         columns = 2
-        index = 0
-        skills = self.skills_by_generic_value()
-        while index <= len(skills) - columns:
-            s += " & ".join([tex_escape(skill.name) for skill in skills[index:index + columns]])
+        target_row = []
+        skill_matrix = [target_row]
+        skills_with_elaboration = {skill.name: SkillWithElaboration(skill, [])
+                                   for skill in SkillSet.summon().skills_by_generic_value()}
+        if elaborate:
+            for name, accomplishment in AccomplishmentSet.summon().accomplishments.items():
+                for skill in accomplishment.demonstrates.keys():
+                    if skill in skills_with_elaboration:
+                        skills_with_elaboration[skill].relevant_accomplishments.append(accomplishment)
+
+        for skill_with_elaboration in skills_with_elaboration.values():
+            skill = skill_with_elaboration.skill
+            elaboration = skill_with_elaboration.relevant_accomplishments
+            if len(elaboration) == 0:
+                target_row.append(skill)
+                if len(target_row) == columns:
+                    target_row = []
+                    skill_matrix.append(target_row)
+            else:
+                skill_matrix.append(skill_with_elaboration)
+
+        s = ""
+        for row in skill_matrix:
+            if type(row) is list:
+                s += tex_change_emphasis(2)
+                s += " & ".join([tex_escape(skill.name) for skill in row])
+            else:
+                s += r"\SetCell[c=2]{l}" + row.tex()
             s += r"\\" + "\n"
-            index += columns
         return s
 
     def _skills_by(self, key: Callable[[Skill], any]) -> list[Skill]:

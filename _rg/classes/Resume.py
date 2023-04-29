@@ -4,6 +4,7 @@ from typing import Any
 
 from _rg.classes.History import History
 from _rg.classes.SkillSet import SkillSet
+from _rg.general import tex_change_emphasis
 
 
 class Resume:
@@ -14,6 +15,9 @@ class Resume:
             "skills": SkillSet.summon().tex(),
             "history": History.summon().tex(),
         }
+
+        for n in range(10):
+            global_variables[f"change_emphasis_to_{n}"] = tex_change_emphasis(n)
 
         s = ""
         with open("tex/override.tex", "r") as f:

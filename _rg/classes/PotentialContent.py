@@ -20,7 +20,8 @@ class PotentialContent(BaseModel):
 
     @classmethod
     def summon(cls):
-        PotentialContent._singletons.setdefault(cls.__name__, cls())
+        if cls.__name__ not in PotentialContent._singletons:
+            PotentialContent._singletons[cls.__name__] = cls()  # Not done with setdefault so that it doesn't evaluate
         return PotentialContent._singletons[cls.__name__]
 
     @classmethod
