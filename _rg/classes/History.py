@@ -1,3 +1,4 @@
+import typing
 from typing import Union
 
 from pydantic import BaseModel
@@ -41,10 +42,9 @@ class History(PotentialContent):
     jobs: list[Job]
     education: list[Education]
 
-
-
     def all(self) -> list[HistoryItem]:
-        return self.jobs + self.education
+        return typing.cast(list[HistoryItem], self.jobs) + \
+            typing.cast(list[HistoryItem], self.education)
 
     def tex(self):
         return "\n\hline\n".join([""] + [e.tex() for e in self.all()] + [""])
