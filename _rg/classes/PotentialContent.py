@@ -2,10 +2,24 @@ import importlib
 import os
 import re
 
+import json5
 from pydantic import BaseModel
 
 
 class PotentialContent(BaseModel):
+    _singletons: dict[str, "PotentialContent"] = {}
+
+    def __init__(self):
+        with open(self.SAVED_TO, "rb") as f:
+            super().__init__(**json5.load(f))
+        if self.__class__.__name__ in PotentialContent._singletons:
+            raise Exception(f"Already initialized! Use {self.__name__}.summon.")
+
+    @classmethod
+    def summon(cls):
+        PotentialContent._singletons.setdefault(cls.__name__, cls())
+        return PotentialContent._singletons[cls.__name__]
+
     @classmethod
     def dump_all_schemas(cls):
         # All classes need to be loaded, because otherwise Python doesn't know what subclasses exist

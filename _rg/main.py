@@ -1,11 +1,8 @@
-from pylatex import Document, Section, Itemize
-
+from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.Resume import Resume
-from classes.SkillSet import SkillSet
 
 if __name__ == '__main__':
-    SkillSet._dump_schema()
-    SkillSet.all()
+    PotentialContent.dump_all_schemas()
 
     Resume().generate_pdf()
     exit()

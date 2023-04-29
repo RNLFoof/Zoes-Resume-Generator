@@ -1,6 +1,5 @@
-from typing import Union, Any
+from typing import Union
 
-import json5
 from pydantic import BaseModel
 
 from _rg.classes.PotentialContent import PotentialContent
@@ -38,24 +37,14 @@ class Job(HistoryItem):
     pass
 
 
-history = None
-
-
 class History(PotentialContent):
     jobs: list[Job]
     education: list[Education]
 
-    def __init__(self, **data: Any):
-        if history is not None:
-            raise Exception("Already initialized! Access though History.history instead of History.History().")
-        super().__init__(**data)
+
 
     def all(self) -> list[HistoryItem]:
         return self.jobs + self.education
 
     def tex(self):
-        return "\n\hline\n".join([""] + [e.tex() for e in history.all()] + [""])
-
-
-with open(History.SAVED_TO, "rb") as f:
-    history = History(**json5.load(f))
+        return "\n\hline\n".join([""] + [e.tex() for e in self.all()] + [""])

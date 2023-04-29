@@ -2,18 +2,17 @@ import subprocess
 from functools import cache
 from typing import Any
 
-from _rg.classes.History import history
+from _rg.classes.History import History
 from _rg.classes.SkillSet import SkillSet
 
 
 class Resume:
     @cache
     def tex(self):
-        skill_set = SkillSet.all()
 
         global_variables = {
-            "skills": skill_set.tex(),
-            "history": history.tex(),
+            "skills": SkillSet.summon().tex(),
+            "history": History.summon().tex(),
         }
 
         s = ""

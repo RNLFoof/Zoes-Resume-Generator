@@ -1,6 +1,5 @@
 from typing import Callable
 
-import json5
 from pydantic import BaseModel, validator
 from pydantic import Field
 
@@ -62,17 +61,7 @@ class SkillSet(PotentialContent):
 
     # TODO Perhaps this whole class should be a singleton, with this as a base.
     #  "all" in particular is a weird name for it at this point.
-    @classmethod
-    def all(cls) -> "SkillSet":
-        """Gets all the skills provided in data/skillSet.json5.
 
-        Returns
-        -------
-        SkillSet
-            SkillSet representing Zoe's skills (or lack thereof).
-        """
-        with open(cls.SAVED_TO, "rb") as f:
-            return SkillSet(**json5.load(f))
 
     def tex(self):
         s = ""
