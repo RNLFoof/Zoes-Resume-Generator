@@ -50,9 +50,8 @@ class SkillWithElaboration:
         s += self.skill.name
         s += "...\n\nAs demonstrated by my work on..."
         for accomplishment in self.relevant_accomplishments:
-            relevance_phrasing = "because"
-            explanation = accomplishment.demonstrates["GML"][relevance_phrasing]
-            s += f"\n\n...GUY, {relevance_phrasing} {explanation}"
+            explanation = accomplishment.demonstrates["GML"]
+            s += f"\n\n...GUY, because {explanation}"
         s += "}"
         return s
 
