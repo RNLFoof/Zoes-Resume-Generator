@@ -1,8 +1,10 @@
+from dataclasses import dataclass
 from typing import Callable
 
 from pydantic import BaseModel, validator
 from pydantic import Field
 
+from _rg.classes.Accomplishment import Accomplishment, AccomplishmentSet
 from _rg.classes.Impressiveness import Impressiveness
 from _rg.classes.PotentialContent import PotentialContent
 from _rg.general import tex_escape
@@ -37,6 +39,23 @@ class Skill(BaseModel):
         return self.impressiveness.number * self.competence
 
 
+@dataclass
+class SkillWithElaboration:
+    skill: Skill
+    relevant_accomplishments: list[Accomplishment]
+
+    def tex(self):
+        s = ""
+        s += "{"
+        s += self.skill.name
+        s += "...\n\nAs demonstrated by my work on..."
+        for accomplishment in self.relevant_accomplishments:
+            relevance_phrasing = "because"
+            explanation = accomplishment.demonstrates["GML"][relevance_phrasing]
+            s += f"\n\n...GUY, {relevance_phrasing} {explanation}"
+        s += "}"
+        return s
+
 class SkillSet(PotentialContent):
     """Represents the list of skills with potential to go onto the resume.
 
@@ -58,13 +77,16 @@ class SkillSet(PotentialContent):
 
         return skills
 
-
     # TODO Perhaps this whole class should be a singleton, with this as a base.
     #  "all" in particular is a weird name for it at this point.
 
-
     def tex(self):
         s = ""
+
+        s += SkillWithElaboration(
+            self.skills["Game Maker Language"],
+            [AccomplishmentSet.summon().accomplishments["Golf 2"]]).tex()
+
         columns = 2
         index = 0
         skills = self.skills_by_generic_value()
