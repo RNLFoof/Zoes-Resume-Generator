@@ -76,7 +76,6 @@ class SkillSet(PotentialContent):
     def __get_validators__(cls, skills: dict[str, Skill]):
         for name, skill in skills.items():
             skill.name = name
-
         return skills
 
     # TODO Perhaps this whole class should be a singleton, with this as a base.

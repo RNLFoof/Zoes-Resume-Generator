@@ -18,6 +18,10 @@
             "title": "Accomplishment",
             "type": "object",
             "properties": {
+                "name": {
+                    "title": "Name",
+                    "type": "string"
+                },
                 "description": {
                     "title": "Description",
                     "type": "string"

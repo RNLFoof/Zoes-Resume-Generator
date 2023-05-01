@@ -2,7 +2,11 @@ import subprocess
 from functools import cache
 from typing import Any
 
+from zsil import colors
+
+from _rg.classes.Accomplishment import AccomplishmentSet
 from _rg.classes.History import History
+from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.SkillSet import SkillSet
 from _rg.general import tex_change_emphasis
 
@@ -10,10 +14,13 @@ from _rg.general import tex_change_emphasis
 class Resume:
     @cache
     def tex(self):
-
+        render_settings = RenderSettings()
         global_variables = {
             "skills": SkillSet.summon().tex(),
             "history": History.summon().tex(),
+            "accomplishments": AccomplishmentSet.summon().tex(),
+            "primary_color": colors.tuple_to_hex(render_settings.primary_color),
+            "secondary_color": colors.tuple_to_hex(render_settings.secondary_color),
         }
 
         for n in range(10):
@@ -28,6 +35,7 @@ class Resume:
             "start",
             "header",
             "skills",
+            "accomplishments",
             "history",
             "end",
         ]:
