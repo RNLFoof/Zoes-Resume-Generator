@@ -12,6 +12,8 @@ class color(Enum):
 
 @dataclass
 class RenderSettings:
+    title_gradients = True
+
     largest_text_size = 24
 
     primary_color = color.AZURE.value

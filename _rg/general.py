@@ -45,11 +45,15 @@ def tex_header(text: str, steps_in: int, render_settings: RenderSettings = None)
 
     s = "{"
     s += tex_change_emphasis(steps_in)
-    for letter_index, letter in enumerate(text):
-        text_progress = letter_index / (len(text) - 1)
-        current_color = colors.mergecolors(render_settings.start_color_at(steps_in), render_settings.secondary_color,
-                                           text_progress)
-        s += fr"\color[RGB]{{{str(current_color)[1:-1]}}}{{{letter}}}"
+    if render_settings.title_gradients:
+        for letter_index, letter in enumerate(text):
+            text_progress = letter_index / (len(text) - 1)
+            current_color = colors.mergecolors(render_settings.start_color_at(steps_in),
+                                               render_settings.secondary_color,
+                                               text_progress)
+            s += fr"\color[RGB]{{{str(current_color)[1:-1]}}}{{{letter}}}"
+    else:
+        s += text
     s += "}"
     return s
 
