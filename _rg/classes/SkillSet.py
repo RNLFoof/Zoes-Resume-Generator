@@ -7,10 +7,11 @@ from pydantic import Field
 from _rg.classes.Accomplishment import Accomplishment, AccomplishmentSet
 from _rg.classes.Impressiveness import Impressiveness
 from _rg.classes.PotentialContent import PotentialContent
-from _rg.general import tex_escape, tex_change_emphasis
+from _rg.classes.Renderable import Renderable
+from _rg.general import tex_escape, tex_change_emphasis, tex_header, tex_undivided_table
 
 
-class Skill(BaseModel):
+class Skill(Renderable, BaseModel):
     """Represents a skill. That is, a thing that I (know|could know) how to (do|use|write in).
 
     Parameters
@@ -37,6 +38,9 @@ class Skill(BaseModel):
             Said numerical value.
         """
         return self.impressiveness.number * self.competence
+
+    def render(self) -> str:
+        return tex_escape(self.name)
 
 
 @dataclass
@@ -81,10 +85,10 @@ class SkillSet(PotentialContent):
     # TODO Perhaps this whole class should be a singleton, with this as a base.
     #  "all" in particular is a weird name for it at this point.
 
-    def tex(self, elaborate=False):
+    def render(self, elaborate=False):
         columns = 2
         target_row = []
-        skill_matrix = [target_row]
+        skill_table = [target_row]
         skills_with_elaboration = {skill.name: SkillWithElaboration(skill, [])
                                    for skill in SkillSet.summon().skills_by_generic_value()}
         if elaborate:
@@ -100,18 +104,18 @@ class SkillSet(PotentialContent):
                 target_row.append(skill)
                 if len(target_row) == columns:
                     target_row = []
-                    skill_matrix.append(target_row)
+                    skill_table.append(target_row)
             else:
-                skill_matrix.append(skill_with_elaboration)
+                skill_table.append(skill_with_elaboration)
+        if not skill_table[-1]:
+            skill_table = skill_table[:-1]
 
         s = ""
-        for row in skill_matrix:
-            if type(row) is list:
-                s += tex_change_emphasis(2)
-                s += " & ".join([tex_escape(skill.name) for skill in row])
-            else:
-                s += r"\SetCell[c=2]{l}" + row.tex()
-            s += r"\\" + "\n"
+        s += tex_header("Skills", 1)
+        s += r"\\"
+        s += tex_change_emphasis(2)
+        s += tex_undivided_table(skill_table)
+
         return s
 
     def _skills_by(self, key: Callable[[Skill], any]) -> list[Skill]:
