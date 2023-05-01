@@ -22,9 +22,14 @@ class AccomplishmentSet(PotentialContent):
     def tex(self):
         s = ""
         for accomplishment in self.accomplishments.values():
+            s += "{"
             s += tex_change_emphasis(2)
             s += accomplishment.name
+            s += "\n"
             s += tex_change_emphasis(3)
-            s += f"({accomplishment.description})"
-            s += "\n\n"
+            s += f"{accomplishment.description}\n\nMy work on this demonstrates..."
+            for skill_name, because in accomplishment.demonstrates.items():
+                s += "\n"
+                s += fr"...\textit{{{skill_name}}}, because {because}"
+            s += "}\n\n"
         return s
