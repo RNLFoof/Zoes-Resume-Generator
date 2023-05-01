@@ -16,12 +16,12 @@ class Resume:
     def tex(self):
         render_settings = RenderSettings()
         global_variables = {
-            "skills": SkillSet.summon().render(),
+            "skills": SkillSet.summon().render(render_settings),
             "history": History.summon().tex(),
-            "accomplishments": AccomplishmentSet.summon().tex(),
+            "accomplishments": AccomplishmentSet.summon().render(render_settings),
             "primary_color": colors.tuple_to_hex(render_settings.primary_color),
             "secondary_color": colors.tuple_to_hex(render_settings.secondary_color),
-            "zoe": tex_header("ZOE ZABLOTSKY", 0)
+            "zoe": tex_header("ZOE ZABLOTSKY", 0, render_settings, new_line=False)
         }
 
         for n in range(10):

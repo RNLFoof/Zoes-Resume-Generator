@@ -39,10 +39,7 @@ def tex_change_emphasis(steps_in: int, render_settings: RenderSettings = None):
 
 #        \fontsize{{{15 / (steps_in + 1)}mm }}{{{16 / (steps_in + 1)}mm}}\selectfont
 
-def tex_header(text: str, steps_in: int, render_settings: RenderSettings = None):
-    if render_settings is None:
-        render_settings = RenderSettings()
-
+def tex_header(text: str, steps_in: int, render_settings: RenderSettings, new_line=True):
     s = "{"
     s += tex_change_emphasis(steps_in)
     if render_settings.title_gradients:
@@ -55,10 +52,14 @@ def tex_header(text: str, steps_in: int, render_settings: RenderSettings = None)
     else:
         s += text
     s += "}"
+
+    if new_line:
+        s += r"\\"
+
     return s
 
 
-def tex_undivided_table(table: list[list[Renderable]]):
+def tex_undivided_table(table: list[list[Renderable]], render_settings: RenderSettings):
     s = ""
     column_count = max(len(row) for row in table)
     s += rf"""\SetTblrInner{{rowsep=0mm, leftsep=1mm, rightsep=4mm}}
@@ -66,7 +67,7 @@ def tex_undivided_table(table: list[list[Renderable]]):
 
     for row in table:
         if len(row) == column_count:
-            s += " & ".join([cell.render() for cell in row])
+            s += " & ".join([cell.render(render_settings) for cell in row])
         elif len(row) == 1:
             s += fr"\SetCell[c={column_count}]{{l}}" + row[0].render()
         else:

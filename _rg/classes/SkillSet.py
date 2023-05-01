@@ -7,6 +7,7 @@ from pydantic import Field
 from _rg.classes.Accomplishment import Accomplishment, AccomplishmentSet
 from _rg.classes.Impressiveness import Impressiveness
 from _rg.classes.PotentialContent import PotentialContent
+from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.Renderable import Renderable
 from _rg.general import tex_escape, tex_change_emphasis, tex_header, tex_undivided_table
 
@@ -39,7 +40,7 @@ class Skill(Renderable, BaseModel):
         """
         return self.impressiveness.number * self.competence
 
-    def render(self) -> str:
+    def render(self, render_settings: RenderSettings) -> str:
         return tex_escape(self.name)
 
 
@@ -85,7 +86,7 @@ class SkillSet(PotentialContent):
     # TODO Perhaps this whole class should be a singleton, with this as a base.
     #  "all" in particular is a weird name for it at this point.
 
-    def render(self, elaborate=False):
+    def render(self, render_settings: RenderSettings, elaborate=False):
         columns = 2
         target_row = []
         skill_table = [target_row]
@@ -111,10 +112,9 @@ class SkillSet(PotentialContent):
             skill_table = skill_table[:-1]
 
         s = ""
-        s += tex_header("Skills", 1)
-        s += r"\\"
+        s += tex_header("Skills", 1, render_settings)
         s += tex_change_emphasis(2)
-        s += tex_undivided_table(skill_table)
+        s += tex_undivided_table(skill_table, render_settings)
 
         return s
 
