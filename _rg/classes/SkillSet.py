@@ -9,7 +9,7 @@ from _rg.classes.Impressiveness import Impressiveness
 from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.Renderable import Renderable
-from _rg.general import tex_escape, tex_change_emphasis, tex_header, tex_undivided_table
+from _rg.general import tex_escape, tex_change_emphasis, tex_header, tex_undivided_table, tex_indent
 
 
 class Skill(Renderable, BaseModel):
@@ -112,10 +112,9 @@ class SkillSet(Renderable, PotentialContent):
             skill_table = skill_table[:-1]
 
         return [
-            tex_header("Skills", 1, render_settings),
+            tex_header("Skills", 1, render_settings, new_line=False),
             tex_change_emphasis(2),
-            tex_undivided_table(skill_table, render_settings),
-        ]
+        ] + tex_indent(tex_undivided_table(skill_table, render_settings))
 
     def _skills_by(self, key: Callable[[Skill], any]) -> list[Skill]:
         """A generic function for creating other functions that return the skills sorted in some way.
