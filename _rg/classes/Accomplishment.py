@@ -14,9 +14,7 @@ class Accomplishment(Renderable, BaseModel):
     def render(self, render_settings: RenderSettings) -> str:
         s = ""
         s += "{"
-        s += tex_change_emphasis(2)
-        s += self.name
-        s += "\n"
+        s += tex_header(self.name, 2, render_settings, new_line=False)
         s += tex_change_emphasis(3)
         s += f"{self.description}\n\nMy work on this demonstrates..."
         for skill_name, because in self.demonstrates.items():
@@ -37,6 +35,8 @@ class AccomplishmentSet(Renderable, PotentialContent):
 
     def render(self, render_settings: RenderSettings) -> str:
         s = ""
+        s += "{"
         s += tex_header("Works", 1, render_settings)
-        s += tex_undivided_table([[a] for a in self.accomplishments.values()], render_settings)
+        s += "\n\n".join([a.render(render_settings) for a in self.accomplishments.values()])
+        s += "}"
         return s
