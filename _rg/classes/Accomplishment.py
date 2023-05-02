@@ -3,7 +3,7 @@ from pydantic import BaseModel, validator, Field
 from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.Renderable import Renderable
-from _rg.general import tex_change_emphasis, tex_header, tex_undivided_table
+from _rg.general import tex_change_emphasis, tex_header, tex_undivided_table, tex_escape
 
 
 class Accomplishment(Renderable, BaseModel):
@@ -21,7 +21,7 @@ class Accomplishment(Renderable, BaseModel):
         s += f"{self.description}\n\nMy work on this demonstrates..."
         for skill_name, because in self.demonstrates.items():
             s += "\n\n"
-            s += fr"...\textit{{{skill_name}}}, because {because}"
+            s += fr"...\textit{{{tex_escape(skill_name)}}}: {tex_escape(because)}"
         s += "}\n\n"
         return s
 
