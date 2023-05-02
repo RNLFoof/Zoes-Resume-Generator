@@ -3,7 +3,7 @@ from pydantic import BaseModel, validator, Field
 from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.Renderable import Renderable
-from _rg.general import tex_change_emphasis, tex_header, tex_undivided_table, tex_escape
+from _rg.general import tex_change_emphasis, tex_header, tex_escape
 
 
 class Accomplishment(Renderable, BaseModel):
@@ -11,17 +11,18 @@ class Accomplishment(Renderable, BaseModel):
     description: str
     demonstrates: dict[str, str]
 
-    def render(self, render_settings: RenderSettings) -> str:
-        s = ""
-        s += "{"
-        s += tex_header(self.name, 2, render_settings, new_line=False)
-        s += tex_change_emphasis(3)
-        s += f"{self.description}\n\nMy work on this demonstrates..."
-        for skill_name, because in self.demonstrates.items():
-            s += "\n\n"
-            s += fr"...\textit{{{tex_escape(skill_name)}}}: {tex_escape(because)}"
-        s += "}\n\n"
-        return s
+    def render(self, render_settings: RenderSettings) -> list[str]:
+        return [
+            "{",
+            tex_header(self.name, 2, render_settings, new_line=False),
+            tex_change_emphasis(3),
+            f"{self.description}\n\nMy work on this demonstrates...",
+        ] + [
+            "\n\n" + fr"...\textit{{{tex_escape(skill_name)}}}: {tex_escape(because)}"
+            for skill_name, because in self.demonstrates.items()
+        ] + [
+            "}\n\n"
+        ]
 
 
 class AccomplishmentSet(Renderable, PotentialContent):
@@ -33,10 +34,10 @@ class AccomplishmentSet(Renderable, PotentialContent):
             accomplishment.name = name
         return accomplishments
 
-    def render(self, render_settings: RenderSettings) -> str:
-        s = ""
-        s += "{"
-        s += tex_header("Works", 1, render_settings)
-        s += "\n\n".join([a.render(render_settings) for a in self.accomplishments.values()])
-        s += "}"
-        return s
+    def render(self, render_settings: RenderSettings) -> list[str]:
+        return [
+            "{",
+            tex_header("Works", 1, render_settings),
+            "\n\n".join([a.render_as_string(render_settings) for a in self.accomplishments.values()]),
+            "}"
+        ]

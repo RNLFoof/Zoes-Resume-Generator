@@ -67,9 +67,9 @@ def tex_undivided_table(table: list[list[Renderable]], render_settings: RenderSe
 
     for row in table:
         if len(row) == column_count:
-            s += " & ".join([cell.render(render_settings) for cell in row])
+            s += " & ".join([cell.render_as_string(render_settings) for cell in row])
         elif len(row) == 1:
-            s += fr"\SetCell[c={column_count}]{{l}}" + row[0].render(render_settings)
+            s += fr"\SetCell[c={column_count}]{{l}}" + row[0].render_as_string(render_settings)
         else:
             raise NotImplementedError()
         s += r"\\" + "\n"

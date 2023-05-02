@@ -40,8 +40,8 @@ class Skill(Renderable, BaseModel):
         """
         return self.impressiveness.number * self.competence
 
-    def render(self, render_settings: RenderSettings) -> str:
-        return tex_escape(self.name)
+    def render(self, render_settings: RenderSettings) -> list[str]:
+        return [tex_escape(self.name)]
 
 
 @dataclass
@@ -63,7 +63,7 @@ class SkillWithElaboration:
         return s
 
 
-class SkillSet(PotentialContent):
+class SkillSet(Renderable, PotentialContent):
     """Represents the list of skills with potential to go onto the resume.
 
     Parameters
@@ -86,7 +86,7 @@ class SkillSet(PotentialContent):
     # TODO Perhaps this whole class should be a singleton, with this as a base.
     #  "all" in particular is a weird name for it at this point.
 
-    def render(self, render_settings: RenderSettings, elaborate=False):
+    def render(self, render_settings: RenderSettings, elaborate=False) -> list[str]:
         columns = 2
         target_row = []
         skill_table = [target_row]
@@ -111,12 +111,11 @@ class SkillSet(PotentialContent):
         if not skill_table[-1]:
             skill_table = skill_table[:-1]
 
-        s = ""
-        s += tex_header("Skills", 1, render_settings)
-        s += tex_change_emphasis(2)
-        s += tex_undivided_table(skill_table, render_settings)
-
-        return s
+        return [
+            tex_header("Skills", 1, render_settings),
+            tex_change_emphasis(2),
+            tex_undivided_table(skill_table, render_settings),
+        ]
 
     def _skills_by(self, key: Callable[[Skill], any]) -> list[Skill]:
         """A generic function for creating other functions that return the skills sorted in some way.
