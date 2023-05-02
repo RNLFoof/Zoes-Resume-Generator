@@ -1,8 +1,10 @@
+from typing import Generic
+
 from pydantic import BaseModel, validator, Field
 
 from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.Renderable import Renderable
+from _rg.classes.Renderable import Renderable, RecursiveStrList
 from _rg.general import tex_change_emphasis, tex_header, tex_escape
 
 
@@ -11,7 +13,7 @@ class Accomplishment(Renderable, BaseModel):
     description: str
     demonstrates: dict[str, str]
 
-    def render(self, render_settings: RenderSettings) -> list[str]:
+    def render(self, render_settings: RenderSettings) -> Generic[RecursiveStrList]:
         return [
             "{",
             tex_header(self.name, 2, render_settings, new_line=False),
@@ -34,7 +36,7 @@ class AccomplishmentSet(Renderable, PotentialContent):
             accomplishment.name = name
         return accomplishments
 
-    def render(self, render_settings: RenderSettings) -> list[str]:
+    def render(self, render_settings: RenderSettings) -> Generic[RecursiveStrList]:
         return [
             "{",
             tex_header("Works", 1, render_settings),

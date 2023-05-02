@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Callable
+from typing import Callable, Generic
 
 from pydantic import BaseModel, validator
 from pydantic import Field
@@ -8,7 +8,7 @@ from _rg.classes.Accomplishment import Accomplishment, AccomplishmentSet
 from _rg.classes.Impressiveness import Impressiveness
 from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.Renderable import Renderable
+from _rg.classes.Renderable import Renderable, RecursiveStrList
 from _rg.general import tex_escape, tex_change_emphasis, tex_header, tex_undivided_table, tex_indent
 
 
@@ -40,7 +40,7 @@ class Skill(Renderable, BaseModel):
         """
         return self.impressiveness.number * self.competence
 
-    def render(self, render_settings: RenderSettings) -> list[str]:
+    def render(self, render_settings: RenderSettings) -> Generic[RecursiveStrList]:
         return [tex_escape(self.name)]
 
 
@@ -86,7 +86,7 @@ class SkillSet(Renderable, PotentialContent):
     # TODO Perhaps this whole class should be a singleton, with this as a base.
     #  "all" in particular is a weird name for it at this point.
 
-    def render(self, render_settings: RenderSettings, elaborate=False) -> list[str]:
+    def render(self, render_settings: RenderSettings, elaborate=False) -> Generic[RecursiveStrList]:
         columns = 2
         target_row = []
         skill_table = [target_row]
@@ -114,7 +114,10 @@ class SkillSet(Renderable, PotentialContent):
         return [
             tex_header("Skills", 1, render_settings, new_line=False),
             tex_change_emphasis(2),
-        ] + tex_indent(tex_undivided_table(skill_table, render_settings))
+            tex_indent(
+                tex_undivided_table(skill_table, render_settings)
+            )
+        ]
 
     def _skills_by(self, key: Callable[[Skill], any]) -> list[Skill]:
         """A generic function for creating other functions that return the skills sorted in some way.
