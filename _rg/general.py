@@ -1,4 +1,5 @@
 import re
+from contextlib import contextmanager
 
 from zsil import colors
 
@@ -31,11 +32,9 @@ def tex_change_emphasis(steps_in: int, render_settings: RenderSettings = None):
         #     [int(band / first_black_step * (first_black_step - steps_in)) for band in highlight_color])
     final_color_string = colors.tuple_to_hex(current_color)
     return rf"""
-        \definecolor{{temp}}{{HTML}}{{{final_color_string}}}\
         \fontsize{{{render_settings.text_curve_at(steps_in) * 0.75}mm }}{{{render_settings.text_curve_at(steps_in)}mm}}\selectfont
-        \color{{temp}}
+        \color[RGB]{{{str(current_color)[1:-1]}}}
     """.strip()
-
 
 #        \fontsize{{{15 / (steps_in + 1)}mm }}{{{16 / (steps_in + 1)}mm}}\selectfont
 
@@ -74,5 +73,19 @@ def tex_undivided_table(table: list[list[Renderable]], render_settings: RenderSe
             raise NotImplementedError()
         s += r"\\" + "\n"
 
-    s += """\end{tblr}"""
+    s += r"\end{tblr}"
     return s
+
+
+@contextmanager
+def tex_indent_context(latex_list: list[str]):
+    latex_list.append(r"\begin{adjustwidth}{4mm}{}")
+    yield latex_list
+    latex_list.append(r"\end{adjustwidth}")
+
+
+def tex_indent(latex_list: list[str]):
+    new_list = []
+    with tex_indent_context(new_list) as l:
+        l += latex_list
+    return new_list
