@@ -5,10 +5,10 @@ from zsil import colors
 
 
 class color(Enum):
-    PASTEL_PURPLE = (212, 198, 216)
-    DARK_BLUE = (4, 5, 132)
     AZURE = (55, 95, 173)
-
+    DARK_BLUE = (4, 5, 132)
+    PASTEL_PURPLE = (212, 198, 216)
+    DEEP_PURPLE = (44, 17, 79)
 
 @dataclass
 class RenderSettings:
@@ -17,7 +17,7 @@ class RenderSettings:
     largest_text_size = 24
 
     primary_color = color.AZURE.value
-    secondary_color = color.DARK_BLUE.value
+    secondary_color = colors.mergecolors(color.DEEP_PURPLE.value, color.PASTEL_PURPLE.value, 0.5)
     link_color = color.AZURE.value
     first_black_step = 3
 
