@@ -112,6 +112,11 @@ class Impressiveness(Enum):
         Ex. GML, Power Automate
     """
 
+    EXPANSIVE = 3, """
+        It's BIG. Can you explore it? Uh, kinda. You mostly just Google the thing you want to do.
+        Ex. PyCharm
+    """
+
     # TODO There's a few things with this label that don't fit this description.
     DEEP = 3, """
         Has some amount of explorable depth. Contrasts beginner, where once you go past the basics,

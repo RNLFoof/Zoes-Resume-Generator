@@ -102,7 +102,7 @@
         "Python": {
           via: "jsonschema",
           link: "https://python-jsonschema.readthedocs.io/en/stable/"
-        },
+        }
       }
     },
     JSON5: {
@@ -298,6 +298,30 @@
     "GitHub": {
       impressiveness: "DEEP",
       competence: 3
+    },
+    "GitHub Desktop": {
+      impressiveness: "BEGINNER",
+      competence: 3.5
+    },
+    "Notepad++": {
+      impressiveness: "BEGINNER",
+      competence: 4
+    },
+    "PyCharm": {
+      impressiveness: "EXPANSIVE",
+      competence: 4
+    },
+    "Miniconda": {
+      impressiveness: "EXPANSIVE",
+      competence: 1.5
+    },
+    "Conda": {
+      impressiveness: "EXPANSIVE",
+      competence: 1.5
+    },
+    "VS Code": {
+      impressiveness: "EXPANSIVE",
+      competence: 3.5
     }
   }
 }
