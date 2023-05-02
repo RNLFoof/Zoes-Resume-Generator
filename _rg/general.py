@@ -74,5 +74,5 @@ def tex_undivided_table(table: list[list[Renderable]], render_settings: RenderSe
             raise NotImplementedError()
         s += r"\\" + "\n"
 
-    s += """"\end{tblr}"""
+    s += """\end{tblr}"""
     return s
