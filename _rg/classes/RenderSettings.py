@@ -10,17 +10,31 @@ class color(Enum):
     PASTEL_PURPLE = (212, 198, 216)
     DEEP_PURPLE = (44, 17, 79)
 
+class curve(Enum):
+    HALVING = lambda self, x: 0.5 ** x
+    THREE_QUARTERING = lambda self, x: 0.75 ** x
+
+
 @dataclass
 class RenderSettings:
     title_gradients = True
 
     largest_text_size = 24
+    first_text_step = 3
+    header_curve = curve.HALVING
+    text_curve = lambda self, x: 0.6 ** x
 
     primary_color = color.AZURE.value
     secondary_color = colors.mergecolors(color.DEEP_PURPLE.value, color.PASTEL_PURPLE.value, 0.5)
     link_color = color.AZURE.value
-    first_black_step = 3
 
     def start_color_at(self, steps_in: int):
         return colors.mergecolors(self.primary_color, self.secondary_color,
-                                  steps_in / (self.first_black_step - 1))
+                                  steps_in / (self.first_text_step - 1))
+
+    def text_curve_at(self, steps_in: int):
+        if steps_in < self.first_text_step:
+            return self.largest_text_size * self.header_curve(steps_in)
+        else:
+            recentered_steps_in = steps_in - self.first_text_step + 1
+            return self.text_curve_at(self.first_text_step - 1) * self.text_curve(recentered_steps_in)

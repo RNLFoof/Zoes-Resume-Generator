@@ -32,7 +32,7 @@ def tex_change_emphasis(steps_in: int, render_settings: RenderSettings = None):
     final_color_string = colors.tuple_to_hex(current_color)
     return rf"""
         \definecolor{{temp}}{{HTML}}{{{final_color_string}}}\
-        \fontsize{{{render_settings.largest_text_size * pow(0.5, steps_in) * 0.75}mm }}{{{render_settings.largest_text_size * pow(0.5, steps_in)}mm}}\selectfont
+        \fontsize{{{render_settings.text_curve_at(steps_in) * 0.75}mm }}{{{render_settings.text_curve_at(steps_in)}mm}}\selectfont
         \color{{temp}}
     """.strip()
 
