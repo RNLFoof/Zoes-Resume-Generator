@@ -1,11 +1,10 @@
-from typing import Generic
-
 from pydantic import BaseModel, validator, Field
 
+from _rg.classes.Header import Header
 from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.Renderable import Renderable, RecursiveStrList
-from _rg.general import tex_change_emphasis, tex_header, tex_escape
+from _rg.general import tex_change_emphasis, tex_escape, tex_indent
 
 
 class Accomplishment(Renderable, BaseModel):
@@ -13,21 +12,20 @@ class Accomplishment(Renderable, BaseModel):
     description: str
     demonstrates: dict[str, str]
 
-    def render(self, render_settings: RenderSettings) -> Generic[RecursiveStrList]:
+    def render(self, render_settings: RenderSettings) -> RecursiveStrList:
         return [
-            "{",
-            tex_header(self.name, 2, render_settings, new_line=False),
+            Header(self.name, 2).render(render_settings),
             tex_change_emphasis(3),
-            f"{self.description}\n\nMy work on this demonstrates...",
-        ] + [
-            "\n\n" + fr"...\textit{{{tex_escape(skill_name)}}}: {tex_escape(because)}"
-            for skill_name, because in self.demonstrates.items()
-        ] + [
-            "}\n\n"
+            self.description,
+            "\n\nMy work on this demonstrates\\ldots",
+            tex_indent([
+                "\n\n" + fr"\ldots\textit{{{tex_escape(skill_name)}}}: {tex_escape(because)}"
+                for skill_name, because in self.demonstrates.items()
+            ])
         ]
 
 
-class AccomplishmentSet(Renderable, PotentialContent):
+class AccomplishmentSet(PotentialContent):
     accomplishments: dict[str, Accomplishment]
 
     @validator('accomplishments')
@@ -36,10 +34,10 @@ class AccomplishmentSet(Renderable, PotentialContent):
             accomplishment.name = name
         return accomplishments
 
-    def render(self, render_settings: RenderSettings) -> Generic[RecursiveStrList]:
+    def render(self, render_settings: RenderSettings) -> RecursiveStrList:
         return [
-            "{",
-            tex_header("Works", 1, render_settings),
-            "\n\n".join([a.render_as_string(render_settings) for a in self.accomplishments.values()]),
-            "}"
+            Header("Works", 1).render(render_settings),
+            tex_indent(
+                "\n\n".join([a.render_as_string(render_settings) for a in self.accomplishments.values()])
+            )
         ]

@@ -1,10 +1,11 @@
 from _rg.classes.PotentialContent import PotentialContent
+from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.Resume import Resume
 
 if __name__ == '__main__':
     PotentialContent.dump_all_schemas()
 
-    Resume().generate_pdf()
+    Resume().generate_pdf(RenderSettings())
     exit()
 
     doc = Document('Resume')

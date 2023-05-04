@@ -4,16 +4,18 @@ from typing import Union
 from pydantic import BaseModel
 
 from _rg.classes.PotentialContent import PotentialContent
+from _rg.classes.RenderSettings import RenderSettings
+from _rg.classes.Renderable import RecursiveStrList, Renderable
 
 
-class HistoryItem(BaseModel):
+class HistoryItem(Renderable, BaseModel):
     name: str
     start_year: int
     end_year: Union[int | None]
     building: Union[str | None]
 
-    def tex(self):
-        return fr"{self.name_tex()} & {self.date_tex()}\\"
+    def render(self, render_settings: RenderSettings) -> RecursiveStrList:
+        return [self.name_tex(), self.date_tex()]
 
     def name_tex(self):
         if self.building is None:
@@ -46,5 +48,8 @@ class History(PotentialContent):
         return typing.cast(list[HistoryItem], self.jobs) + \
             typing.cast(list[HistoryItem], self.education)
 
-    def tex(self):
-        return "\n\hline\n".join([""] + [e.tex() for e in self.all()] + [""])
+    def render(self, render_settings: RenderSettings) -> RecursiveStrList:
+        return [
+            self.tex_table([e.render(render_settings) for e in self.all()], render_settings)
+        ]
+        # return ["\n\hline\n".join([""] + [e.render_as_string(render_settings) for e in self.all()] + [""])]

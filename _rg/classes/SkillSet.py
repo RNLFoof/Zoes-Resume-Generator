@@ -1,15 +1,16 @@
 from dataclasses import dataclass
-from typing import Callable, Generic
+from typing import Callable
 
 from pydantic import BaseModel, validator
 from pydantic import Field
 
 from _rg.classes.Accomplishment import Accomplishment, AccomplishmentSet
+from _rg.classes.Header import Header
 from _rg.classes.Impressiveness import Impressiveness
 from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.Renderable import Renderable, RecursiveStrList
-from _rg.general import tex_escape, tex_change_emphasis, tex_header, tex_undivided_table, tex_indent
+from _rg.general import tex_escape, tex_change_emphasis, tex_indent
 
 
 class Skill(Renderable, BaseModel):
@@ -40,7 +41,7 @@ class Skill(Renderable, BaseModel):
         """
         return self.impressiveness.number * self.competence
 
-    def render(self, render_settings: RenderSettings) -> Generic[RecursiveStrList]:
+    def render(self, render_settings: RenderSettings) -> RecursiveStrList:
         return [tex_escape(self.name)]
 
 
@@ -55,15 +56,15 @@ class SkillWithElaboration:
         s += tex_change_emphasis(2)
         s += self.skill.name
         s += tex_change_emphasis(3)
-        s += "\n\nAs demonstrated by my work on..."
+        s += "\n\nAs demonstrated by my work on\ldots"
         for accomplishment in self.relevant_accomplishments:
             explanation = accomplishment.demonstrates[self.skill.name]
-            s += f"\n\n...GUY{tex_change_emphasis(4)}({accomplishment.description}),{tex_change_emphasis(3)}\n\nbecause {explanation}"
+            s += f"\n\n\ldotsGUY{tex_change_emphasis(4)}({accomplishment.description}),{tex_change_emphasis(3)}\n\nbecause {explanation}"
         s += "}"
         return s
 
 
-class SkillSet(Renderable, PotentialContent):
+class SkillSet(PotentialContent):
     """Represents the list of skills with potential to go onto the resume.
 
     Parameters
@@ -86,7 +87,7 @@ class SkillSet(Renderable, PotentialContent):
     # TODO Perhaps this whole class should be a singleton, with this as a base.
     #  "all" in particular is a weird name for it at this point.
 
-    def render(self, render_settings: RenderSettings, elaborate=False) -> Generic[RecursiveStrList]:
+    def render(self, render_settings: RenderSettings, elaborate=False) -> RecursiveStrList:
         columns = 2
         target_row = []
         skill_table = [target_row]
@@ -112,10 +113,10 @@ class SkillSet(Renderable, PotentialContent):
             skill_table = skill_table[:-1]
 
         return [
-            tex_header("Skills", 1, render_settings, new_line=False),
+            Header("Skills", 1).render(render_settings),
             tex_change_emphasis(2),
             tex_indent(
-                tex_undivided_table(skill_table, render_settings)
+                self.tex_table(skill_table, render_settings)
             )
         ]
 

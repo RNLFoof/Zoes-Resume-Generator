@@ -1,10 +1,11 @@
+import importlib
+import os
 import re
 from contextlib import contextmanager
 
 from zsil import colors
 
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.Renderable import Renderable
 
 
 def tex_escape(text: str) -> str:
@@ -31,61 +32,43 @@ def tex_change_emphasis(steps_in: int, render_settings: RenderSettings = None):
         # current_color = tuple(
         #     [int(band / first_black_step * (first_black_step - steps_in)) for band in highlight_color])
     final_color_string = colors.tuple_to_hex(current_color)
-    return rf"""
-        \fontsize{{{render_settings.text_curve_at(steps_in) * 0.75}mm }}{{{render_settings.text_curve_at(steps_in)}mm}}\selectfont
-        \color[RGB]{{{str(current_color)[1:-1]}}}
-    """.strip()
+    return [
+        rf"\fontsize{{{render_settings.text_curve_at(steps_in) * 0.75}mm}}{{{render_settings.text_curve_at(steps_in)}mm}}\selectfont",
+        rf"\color[RGB]{{{str(current_color)[1:-1]}}}"
+    ]
+
 
 #        \fontsize{{{15 / (steps_in + 1)}mm }}{{{16 / (steps_in + 1)}mm}}\selectfont
 
-def tex_header(text: str, steps_in: int, render_settings: RenderSettings, new_line=True):
-    s = "{"
-    s += tex_change_emphasis(steps_in)
-    if render_settings.title_gradients:
-        for letter_index, letter in enumerate(text):
-            text_progress = letter_index / (len(text) - 1)
-            current_color = colors.mergecolors(render_settings.start_color_at(steps_in),
-                                               render_settings.secondary_color,
-                                               text_progress)
-            s += fr"\color[RGB]{{{str(current_color)[1:-1]}}}{{{letter}}}"
-    else:
-        s += text
-    s += "}"
-
-    if new_line:
-        s += r"\\"
-
-    return s
 
 
-def tex_undivided_table(table: list[list[Renderable]], render_settings: RenderSettings):
-    s = ""
-    column_count = max(len(row) for row in table)
-    s += rf"""\SetTblrInner{{rowsep=0mm, leftsep=1mm, rightsep=4mm}}
-        \begin{{tblr}}{{ {"l" * column_count} }}"""
 
-    for row in table:
-        if len(row) == column_count:
-            s += " & ".join([cell.render_as_string(render_settings) for cell in row])
-        elif len(row) == 1:
-            s += fr"\SetCell[c={column_count}]{{l}}" + row[0].render_as_string(render_settings)
-        else:
-            raise NotImplementedError()
-        s += r"\\" + "\n"
 
-    s += r"\end{tblr}"
-    return s
 
 
 @contextmanager
 def tex_indent_context(latex_list: list[str]):
+    latex_list.append("\n")
     latex_list.append(r"\begin{adjustwidth}{4mm}{}")
+    latex_list.append("\n\n")
     yield latex_list
+    latex_list.append("\n")
     latex_list.append(r"\end{adjustwidth}")
 
 
 def tex_indent(latex_list: list[str]):
     new_list = []
     with tex_indent_context(new_list) as l:
+        for n, x in enumerate(l):
+            l[n] = "\t" + x
         l += latex_list
     return new_list
+
+
+def import_all_classes():
+    class_path = os.path.join(
+        os.path.split(__file__)[0],
+        "classes")
+    for class_filename in os.listdir(class_path):
+        class_name, _ = os.path.splitext(class_filename)
+        importlib.import_module("_rg.classes." + class_name)

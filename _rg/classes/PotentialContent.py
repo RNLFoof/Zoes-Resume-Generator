@@ -1,12 +1,14 @@
-import importlib
 import os
 import re
 
 import json5
 from pydantic import BaseModel
 
+from _rg.classes.Renderable import Renderable
+from _rg.general import import_all_classes
 
-class PotentialContent(BaseModel):
+
+class PotentialContent(BaseModel, Renderable):
     _singletons: dict[str, "PotentialContent"] = {}
 
     def __init__(self, data_override=None):
@@ -27,13 +29,7 @@ class PotentialContent(BaseModel):
     @classmethod
     def dump_all_schemas(cls):
         # All classes need to be loaded, because otherwise Python doesn't know what subclasses exist
-        class_path = os.path.join(
-            os.path.split(__file__)[0],
-            "../../_rg/classes")
-        for class_filename in os.listdir(class_path):
-            class_name, _ = os.path.splitext(class_filename)
-            importlib.import_module("_rg.classes." + class_name)
-
+        import_all_classes()
         # Actually dump
         for subclass in cls.__subclasses__():
             subclass._dump_schema()
