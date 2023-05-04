@@ -3,11 +3,13 @@ from typing import Union
 
 from pydantic import BaseModel
 
-from _rg.classes.Heading import Heading
-from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.Renderable import RecursiveStrList, Renderable
-from _rg.general import tex_change_emphasis, tex_indent
+from _rg.classes.renderables.ChangeEmphasis import ChangeEmphasis
+from _rg.classes.renderables.Heading import Heading
+from _rg.classes.renderables.Indent import Indent
+from _rg.classes.renderables.Renderable import Renderable
+from _rg.classes.renderables.Table import Table
+from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
 
 
 class HistoryItem(Renderable, BaseModel):
@@ -16,7 +18,7 @@ class HistoryItem(Renderable, BaseModel):
     end_year: Union[int | None]
     building: Union[str | None]
 
-    def render(self, render_settings: RenderSettings) -> RecursiveStrList:
+    def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
         return [self.name_tex(), self.date_tex()]
 
     def name_tex(self):
@@ -50,11 +52,11 @@ class History(PotentialContent):
         return typing.cast(list[HistoryItem], self.jobs) + \
             typing.cast(list[HistoryItem], self.education)
 
-    def render(self, render_settings: RenderSettings) -> RecursiveStrList:
-        return tex_indent([
-            Heading("Education & Employment History", 1).render(render_settings),
+    def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
+        return [Indent([
+            Heading("Education & Employment History", 1),
             "\n",
-            tex_change_emphasis(3),
-            self.tex_table([e.render(render_settings) for e in self.all()], render_settings, horizontal_lines=True,
-                           vertical_lines=True)
-        ])
+            ChangeEmphasis(3),
+            Table([[e for e in self.all()]], horizontal_lines=True,
+                  vertical_lines=True)
+        ])]

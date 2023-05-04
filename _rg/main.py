@@ -1,6 +1,6 @@
-from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.Resume import Resume
+from _rg.classes.renderables.Resume import Resume
+from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
 
 if __name__ == '__main__':
     PotentialContent.dump_all_schemas()

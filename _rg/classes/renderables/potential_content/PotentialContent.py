@@ -4,7 +4,8 @@ import re
 import json5
 from pydantic import BaseModel
 
-from _rg.classes.Renderable import Renderable
+from _rg import definitions
+from _rg.classes.renderables.Renderable import Renderable
 from _rg.general import import_all_classes
 
 
@@ -42,16 +43,16 @@ class PotentialContent(BaseModel, Renderable):
     @property
     def SAVED_TO(cls) -> str:
         return os.path.join(
-            os.path.abspath(os.path.split(__file__)[0]),
-            f"../potential_content/{cls.camelcase_name()}.json5"
+            definitions.ROOT_DIR,
+            f"potential_content/{cls.camelcase_name()}.json5"
         )
 
     @classmethod
     @property
     def SCHEMA_SAVED_TO(cls) -> str:
         return os.path.join(
-            os.path.abspath(os.path.split(__file__)[0]),
-            f"../schema/{cls.camelcase_name()}.json"
+            definitions.ROOT_DIR,
+            f"schema/{cls.camelcase_name()}.json"
         )
 
     @classmethod

@@ -7,9 +7,9 @@ from typing import Callable
 import pytest
 from _pytest.monkeypatch import MonkeyPatch
 
-from _rg.classes.Impressiveness import Impressiveness
-from _rg.classes.PotentialContent import PotentialContent
-from _rg.classes.SkillSet import Skill, SkillSet
+from _rg.classes.renderables.potential_content.Impressiveness import Impressiveness
+from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
+from _rg.classes.renderables.potential_content.SkillSet import Skill, SkillSet
 
 
 @pytest.fixture

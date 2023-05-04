@@ -3,8 +3,9 @@ from dataclasses import dataclass
 from zsil import colors
 
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.Renderable import Renderable, RecursiveStrList
-from _rg.general import tex_change_emphasis, tex_escape
+from _rg.classes.renderables.ChangeEmphasis import ChangeEmphasis
+from _rg.classes.renderables.Renderable import Renderable
+from _rg.general import tex_escape
 
 
 @dataclass
@@ -12,7 +13,7 @@ class Heading(Renderable):
     text: str
     steps_in: int
 
-    def render(self, render_settings: RenderSettings) -> RecursiveStrList:
+    def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
         letters = []
         if render_settings.title_gradients:
             for letter_index, letter in enumerate(self.text):
@@ -25,6 +26,6 @@ class Heading(Renderable):
             letters.append(self.text)
 
         return [
-            tex_change_emphasis(self.steps_in),
+            ChangeEmphasis(self.steps_in),
             "".join(letters)  # Line breaks cause gaps, so
         ]

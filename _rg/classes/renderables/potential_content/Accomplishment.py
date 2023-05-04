@@ -1,10 +1,12 @@
 from pydantic import BaseModel, validator, Field
 
-from _rg.classes.Heading import Heading
-from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.Renderable import Renderable, RecursiveStrList
-from _rg.general import tex_change_emphasis, tex_escape, tex_indent
+from _rg.classes.renderables.ChangeEmphasis import ChangeEmphasis
+from _rg.classes.renderables.Heading import Heading
+from _rg.classes.renderables.Indent import Indent
+from _rg.classes.renderables.Renderable import Renderable
+from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
+from _rg.general import tex_escape
 
 
 class Accomplishment(Renderable, BaseModel):
@@ -12,13 +14,13 @@ class Accomplishment(Renderable, BaseModel):
     description: str
     demonstrates: dict[str, str]
 
-    def render(self, render_settings: RenderSettings) -> RecursiveStrList:
+    def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
         return [
-            Heading(self.name, 2).render(render_settings),
-            tex_change_emphasis(3),
+            Heading(self.name, 2),
+            ChangeEmphasis(3),
             self.description,
             "\nMy work on this demonstrates\\ldots",
-            tex_indent([
+            Indent([
                 "\n" + fr"\ldots\textit{{{tex_escape(skill_name)}}}\: {tex_escape(because)}"
                 for skill_name, because in self.demonstrates.items()
             ])
@@ -34,10 +36,10 @@ class AccomplishmentSet(PotentialContent):
             accomplishment.name = name
         return accomplishments
 
-    def render(self, render_settings: RenderSettings) -> RecursiveStrList:
-        return tex_indent([
-            Heading("Works", 1).render(render_settings),
-            tex_indent(
-                [a.render(render_settings) for a in self.accomplishments.values()]
+    def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
+        return [Indent([
+            Heading("Works", 1),
+            Indent(
+                list(self.accomplishments.values())
             )
-        ])
+        ])]

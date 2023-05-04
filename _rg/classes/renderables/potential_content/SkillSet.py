@@ -4,13 +4,16 @@ from typing import Callable
 from pydantic import BaseModel, validator
 from pydantic import Field
 
-from _rg.classes.Accomplishment import Accomplishment, AccomplishmentSet
-from _rg.classes.Heading import Heading
-from _rg.classes.Impressiveness import Impressiveness
-from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.Renderable import Renderable, RecursiveStrList
-from _rg.general import tex_escape, tex_change_emphasis, tex_indent
+from _rg.classes.renderables.ChangeEmphasis import ChangeEmphasis
+from _rg.classes.renderables.Heading import Heading
+from _rg.classes.renderables.Indent import Indent
+from _rg.classes.renderables.Renderable import Renderable
+from _rg.classes.renderables.Table import Table
+from _rg.classes.renderables.potential_content.Accomplishment import Accomplishment, AccomplishmentSet
+from _rg.classes.renderables.potential_content.Impressiveness import Impressiveness
+from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
+from _rg.general import tex_escape
 
 
 class Skill(Renderable, BaseModel):
@@ -41,7 +44,7 @@ class Skill(Renderable, BaseModel):
         """
         return self.impressiveness.number * self.competence
 
-    def render(self, render_settings: RenderSettings) -> RecursiveStrList:
+    def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
         return [tex_escape(self.name)]
 
 
@@ -53,13 +56,13 @@ class SkillWithElaboration:
     def tex(self):
         s = ""
         s += "{"
-        s += tex_change_emphasis(2)
+        s += ChangeEmphasis(2)
         s += self.skill.name
-        s += tex_change_emphasis(3)
+        s += ChangeEmphasis(3)
         s += "\nAs demonstrated by my work on\ldots"
         for accomplishment in self.relevant_accomplishments:
             explanation = accomplishment.demonstrates[self.skill.name]
-            s += f"\n\ldotsGUY{tex_change_emphasis(4)}({accomplishment.description}),{tex_change_emphasis(3)}\n\nbecause {explanation}"
+            s += f"\n\ldotsGUY{ChangeEmphasis(4)}({accomplishment.description}),{ChangeEmphasis(3)}\n\nbecause {explanation}"
         s += "}"
         return s
 
@@ -87,7 +90,8 @@ class SkillSet(PotentialContent):
     # TODO Perhaps this whole class should be a singleton, with this as a base.
     #  "all" in particular is a weird name for it at this point.
 
-    def render(self, render_settings: RenderSettings, elaborate=False) -> RecursiveStrList:
+    def class_specific_render(self, render_settings: RenderSettings, elaborate=False) -> list[
+        str | Renderable]:  # TODO move elaborate to settings
         columns = 2
         target_row = []
         skill_table = [target_row]
@@ -113,12 +117,12 @@ class SkillSet(PotentialContent):
             skill_table = skill_table[:-1]
 
         return [
-            tex_indent([
-                Heading("Skills", 1).render(render_settings),
-                tex_change_emphasis(2),
-                tex_indent(
-                    self.tex_table(skill_table, render_settings)
-                )
+            Indent([
+                Heading("Skills", 1),
+                ChangeEmphasis(2),
+                Indent([
+                    Table(skill_table)
+                ])
             ])
         ]
 

@@ -3,7 +3,7 @@ from typing import Callable
 
 import pytest
 
-from _rg.classes.Impressiveness import Impressiveness
+from _rg.classes.renderables.potential_content.Impressiveness import Impressiveness
 
 
 class TestImpressiveness:
