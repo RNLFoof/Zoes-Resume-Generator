@@ -113,11 +113,13 @@ class SkillSet(PotentialContent):
             skill_table = skill_table[:-1]
 
         return [
-            Heading("Skills", 1).render(render_settings),
-            tex_change_emphasis(2),
-            tex_indent(
-                self.tex_table(skill_table, render_settings)
-            )
+            tex_indent([
+                Heading("Skills", 1).render(render_settings),
+                tex_change_emphasis(2),
+                tex_indent(
+                    self.tex_table(skill_table, render_settings)
+                )
+            ])
         ]
 
     def _skills_by(self, key: Callable[[Skill], any]) -> list[Skill]:

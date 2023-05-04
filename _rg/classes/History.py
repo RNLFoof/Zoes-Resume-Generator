@@ -7,7 +7,7 @@ from _rg.classes.Heading import Heading
 from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.Renderable import RecursiveStrList, Renderable
-from _rg.general import tex_change_emphasis
+from _rg.general import tex_change_emphasis, tex_indent
 
 
 class HistoryItem(Renderable, BaseModel):
@@ -30,8 +30,8 @@ class HistoryItem(Renderable, BaseModel):
         else:
             end = self.end_year
         if self.start_year == end:
-            return end
-        return f"{self.start_year}-{end}"
+            return str(end)
+        return fr"{self.start_year}–{end}"
 
 
 class Education(HistoryItem):
@@ -51,11 +51,10 @@ class History(PotentialContent):
             typing.cast(list[HistoryItem], self.education)
 
     def render(self, render_settings: RenderSettings) -> RecursiveStrList:
-        return [
+        return tex_indent([
             Heading("Education & Employment History", 1).render(render_settings),
             "\n",
             tex_change_emphasis(3),
             self.tex_table([e.render(render_settings) for e in self.all()], render_settings, horizontal_lines=True,
                            vertical_lines=True)
-        ]
-        # return ["\n\hline\n".join([""] + [e.render_as_string(render_settings) for e in self.all()] + [""])]
+        ])

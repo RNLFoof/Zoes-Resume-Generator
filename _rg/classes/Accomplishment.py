@@ -19,7 +19,7 @@ class Accomplishment(Renderable, BaseModel):
             self.description,
             "\nMy work on this demonstrates\\ldots",
             tex_indent([
-                "\n" + fr"\ldots\textit{{{tex_escape(skill_name)}}}: {tex_escape(because)}"
+                "\n" + fr"\ldots\textit{{{tex_escape(skill_name)}}}\: {tex_escape(because)}"
                 for skill_name, because in self.demonstrates.items()
             ])
         ]
@@ -35,9 +35,9 @@ class AccomplishmentSet(PotentialContent):
         return accomplishments
 
     def render(self, render_settings: RenderSettings) -> RecursiveStrList:
-        return [
+        return tex_indent([
             Heading("Works", 1).render(render_settings),
             tex_indent(
                 [a.render(render_settings) for a in self.accomplishments.values()]
             )
-        ]
+        ])

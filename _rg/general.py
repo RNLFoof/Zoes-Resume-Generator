@@ -49,7 +49,6 @@ def tex_change_emphasis(steps_in: int, render_settings: RenderSettings = None):
 @contextmanager
 def tex_indent_context(latex_list: list[str]):
     latex_list.append(r"\begin{adjustwidth}{4mm}{}")
-    latex_list.append("\n")
     yield latex_list
     latex_list.append(r"\end{adjustwidth}")
 

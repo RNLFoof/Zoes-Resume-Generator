@@ -1,4 +1,5 @@
 import os
+import re
 import subprocess
 from typing import TypeVar, Self, Any
 
@@ -15,17 +16,26 @@ class Renderable:
         raise NotImplementedError()
 
     def render_as_string(self, render_settings: RenderSettings) -> str:
-        def flatten(l: RecursiveStrList) -> list[str]:
+        def flatten_and_render(l: RecursiveStrList) -> list[str]:
             output = []
             for item in l:
-                if type(item) is list:
-                    output += ["\t" + x for x in flatten(item)]
-                else:
-                    output.append(item)
+                while True:
+                    if issubclass(item.__class__, Renderable):
+                        item = item.render_as_string(render_settings)
+                        continue
+                    if type(item) is list:
+                        item = "\n".join(flatten_and_render(item))
+                        item = re.sub(r"^", "\t", item, flags=re.MULTILINE)
+                        continue
+                    if type(item) is str:
+                        output.append(item)
+                        break
+                    else:
+                        raise Exception("What")
             return output
 
         return "\n".join(
-            flatten(
+            flatten_and_render(
                 self.render(render_settings)
             )
         )
@@ -40,7 +50,7 @@ class Renderable:
         for n in range(10):
             global_variables[f"change_emphasis_to_{n}"] = "".join(tex_change_emphasis(n))
 
-        with open(f"{directory}/{self.__class__.__name__}.tex", "w") as f:
+        with open(f"{directory}/{self.__class__.__name__}.tex", "w", encoding="UTF8") as f:
             f.write(self.generate_tex_section("start", global_variables)),
             f.write(self.render_as_string(render_settings))
             f.write(self.generate_tex_section("end", global_variables)),
@@ -61,31 +71,32 @@ class Renderable:
         return s
 
     @staticmethod
-    def tex_table(table: list[list["Renderable"]], render_settings: RenderSettings, horizontal_lines=False,
+    def tex_table(table: list[RecursiveStrList], render_settings: RenderSettings, horizontal_lines=False,
                   vertical_lines=False) -> RecursiveStrList:
         column_count = max(len(row) for row in table)
-        l = []
-        l.append(rf"\SetTblrInner{{rowsep=0mm, leftsep=1mm, rightsep=4mm}}")
+        l = [rf"\SetTblrInner{{rowsep=0mm, leftsep=1mm, rightsep=4mm}}"]
         if vertical_lines:
             l.append(fr"\begin{{tblr}}{{|{'l|' * column_count}}}")
         else:
             l.append(fr"\begin{{tblr}}{{{'l' * column_count}}}")
-
-        l.append(r"\hline" if horizontal_lines else "")
+        if horizontal_lines:
+            l.append(r"\hline")
 
         for row in table:
             if len(row) == column_count:
-                l.append(" & ".join([
-                    cell.render_as_string(render_settings)
-                    if issubclass(cell.__class__, Renderable)
-                    else str(cell)
-                    for cell in row
-                ]))
+                sub_l = []  # Separate list for intention
+                first = True
+                for cell in row:
+                    if not first:
+                        sub_l.append("&")
+                    sub_l.append(cell)
+                    first = False
+                l.append(sub_l)
             elif len(row) == 1:
-                l.append(fr"\SetCell[c={column_count}]{{l}}" + row[0].render_as_string(render_settings))
+                l.append(fr"\SetCell[c={column_count}]{{l}}" + row[0])
             else:
                 raise NotImplementedError()
-            l.append(r"\\" + (r"\hline" if horizontal_lines else "") + "\n")
+            l.append(r"\\" + (r"\hline" if horizontal_lines else ""))
 
         l.append(r"\end{tblr}")
         return l
