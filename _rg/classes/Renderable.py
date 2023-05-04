@@ -71,6 +71,8 @@ class Renderable:
         else:
             s += fr"\begin{{tblr}}{{{'l' * column_count}}}"
 
+        s += (r"\hline" if horizontal_lines else "") + "\n"
+
         for row in table:
             if len(row) == column_count:
                 s += " & ".join([
@@ -83,7 +85,7 @@ class Renderable:
                 s += fr"\SetCell[c={column_count}]{{l}}" + row[0].render_as_string(render_settings)
             else:
                 raise NotImplementedError()
-            s += r"\\" + "\n"
+            s += r"\\" + (r"\hline" if horizontal_lines else "") + "\n"
 
         s += r"\end{tblr}"
         return s
