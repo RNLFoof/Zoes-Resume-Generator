@@ -21,7 +21,7 @@ class RenderSettings:
 
     largest_text_size = 24
     first_text_step = 3
-    header_curve = curve.HALVING
+    Heading_curve = curve.HALVING
     text_curve = lambda self, x: 0.6 ** x
 
     primary_color = color.AZURE.value
@@ -34,7 +34,7 @@ class RenderSettings:
 
     def text_curve_at(self, steps_in: int):
         if steps_in < self.first_text_step:
-            return self.largest_text_size * self.header_curve(steps_in)
+            return self.largest_text_size * self.Heading_curve(steps_in)
         else:
             recentered_steps_in = steps_in - self.first_text_step + 1
             return self.text_curve_at(self.first_text_step - 1) * self.text_curve(recentered_steps_in)

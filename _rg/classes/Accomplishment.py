@@ -1,6 +1,6 @@
 from pydantic import BaseModel, validator, Field
 
-from _rg.classes.Header import Header
+from _rg.classes.Heading import Heading
 from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.Renderable import Renderable, RecursiveStrList
@@ -14,12 +14,12 @@ class Accomplishment(Renderable, BaseModel):
 
     def render(self, render_settings: RenderSettings) -> RecursiveStrList:
         return [
-            Header(self.name, 2).render(render_settings),
+            Heading(self.name, 2).render(render_settings),
             tex_change_emphasis(3),
             self.description,
-            "\n\nMy work on this demonstrates\\ldots",
+            "\nMy work on this demonstrates\\ldots",
             tex_indent([
-                "\n\n" + fr"\ldots\textit{{{tex_escape(skill_name)}}}: {tex_escape(because)}"
+                "\n" + fr"\ldots\textit{{{tex_escape(skill_name)}}}: {tex_escape(because)}"
                 for skill_name, because in self.demonstrates.items()
             ])
         ]
@@ -36,8 +36,8 @@ class AccomplishmentSet(PotentialContent):
 
     def render(self, render_settings: RenderSettings) -> RecursiveStrList:
         return [
-            Header("Works", 1).render(render_settings),
+            Heading("Works", 1).render(render_settings),
             tex_indent(
-                "\n\n".join([a.render_as_string(render_settings) for a in self.accomplishments.values()])
+                [a.render(render_settings) for a in self.accomplishments.values()]
             )
         ]

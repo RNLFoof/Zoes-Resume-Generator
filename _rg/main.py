@@ -5,11 +5,11 @@ from _rg.classes.Resume import Resume
 if __name__ == '__main__':
     PotentialContent.dump_all_schemas()
 
-    Resume().generate_pdf(RenderSettings())
+    Resume().generate_pdf("out", RenderSettings())
     exit()
 
     doc = Document('Resume')
-    with doc.create(Section('Header')):
+    with doc.create(Section('Heading')):
         doc.append('Zoe Zablotsky'.upper())
     with doc.create(Section('Skills')):
         with doc.create(Itemize()) as itemize:

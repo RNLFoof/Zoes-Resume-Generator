@@ -3,7 +3,7 @@ from typing import Union
 
 from pydantic import BaseModel
 
-from _rg.classes.Header import Header
+from _rg.classes.Heading import Heading
 from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.Renderable import RecursiveStrList, Renderable
@@ -52,8 +52,8 @@ class History(PotentialContent):
 
     def render(self, render_settings: RenderSettings) -> RecursiveStrList:
         return [
-            Header("Education & Employment History", 1).render(render_settings),
-            "\n\n",
+            Heading("Education & Employment History", 1).render(render_settings),
+            "\n",
             tex_change_emphasis(3),
             self.tex_table([e.render(render_settings) for e in self.all()], render_settings, horizontal_lines=True,
                            vertical_lines=True)

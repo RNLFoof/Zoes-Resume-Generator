@@ -4,26 +4,27 @@ from zsil import colors
 
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.Renderable import Renderable, RecursiveStrList
-from _rg.general import tex_change_emphasis
+from _rg.general import tex_change_emphasis, tex_escape
 
 
 @dataclass
-class Header(Renderable):
+class Heading(Renderable):
     text: str
     steps_in: int
 
     def render(self, render_settings: RenderSettings) -> RecursiveStrList:
-        l = [
-            tex_change_emphasis(self.steps_in)
-        ]
+        letters = []
         if render_settings.title_gradients:
             for letter_index, letter in enumerate(self.text):
                 text_progress = letter_index / (len(self.text) - 1)
                 current_color = colors.mergecolors(render_settings.start_color_at(self.steps_in),
                                                    render_settings.secondary_color,
                                                    text_progress)
-                l.append(fr"\color[RGB]{{{str(current_color)[1:-1]}}}{{{letter}}}")
+                letters.append(fr"\color[RGB]{{{str(current_color)[1:-1]}}}{{{tex_escape(letter)}}}")
         else:
-            l.append(self.text)
+            letters.append(self.text)
 
-        return l
+        return [
+            tex_change_emphasis(self.steps_in),
+            "".join(letters)  # Line breaks cause gaps, so
+        ]

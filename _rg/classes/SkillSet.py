@@ -5,7 +5,7 @@ from pydantic import BaseModel, validator
 from pydantic import Field
 
 from _rg.classes.Accomplishment import Accomplishment, AccomplishmentSet
-from _rg.classes.Header import Header
+from _rg.classes.Heading import Heading
 from _rg.classes.Impressiveness import Impressiveness
 from _rg.classes.PotentialContent import PotentialContent
 from _rg.classes.RenderSettings import RenderSettings
@@ -56,10 +56,10 @@ class SkillWithElaboration:
         s += tex_change_emphasis(2)
         s += self.skill.name
         s += tex_change_emphasis(3)
-        s += "\n\nAs demonstrated by my work on\ldots"
+        s += "\nAs demonstrated by my work on\ldots"
         for accomplishment in self.relevant_accomplishments:
             explanation = accomplishment.demonstrates[self.skill.name]
-            s += f"\n\n\ldotsGUY{tex_change_emphasis(4)}({accomplishment.description}),{tex_change_emphasis(3)}\n\nbecause {explanation}"
+            s += f"\n\ldotsGUY{tex_change_emphasis(4)}({accomplishment.description}),{tex_change_emphasis(3)}\n\nbecause {explanation}"
         s += "}"
         return s
 
@@ -113,7 +113,7 @@ class SkillSet(PotentialContent):
             skill_table = skill_table[:-1]
 
         return [
-            Header("Skills", 1).render(render_settings),
+            Heading("Skills", 1).render(render_settings),
             tex_change_emphasis(2),
             tex_indent(
                 self.tex_table(skill_table, render_settings)
