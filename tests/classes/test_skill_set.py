@@ -7,6 +7,7 @@ from typing import Callable
 import pytest
 from _pytest.monkeypatch import MonkeyPatch
 
+from _rg.classes.enums.Category import Category
 from _rg.classes.enums.Impressiveness import Impressiveness
 from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
 from _rg.classes.renderables.potential_content.SkillSet import Skill, SkillSet
@@ -24,8 +25,14 @@ def common_impressiveness() -> Impressiveness:
 
 
 @pytest.fixture
-def common_skill(common_competence: int, common_impressiveness: Impressiveness) -> Skill:
-    return Skill(competence=common_competence, impressiveness=common_impressiveness)
+def common_category() -> Category:
+    for y in filter(lambda x: x.name == "PROGRAMMING", list(Category)):
+        return y
+
+
+@pytest.fixture
+def common_skill(common_competence: int, common_impressiveness: Impressiveness, common_category: Category) -> Skill:
+    return Skill(competence=common_competence, impressiveness=common_impressiveness, category=common_category)
 
 
 @pytest.fixture
@@ -34,15 +41,18 @@ def common_skill_set_dict() -> dict:
         "skills": {
             "Bad Skill": {
                 "impressiveness": Impressiveness.NONE.name,
-                "competence": 1
+                "competence": 1,
+                "category": "PROGRAMMING"
             },
             "Mediocre Skill": {
                 "impressiveness": Impressiveness.BEGINNER.name,
-                "competence": 3
+                "competence": 3,
+                "category": "PROGRAMMING"
             },
             "Good Skill": {
                 "impressiveness": Impressiveness.SPECIALIZABLE.name,
-                "competence": 5
+                "competence": 5,
+                "category": "PROGRAMMING"
             },
         }
     }
