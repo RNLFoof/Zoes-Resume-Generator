@@ -9,6 +9,7 @@ class color(Enum):
     DARK_BLUE = (4, 5, 132)
     PASTEL_PURPLE = (212, 198, 216)
     DEEP_PURPLE = (44, 17, 79)
+    FUCHSIA = (254, 65, 100)
 
 class curve(Enum):
     HALVING = lambda self, x: 0.5 ** x
