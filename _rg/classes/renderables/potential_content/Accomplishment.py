@@ -2,6 +2,7 @@ from pydantic import BaseModel, validator, Field
 
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.renderables.ChangeEmphasis import ChangeEmphasis
+from _rg.classes.renderables.Concatenate import Concatenate
 from _rg.classes.renderables.Heading import Heading
 from _rg.classes.renderables.Indent import Indent
 from _rg.classes.renderables.Renderable import Renderable
@@ -21,8 +22,12 @@ class Accomplishment(Renderable, BaseModel):
             self.description,
             "\nMy work on this demonstrates\\ldots",
             Indent([
-                "\n" + fr"\ldots\textit{{{tex_escape(skill_name)}}}\: {tex_escape(because)}"
-                for skill_name, because in self.demonstrates.items()
+                Concatenate(
+                    [ChangeEmphasis(3)] +
+                    [
+                        fr"\ldots\textit{{{tex_escape(skill_name)}}}: {tex_escape(because)}" + "\n"
+                        for skill_name, because in self.demonstrates.items()
+                    ])
             ])
         ]
 

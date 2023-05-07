@@ -5,10 +5,8 @@ from _rg.classes.renderables.Renderable import Renderable
 
 
 @dataclass
-class Indent(Renderable):
+class Concatenate(Renderable):
     contents: list[str | Renderable]
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [r"\setlength{\parindent}{\parindent+4mm}" + "\n\n"] + \
-            self.contents + \
-            [r"\setlength{\parindent}{\parindent-4mm}"]
+        return self.contents

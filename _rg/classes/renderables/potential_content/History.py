@@ -57,6 +57,6 @@ class History(PotentialContent):
             Heading("Education & Employment History", 1),
             "\n",
             ChangeEmphasis(3),
-            Table([[e for e in self.all()]], horizontal_lines=True,
+            Table([[x] for x in self.all()], horizontal_lines=True,
                   vertical_lines=True)
         ])]

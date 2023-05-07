@@ -26,23 +26,20 @@ class Renderable:
         output = re.sub(r"^", "\t", output, flags=re.MULTILINE)
         render_description = f"render of {str(self)[:100]}"
         typeguard.check_type(output, str)
-        return f"%begin {render_description}\n{output}\n%end {render_description}\n"
+        return f"%begin {render_description}\n{output}\n%end {render_description}"
 
     def generate_tex(self, directory: str, render_settings: RenderSettings):
-        from _rg.classes.renderables.Heading import Heading
         global_variables = {
             "primary_color": colors.tuple_to_hex(render_settings.primary_color),
             "secondary_color": colors.tuple_to_hex(render_settings.secondary_color),
-            "zoe": "".join(Heading("ZOE ZABLOTSKY", 0).render_wrapper(render_settings))
         }
-        from _rg.classes.renderables.ChangeEmphasis import ChangeEmphasis
-        for n in range(10):
-            global_variables[f"change_emphasis_to_{n}"] = "".join(ChangeEmphasis(n).render_wrapper(render_settings))
 
         with open(f"{directory}/{self.__class__.__name__}.tex", "w", encoding="UTF8") as f:
-            f.write(self.generate_tex_section("start", global_variables)),
+            f.write(self.generate_tex_section("start", global_variables))
+            f.write("\n")
             f.write(self.render_wrapper(render_settings))
-            f.write(self.generate_tex_section("end", global_variables)),
+            f.write("\n")
+            f.write(self.generate_tex_section("end", global_variables))
 
     def generate_pdf(self, directory: str, render_settings: RenderSettings):
         self.generate_tex(directory, render_settings)
@@ -58,3 +55,6 @@ class Renderable:
         for name, value in variables.items():
             s = s.replace(f"__{name}__", value)
         return s
+
+    def __str__(self):
+        return self.__class__.__name__

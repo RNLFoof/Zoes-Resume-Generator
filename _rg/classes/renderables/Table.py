@@ -49,3 +49,6 @@ class Row(Renderable):
             return [fr"\SetCell[c={self.table.column_count}]{{l}}" + self.data[0]]
         else:
             raise NotImplementedError()
+
+    def __str__(self):
+        return f"row containing {self.data}"
