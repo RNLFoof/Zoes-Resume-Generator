@@ -5,13 +5,14 @@ from pydantic import BaseModel, validator
 from pydantic import Field
 
 from _rg.classes.RenderSettings import RenderSettings
+from _rg.classes.enums.Category import Category
+from _rg.classes.enums.Impressiveness import Impressiveness
 from _rg.classes.renderables.ChangeEmphasis import ChangeEmphasis
 from _rg.classes.renderables.Heading import Heading
 from _rg.classes.renderables.Indent import Indent
 from _rg.classes.renderables.Renderable import Renderable
 from _rg.classes.renderables.Table import Table
 from _rg.classes.renderables.potential_content.Accomplishment import Accomplishment, AccomplishmentSet
-from _rg.classes.renderables.potential_content.Impressiveness import Impressiveness
 from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
 from _rg.general import tex_escape
 
@@ -33,6 +34,7 @@ class Skill(Renderable, BaseModel):
     name: str = Field(None, repr=False)
     competence: float
     impressiveness: Impressiveness
+    category: Category
 
     def generic_value(self) -> float:
         """Numeric value of this skill, independent on any specific job posting or intent.

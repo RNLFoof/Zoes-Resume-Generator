@@ -2,6 +2,8 @@ import importlib
 import os
 import re
 
+from _rg import definitions
+
 
 def tex_escape(text: str) -> str:
     text = text.replace("\\", r"\textbackslash")
@@ -13,8 +15,13 @@ def tex_escape(text: str) -> str:
 
 def import_all_classes():
     class_path = os.path.join(
-        os.path.split(__file__)[0],
+        definitions.ROOT_DIR,
         "classes")
-    for class_filename in os.listdir(class_path):
-        class_name, _ = os.path.splitext(class_filename)
-        importlib.import_module("_rg.classes." + class_name)
+    for root, _, class_filenames in os.walk(class_path):
+        if "__pycache__" in root:
+            continue
+        for class_filename in class_filenames:
+            class_name, _ = os.path.splitext(class_filename)
+            class_path = re.sub(r"^.*?[/\\]_rg[/\\]", "_rg.", root)
+            class_path = re.sub(r"[/\\]", ".", class_path)
+            importlib.import_module(class_path + "." + class_name)
