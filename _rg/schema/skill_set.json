@@ -34,10 +34,10 @@
             "title": "Category",
             "description": "",
             "enum": [
-                "PROGRAMMING_LANGUAGE",
-                "STYLESHEET_LANGUAGE",
-                "MARKUP_LANGUAGE",
-                "THREED_MODELING"
+                "PROGRAMMING",
+                "THREED_MODELING",
+                "OFFICE_SOFTWARE",
+                "MISCELLANEOUS"
             ]
         },
         "Skill": {

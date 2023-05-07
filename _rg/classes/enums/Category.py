@@ -44,7 +44,7 @@ class Category(Enum):
 
         yield lambda value: validators(value)
 
-    PROGRAMMING_LANGUAGE = auto()
-    STYLESHEET_LANGUAGE = auto()
-    MARKUP_LANGUAGE = auto()
+    PROGRAMMING = auto()
     THREED_MODELING = auto(), "3D Modeling and Printing"
+    OFFICE_SOFTWARE = auto()
+    MISCELLANEOUS = auto()
