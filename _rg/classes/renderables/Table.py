@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from _rg.classes.RenderSettings import RenderSettings
+from _rg.classes.renderables.Concatenate import Concatenate
 from _rg.classes.renderables.Renderable import Renderable
 
 
@@ -46,7 +47,7 @@ class Row(Renderable):
                 first = False
             return sub_l
         elif len(self.data) == 1:
-            return [fr"\SetCell[c={self.table.column_count}]{{l}}" + self.data[0]]
+            return [Concatenate([fr"\SetCell[c={self.table.column_count}]{{l}}", self.data[0]])]
         else:
             raise NotImplementedError()
 

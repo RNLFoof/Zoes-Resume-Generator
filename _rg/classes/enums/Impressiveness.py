@@ -59,6 +59,7 @@ class Impressiveness(Enum):
 
         In particular, takes the Enum name, or an actual Impressiveness instance, instead of value.
         """
+
         def validators(value: str | Impressiveness):
             if type(value) is str:
                 return cls[value]

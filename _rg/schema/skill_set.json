@@ -30,6 +30,16 @@
                 "SPECIALIZABLE"
             ]
         },
+        "Category": {
+            "title": "Category",
+            "description": "",
+            "enum": [
+                "PROGRAMMING",
+                "THREED_MODELING",
+                "OFFICE_SOFTWARE",
+                "MISCELLANEOUS"
+            ]
+        },
         "Skill": {
             "title": "Skill",
             "description": "Represents a skill. That is, a thing that I (know|could know) how to (do|use|write in).\n\nParameters\n----------\ncompetence : float\n    Numerical value representing how good Zoe is at this skill.\nimpressiveness : Impressiveness\n    Impressiveness value associated with this skill.\n\nSee Also\n--------\nImpressiveness.Impressiveness : Specificity on what each impressiveness value means.",
@@ -45,11 +55,15 @@
                 },
                 "impressiveness": {
                     "$ref": "#/definitions/Impressiveness"
+                },
+                "category": {
+                    "$ref": "#/definitions/Category"
                 }
             },
             "required": [
                 "competence",
-                "impressiveness"
+                "impressiveness",
+                "category"
             ]
         }
     }
