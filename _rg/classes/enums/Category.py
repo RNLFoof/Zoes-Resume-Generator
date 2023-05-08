@@ -44,6 +44,11 @@ class Category(Enum):
 
         yield lambda value: validators(value)
 
+    def display_name(self):
+        if self.display_name_overwrite:
+            return self.display_name_overwrite
+        return self.name.replace("_", " ").title()
+
     PROGRAMMING = auto()
     THREED_MODELING = auto(), "3D Modeling and Printing"
     OFFICE_SOFTWARE = auto()

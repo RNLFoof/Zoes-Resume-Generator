@@ -21,12 +21,16 @@ class RenderSettings:
 
     largest_text_size = 24
     first_text_step = 3
-    Heading_curve = curve.HALVING
+    heading_curve = curve.HALVING
     text_curve = lambda self, x: 0.6 ** x
 
     primary_color = color.AZURE.value
     secondary_color = colors.mergecolors(color.DEEP_PURPLE.value, color.PASTEL_PURPLE.value, 0.5)
     link_color = color.AZURE.value
+
+    skill_elaboration = False
+    show_categories = False
+    skill_columns = 3
 
     def start_color_at(self, steps_in: int):
         return colors.mergecolors(self.primary_color, self.secondary_color,
@@ -34,7 +38,7 @@ class RenderSettings:
 
     def text_curve_at(self, steps_in: int):
         if steps_in < self.first_text_step:
-            return self.largest_text_size * self.Heading_curve(steps_in)
+            return self.largest_text_size * self.heading_curve(steps_in)
         else:
             recentered_steps_in = steps_in - self.first_text_step + 1
             return self.text_curve_at(self.first_text_step - 1) * self.text_curve(recentered_steps_in)
