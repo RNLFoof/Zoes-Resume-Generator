@@ -10,7 +10,7 @@ from _rg.classes.renderables.potential_content.PotentialContent import Potential
 from _rg.general import tex_escape
 
 
-class Accomplishment(Renderable, BaseModel):
+class Work(Renderable, BaseModel):
     name: str = Field(None, repr=False)
     description: str
     demonstrates: dict[str, str]
@@ -32,19 +32,19 @@ class Accomplishment(Renderable, BaseModel):
         ]
 
 
-class AccomplishmentSet(PotentialContent):
-    accomplishments: dict[str, Accomplishment]
+class BodyOfWork(PotentialContent):
+    works: dict[str, Work]
 
-    @validator('accomplishments')
-    def __get_validators__(cls, accomplishments: dict[str, Accomplishment]):
-        for name, accomplishment in accomplishments.items():
+    @validator('works')
+    def __get_validators__(cls, works: dict[str, Work]):
+        for name, accomplishment in works.items():
             accomplishment.name = name
-        return accomplishments
+        return works
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
         return [Indent([
             Heading("Works", 1),
             Indent(
-                list(self.accomplishments.values())
+                list(self.works.values())
             )
         ])]
