@@ -32,11 +32,22 @@
       "RSRB Rewrite": {
           description: "Large, very huge Discord chatbot made with love and experience",
           demonstrates: {
-              "Python": "that's what it's written in",
+              "Python": null,
               "Pillow": "Used for image and animation generating commands",
               JSON: "it's used to store some of the randomized canned responses",
               "Regular Expressions": "I forget. they're very broadly useful, you know.",
-              "GitHub Desktop": "Used for publishing."
+              "GitHub Desktop": null
+          }
+      },
+      "Utility Invoice Generator": {
+          description: "",
+          for: "Globe Electric",
+          demonstrates: {
+              "SP2013": null,
+              "HarePoint": "Used to execute server side C# from a workflow.",
+              "C#": null,
+              "Visual Studio": null,
+              "Word": "Target format."
           }
       }
       //    "Progress Formatter": {

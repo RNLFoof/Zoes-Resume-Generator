@@ -52,4 +52,5 @@ class Category(Enum):
     PROGRAMMING = auto()
     THREED_MODELING = auto(), "3D Modeling and Printing"
     OFFICE_SOFTWARE = auto()
+    SHAREPOINT = auto(), None, OFFICE_SOFTWARE
     MISCELLANEOUS = auto()

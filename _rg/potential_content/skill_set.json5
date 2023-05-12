@@ -215,14 +215,14 @@
     //      ],
     //      category: "PROGRAMMING"
     //    },
-    SharePoint: {
-      impressiveness: "SPECIALIZABLE",
-      competence: 3,
-      aliases: [
-        "SP"
-      ],
-      category: "OFFICE_SOFTWARE"
-    },
+    //    SharePoint: {
+    //      impressiveness: "SPECIALIZABLE",
+    //      competence: 3,
+    //      aliases: [
+    //        "SP"
+    //      ],
+    //      category: "OFFICE_SOFTWARE"
+    //    },
     "SharePoint 2013": {
       impressiveness: "SPECIALIZABLE",
       competence: 3,
@@ -232,7 +232,7 @@
       subset_of: [
         "SharePoint"
       ],
-      category: "OFFICE_SOFTWARE"
+      category: "SHAREPOINT"
     },
     "SharePoint Online": {
       impressiveness: "SPECIALIZABLE",
@@ -243,7 +243,7 @@
       subset_of: [
         "SharePoint"
       ],
-      category: "OFFICE_SOFTWARE"
+      category: "SHAREPOINT"
     },
     TypeScript: {
       impressiveness: "SPECIALIZABLE",
@@ -371,6 +371,11 @@
     "VS Code": {
       impressiveness: "EXPANSIVE",
       competence: 3.5,
+      category: "PROGRAMMING"
+    },
+    "Visual Studio": {
+      impressiveness: "EXPANSIVE",
+      competence: 3,
       category: "PROGRAMMING"
     }
   }

@@ -25,7 +25,23 @@
         {
             name: "Junior Web Developer",
             start_year: 2020,
-            building: "Globe Electric"
+            building: "Globe Electric",
+            "daily_tasks": [
+                {
+                    "description": "Respond to tickets from users.",
+                    "demonstrates": {
+                        "Freshdesk": "It's the ticketing software we use.",
+                        "SP2013": "I was responsible for maintaining and updating our SP2013 server."
+                    }
+                },
+                {
+                    "description": "Maintain and update our SP2013 intranet.",
+                    "demonstrates": {
+                        "SP2013": null,
+                        "C#": "Used to create new and fix existing server side custom behavior."
+                    }
+                }
+            ]
         },
         {
             name: "Customs Broker",
