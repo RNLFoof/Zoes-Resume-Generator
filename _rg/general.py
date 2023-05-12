@@ -1,6 +1,7 @@
 import importlib
 import os
 import re
+from contextlib import contextmanager
 
 from _rg import definitions
 
@@ -25,3 +26,13 @@ def import_all_classes():
             class_path = re.sub(r"^.*?[/\\]_rg[/\\]", "_rg.", root)
             class_path = re.sub(r"[/\\]", ".", class_path)
             importlib.import_module(class_path + "." + class_name)
+
+
+@contextmanager
+def temp_cd(new_path: str):
+    original_path = os.getcwd()
+    try:
+        os.chdir(new_path)
+        yield None
+    finally:
+        os.chdir(original_path)

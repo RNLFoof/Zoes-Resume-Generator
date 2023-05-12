@@ -1,9 +1,12 @@
+import pathlib
+
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.renderables.ChangeEmphasis import ChangeEmphasis
 from _rg.classes.renderables.Concatenate import Concatenate
 from _rg.classes.renderables.Heading import Heading
 from _rg.classes.renderables.Renderable import Renderable
 from _rg.classes.renderables.Table import Table
+from _rg.definitions import IMAGE_DIR
 
 
 class Header(Renderable):
@@ -12,6 +15,7 @@ class Header(Renderable):
             Table(
                 [
                     [
+                        rf"\graphicspath{{ {{{pathlib.PureWindowsPath(IMAGE_DIR).as_posix()}}} }}"
                         r"\SetCell[r=2]{l}\includegraphics[width=24mm]{face}",
                         Concatenate([
                             r"\SetCell[c=3]{l}",

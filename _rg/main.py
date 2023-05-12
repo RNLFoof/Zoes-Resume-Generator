@@ -1,29 +1,40 @@
+import os
+from argparse import ArgumentParser
+
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.renderables.Resume import Resume
 from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
+from definitions import ROOT_DIR
 
-if __name__ == '__main__':
+PROD_OUTPUT_DIRECTORY = os.path.join(ROOT_DIR, "../output")
+DEV_OUTPUT_DIRECTORY = os.path.join(ROOT_DIR, "out")
+
+
+def generate_parser() -> ArgumentParser:
+    parser = ArgumentParser()
+    parser.add_argument("-d", "--dev-output",
+                        help=f"Outputs into the test output directory({DEV_OUTPUT_DIRECTORY}) "
+                             f"rather than the default({PROD_OUTPUT_DIRECTORY})",
+                        action="store_const", const=DEV_OUTPUT_DIRECTORY)
+    return parser
+
+
+def process_args(args):
+    output_directory = args.dev_output
+    if output_directory is None:
+        output_directory = PROD_OUTPUT_DIRECTORY
+
     PotentialContent.dump_all_schemas()
 
-    Resume().generate_pdf("out", RenderSettings())
-    exit()
+    Resume().generate_pdf(output_directory, RenderSettings())
 
-    doc = Document('Resume')
-    with doc.create(Section('Heading')):
-        doc.append('Zoe Zablotsky'.upper())
-    with doc.create(Section('Skills')):
-        with doc.create(Itemize()) as itemize:
-            for skill in SkillSet.all().skills_by_generic_value():
-                itemize.add_item(f"{skill.name} ({skill.generic_value()})")
-                with doc.create(Itemize()) as subitemize:
-                    subitemize.add_item(f"RELEVANT PROJECTS")
-                    with doc.create(Itemize()) as subsubitemize:
-                        subsubitemize.add_item(f"COOL PROJECT, in that CONNECTION")
-                        subsubitemize.add_item(f"COOL PROJECT, in that CONNECTION")
-                with doc.create(Itemize()) as subitemize:
-                    subitemize.add_item(f"TRANSFERABLE SKILLS")
-                    with doc.create(Itemize()) as subsubitemize:
-                        subsubitemize.add_item(f"COOL PROJECT, in that CONNECTION")
-                        subsubitemize.add_item(f"COOL PROJECT, in that CONNECTION")
 
-    doc.generate_pdf(clean_tex=True)
+def run_cli():
+    parser = generate_parser()
+    args = parser.parse_args()
+
+    process_args(args)
+
+
+if __name__ == '__main__':
+    run_cli()
