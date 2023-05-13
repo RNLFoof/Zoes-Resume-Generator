@@ -13,7 +13,32 @@ from _rg.general import tex_escape
 class Work(Renderable, BaseModel):
     name: str = Field(None, repr=False)
     description: str
-    demonstrates: dict[str, str]
+    demonstrates: dict[str, str | None]
+
+    class Config:
+        # A little silly. https://github.com/pydantic/pydantic/issues/5755
+        @staticmethod
+        def schema_extra(schema: dict[str, ...]):
+            schema.setdefault("properties", {})\
+                .setdefault("demonstrates", {})\
+                ["additionalProperties"] = {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                }
+
+
+    @validator('demonstrates')
+    def default_demonstration_description(value: dict[str | None]) -> dict[str, str]:
+        for k, v in value.items():
+            if v is None:
+                value[k] = "default"  # TODO this should actually be something useful
+        return value
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
         return [
