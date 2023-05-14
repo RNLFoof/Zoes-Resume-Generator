@@ -43,7 +43,7 @@
           description: "",
           for: "Globe Electric",
           demonstrates: {
-              "SP2013": null,
+              "SP2013": "That's what it was created for.",
               "HarePoint": "Used to execute server side C# from a workflow.",
               "C#": null,
               "Visual Studio": null,
