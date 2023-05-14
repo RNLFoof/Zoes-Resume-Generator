@@ -1,7 +1,7 @@
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.renderables.Header import Header
 from _rg.classes.renderables.Renderable import Renderable
-from _rg.classes.renderables.potential_content.Accomplishment import AccomplishmentSet
+from _rg.classes.renderables.potential_content.BodyOfWork import BodyOfWork
 from _rg.classes.renderables.potential_content.History import History
 from _rg.classes.renderables.potential_content.SkillSet import SkillSet
 
@@ -11,6 +11,6 @@ class Resume(Renderable):
         return [
             Header(),
             SkillSet.summon(),
-            AccomplishmentSet.summon(),
+            BodyOfWork.summon(),
             History.summon(),
         ]

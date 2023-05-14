@@ -59,6 +59,10 @@
                 },
                 "category": {
                     "$ref": "#/definitions/Category"
+                },
+                "default_usage": {
+                    "title": "Default Usage",
+                    "type": "string"
                 }
             },
             "required": [

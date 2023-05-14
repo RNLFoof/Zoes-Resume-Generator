@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Callable
+from typing import Callable, Optional
 
 from pydantic import BaseModel, validator
 from pydantic import Field
@@ -12,7 +12,7 @@ from _rg.classes.renderables.Heading import Heading
 from _rg.classes.renderables.Indent import Indent
 from _rg.classes.renderables.Renderable import Renderable
 from _rg.classes.renderables.Table import Table
-from _rg.classes.renderables.potential_content.Accomplishment import Accomplishment, AccomplishmentSet
+from _rg.classes.renderables.potential_content.BodyOfWork import Work, BodyOfWork
 from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
 from _rg.general import tex_escape
 
@@ -35,6 +35,7 @@ class Skill(Renderable, BaseModel):
     competence: float
     impressiveness: Impressiveness
     category: Category
+    default_usage_overwrite: Optional[str] = Field(None, alias="default_usage")
 
     def generic_value(self) -> float:
         """Numeric value of this skill, independent on any specific job posting or intent.
@@ -49,11 +50,17 @@ class Skill(Renderable, BaseModel):
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
         return [tex_escape(self.name)]
 
+    @property
+    def default_usage(self) -> str:
+        if self.default_usage_overwrite is not None:
+            return self.default_usage_overwrite
+        return self.category.default_usage
+
 
 @dataclass
 class SkillWithElaboration:
     skill: Skill
-    relevant_accomplishments: list[Accomplishment]
+    relevant_works: list[Work]
 
     def tex(self):
         s = ""
@@ -62,7 +69,7 @@ class SkillWithElaboration:
         s += self.skill.name
         s += ChangeEmphasis(3)
         s += "\nAs demonstrated by my work on\ldots"
-        for accomplishment in self.relevant_accomplishments:
+        for accomplishment in self.relevant_works:
             explanation = accomplishment.demonstrates[self.skill.name]
             s += f"\n\ldotsGUY{ChangeEmphasis(4)}({accomplishment.description}),{ChangeEmphasis(3)}\n\nbecause {explanation}"
         s += "}"
@@ -102,14 +109,14 @@ class SkillSet(PotentialContent):
         skills_with_elaboration = {skill.name: SkillWithElaboration(skill, [])
                                    for skill in SkillSet.summon().skills_by_generic_value()}
         if render_settings.skill_elaboration:
-            for name, accomplishment in AccomplishmentSet.summon().accomplishments.items():
+            for name, accomplishment in BodyOfWork.summon().works.items():
                 for skill in accomplishment.demonstrates.keys():
                     if skill in skills_with_elaboration:
-                        skills_with_elaboration[skill].relevant_accomplishments.append(accomplishment)
+                        skills_with_elaboration[skill].relevant_works.append(accomplishment)
 
         for skill_with_elaboration in skills_with_elaboration.values():
             skill = skill_with_elaboration.skill
-            elaboration = skill_with_elaboration.relevant_accomplishments
+            elaboration = skill_with_elaboration.relevant_works
 
             key = skill.category.display_name() if render_settings.show_categories else "burp"
             if key not in tables_for_categories:

@@ -11,4 +11,4 @@ class TestPotentialContent:
         import_all_classes()
         for subclass in PotentialContent.__subclasses__():
             print(f"--- {subclass.__name__} ---")
-            subclass().generate_pdf(r"S:\Code\Resume\tests\classes\out", RenderSettings())
+            subclass.summon().generate_pdf(r"S:\Code\Resume\tests\classes\out", RenderSettings())
