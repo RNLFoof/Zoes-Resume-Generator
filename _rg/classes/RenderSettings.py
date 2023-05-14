@@ -37,7 +37,7 @@ class RenderSettings:
 
     def start_color_at(self, steps_in: int):
         return colors.mergecolors(self.primary_color, self.secondary_color,
-                                  steps_in / (self.first_text_step - 1))
+                                  1 - 0.9 ** steps_in)
 
     def text_curve_at(self, steps_in: int):
         if steps_in < self.first_text_step:
