@@ -223,22 +223,22 @@
     //      ],
     //      category: "OFFICE_SOFTWARE"
     //    },
-    "SharePoint 2013": {
+    "SP2013": {
       impressiveness: "SPECIALIZABLE",
       competence: 3,
       aliases: [
-        "SP2013"
+        "SharePoint 2013"
       ],
       subset_of: [
         "SharePoint"
       ],
       category: "SHAREPOINT"
     },
-    "SharePoint Online": {
+    "SPO": {
       impressiveness: "SPECIALIZABLE",
       competence: 3,
       aliases: [
-        "SPO"
+        "SharePoint Online"
       ],
       subset_of: [
         "SharePoint"
