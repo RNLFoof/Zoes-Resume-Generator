@@ -19,25 +19,26 @@ class Work(Renderable, BaseModel):
         # A little silly. https://github.com/pydantic/pydantic/issues/5755
         @staticmethod
         def schema_extra(schema: dict[str, ...]):
-            schema.setdefault("properties", {})\
-                .setdefault("demonstrates", {})\
+            schema.setdefault("properties", {}) \
+                .setdefault("demonstrates", {}) \
                 ["additionalProperties"] = {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                }
+                "anyOf": [
+                    {
+                        "type": "string"
+                    },
+                    {
+                        "type": "null"
+                    }
+                ]
+            }
 
-
+    # @staticmethod
     @validator('demonstrates')
     def default_demonstration_description(value: dict[str | None]) -> dict[str, str]:
+        from _rg.classes.renderables.potential_content.SkillSet import SkillSet
         for k, v in value.items():
             if v is None:
-                value[k] = "default"  # TODO this should actually be something useful
+                value[k] = SkillSet.summon().skills[k].default_usage
         return value
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:

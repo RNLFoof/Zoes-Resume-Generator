@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Callable
+from typing import Callable, Optional
 
 from pydantic import BaseModel, validator
 from pydantic import Field
@@ -35,6 +35,7 @@ class Skill(Renderable, BaseModel):
     competence: float
     impressiveness: Impressiveness
     category: Category
+    default_usage_overwrite: Optional[str] = Field(None, alias="default_usage")
 
     def generic_value(self) -> float:
         """Numeric value of this skill, independent on any specific job posting or intent.
@@ -48,6 +49,12 @@ class Skill(Renderable, BaseModel):
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
         return [tex_escape(self.name)]
+
+    @property
+    def default_usage(self) -> str:
+        if self.default_usage_overwrite is not None:
+            return self.default_usage_overwrite
+        return self.category.default_usage
 
 
 @dataclass
