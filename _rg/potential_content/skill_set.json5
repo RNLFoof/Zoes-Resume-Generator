@@ -14,12 +14,12 @@
         "Auto Hotkey",
         "Auto Hot Key"
       ],
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     "C#": {
       impressiveness: "SPECIALIZABLE",
       competence: 3,
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     Django: {
       impressiveness: "MAKE_OR_BREAK",
@@ -30,7 +30,7 @@
     GDScript: {
       impressiveness: "DEEP",
       competence: 3,
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     "Game Maker Language": {
       impressiveness: "BEGINNER",
@@ -39,7 +39,7 @@
         "GML"
       ],
       "exists within": "GameMaker",
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     "GameMaker": {
       impressiveness: "BEGINNER",
@@ -100,7 +100,7 @@
           link: "https://github.com/cocobelgica/AutoHotkey-JSON"
         }
       },
-      category: "PROGRAMMING",
+      category: "PROGRAMMING_LANGUAGES",
       "link": "https://www.json.org"
     },
     "JSON Schema": {
@@ -139,7 +139,7 @@
           link: "https://github.com/json5/json5-dotnet"
         }
       },
-      category: "PROGRAMMING",
+      category: "PROGRAMMING_LANGUAGES",
       link: "https://json5.org/"
     },
     JavaScript: {
@@ -149,7 +149,7 @@
         "JS",
         "ECMAScript"
       ],
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     NLTK: {
       impressiveness: "DEEP",
@@ -183,7 +183,7 @@
         "Python3",
         "Python 3"
       ],
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     "Regular Expressions": {
       impressiveness: "DEEP",
@@ -252,7 +252,7 @@
         "TS"
       ],
       "superset of": "JavaScript",
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     jQuery: {
       impressiveness: "DEEP",
@@ -271,22 +271,22 @@
     PHP: {
       impressiveness: "SPECIALIZABLE",
       competence: 2,
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     XML: {
       impressiveness: "DEEP",
       competence: 2,
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     HTML: {
       impressiveness: "INTUITIVE",
       competence: 5,
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     CSS: {
       impressiveness: "SPECIALIZABLE",
       competence: 3.5,
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     Bootstrap: {
       impressiveness: "INTUITIVE",
@@ -296,22 +296,22 @@
     SQL: {
       impressiveness: "SPECIALIZABLE",
       competence: 3,
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     SQLite: {
       impressiveness: "MAKE_OR_BREAK",
       competence: 3,
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     Java: {
       impressiveness: "SPECIALIZABLE",
       competence: 3,
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     Kotlin: {
       impressiveness: "MAKE_OR_BREAK",
       competence: 3.5,
-      category: "PROGRAMMING"
+      category: "PROGRAMMING_LANGUAGES"
     },
     JavaFX: {
       impressiveness: "DEEP",
@@ -336,17 +336,17 @@
     "Git": {
       impressiveness: "MAKE_OR_BREAK",
       competence: 3,
-      category: "PROGRAMMING"
+      category: "VERSION_CONTROL"
     },
     "GitHub": {
       impressiveness: "DEEP",
       competence: 3,
-      category: "PROGRAMMING"
+      category: "VERSION_CONTROL"
     },
     "GitHub Desktop": {
       impressiveness: "BEGINNER",
       competence: 3.5,
-      category: "PROGRAMMING"
+      category: "VERSION_CONTROL"
     },
     "Notepad++": {
       impressiveness: "BEGINNER",
@@ -356,7 +356,7 @@
     "PyCharm": {
       impressiveness: "EXPANSIVE",
       competence: 4,
-      category: "PROGRAMMING"
+      category: "IDE"
     },
     "Miniconda": {
       impressiveness: "EXPANSIVE",
@@ -371,12 +371,33 @@
     "VS Code": {
       impressiveness: "EXPANSIVE",
       competence: 3.5,
-      category: "PROGRAMMING"
+      category: "IDE"
     },
     "Visual Studio": {
       impressiveness: "EXPANSIVE",
       competence: 3,
-      category: "PROGRAMMING"
+      category: "IDE"
+    },
+    "GitKraken": {
+      impressiveness: "DEEP",
+      competence: 3,
+      category: "VERSION_CONTROL"
+    },
+    HarePoint: {
+      impressiveness: "BEGINNER",
+      competence: 4,
+      category: "SHAREPOINT"
+    },
+    LaTeX: {
+      impressiveness: "MAKE_OR_BREAK",
+      competence: 3,
+      category: "MISCELLANEOUS"
+    },
+    pydantic: {
+      impressiveness: "EXPANSIVE",
+      competence: 3,
+      category: "PROGRAMMING",
+      link: "https://docs.pydantic.dev/latest/"
     }
   }
 }
