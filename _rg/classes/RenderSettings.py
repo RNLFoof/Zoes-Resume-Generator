@@ -10,6 +10,7 @@ class color(Enum):
     PASTEL_PURPLE = (212, 198, 216)
     DEEP_PURPLE = (44, 17, 79)
     FUCHSIA = (254, 65, 100)
+    CELESTE_CYAN = (58, 189, 225)
     CELESTE_BLUE = (58, 105, 225)
     CELESTE_PURPLE = (108, 29, 169)
 
@@ -27,7 +28,7 @@ class RenderSettings:
     heading_curve = curve.HALVING
     text_curve = lambda self, x: 0.6 ** x
 
-    primary_color = color.CELESTE_BLUE.value
+    primary_color = color.CELESTE_CYAN.value
     secondary_color = color.CELESTE_PURPLE.value
     link_color = color.AZURE.value
 
@@ -37,7 +38,7 @@ class RenderSettings:
 
     def start_color_at(self, steps_in: int):
         return colors.mergecolors(self.primary_color, self.secondary_color,
-                                  1 - 0.9 ** steps_in)
+                                  1 - 1/3 ** steps_in)
 
     def text_curve_at(self, steps_in: int):
         if steps_in < self.first_text_step:
