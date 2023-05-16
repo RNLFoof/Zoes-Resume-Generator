@@ -19,14 +19,19 @@ class HistoryItem(Renderable, BaseModel):
     building: Union[str | None]
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [self.name_tex(), self.date_tex()]
+        return [
+            Heading(self.name, 2),
+            ChangeEmphasis(3),
+            self.timespan(),
+            "\n"
+        ]
 
-    def name_tex(self):
+    def name_tex(self) -> str:
         if self.building is None:
             return self.name
         return fr"{{ {self.name} \\ {self.building} }}"
 
-    def date_tex(self):
+    def timespan(self) -> str:
         if self.end_year is None:
             end = "Current"
         else:
@@ -53,10 +58,9 @@ class History(PotentialContent):
             typing.cast(list[HistoryItem], self.education)
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [Indent([
+        return [
             Heading("Education & Employment History", 1),
-            "\n",
-            ChangeEmphasis(3),
-            Table([x.class_specific_render(render_settings) for x in self.all()], horizontal_lines=True,
-                  vertical_lines=True)
-        ])]
+            Indent(
+                self.all()
+            )
+        ]
