@@ -72,7 +72,11 @@ class Category(Enum):
 
         return [c for c in Category if c.value == self._subcategory_of][0]
 
-    PROGRAMMING = init_wrapper(default_usage="That's what it's written in")
+    PROGRAMMING = init_wrapper()
+    PROGRAMMING_LANGUAGES = init_wrapper(default_usage="That's what it's written in", subcategory_of=PROGRAMMING)
+    IDE = init_wrapper(default_usage="That's the editor I used", subcategory_of=PROGRAMMING,
+                       display_name="Integrated Development Environments")
+    VERSION_CONTROL = init_wrapper(default_usage="Used for version control", subcategory_of=PROGRAMMING)
     THREED_MODELING = init_wrapper(default_usage="That's what it's modeled in",
                                    display_name="3D Modeling and Printing")
     OFFICE_SOFTWARE = init_wrapper()

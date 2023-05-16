@@ -1,56 +1,69 @@
 {
-  works: {
-      "Golf 2": {
-          "description": 'GMTK 2021 Game Jam entry(72h to make a game). We ranked 81st in the fun category and 116th overall out of 5712 entries.',
-          "demonstrates": {
-              'GameMaker Studio 2': "that's what it was created in",
-              'Game Maker Language': "that's what it's written in"
+      works: {
+          "Golf 2": {
+              "description": 'GMTK 2021 Game Jam entry(72h to make a game). We ranked 81st in the fun category and 116th overall out of 5712 entries.',
+              "demonstrates": {
+                  'GameMaker Studio 2': "that's what it was created in",
+                  'Game Maker Language': "that's what it's written in"
+              },
+              link: "https://itch.io/jam/gmtk-2021/rate/1081786"
           },
-          link: "https://itch.io/jam/gmtk-2021/rate/1081786"
-      },
-      "Zoe's Stupid UKG Dimensions Destroyer": {
-          "description": "Converts UKG Dimensions calendar events to Google Calendar events.",
-          "demonstrates": {
-              "Node.js": "that's what it runs in",
-              "TypeScript": "that's what it's written in",
-              "HTML": "the data is extracted from UKGD's HTML",
-              "VS Code": "written in it",
-              "Google Calendar API": ""
+          "Zoe's Stupid UKG Dimensions Destroyer": {
+              "description": "Converts UKG Dimensions calendar events to Google Calendar events.",
+              "demonstrates": {
+                  "Node.js": "that's what it runs in",
+                  "TypeScript": "that's what it's written in",
+                  "HTML": "the data is extracted from UKGD's HTML",
+                  "VS Code": "written in it",
+                  "Google Calendar API": ""
+              }
+          },
+          "RSRB Classic": {
+              description: "Large, very huge Discord chatbot made with love and spaghetti",
+              demonstrates: {
+                  "Python": "that's what it's written in",
+                  "Pillow": "used for image and animation generating commands",
+                  "Game Maker Language": "I needed and made copies of its lengthdir_[xy] functions",
+                  "Regular Expressions": "I forget. they're very broadly useful, you know.",
+                  "NLTK": "Used to determine if words are adjectives, nouns, or verbs for use in responses that take chat context into consideration.",
+                  "Notepad++": "Largely written in it, before I knew any better"
+              }
+          },
+          "RSRB Rewrite": {
+              description: "Large, very huge Discord chatbot made with love and experience",
+              demonstrates: {
+                  "Python": null,
+                  "Pillow": "Used for image and animation generating commands",
+                  JSON: "it's used to store some of the randomized canned responses",
+                  "Regular Expressions": "I forget. they're very broadly useful, you know.",
+                  "GitHub Desktop": null
+              }
+          },
+          "Utility Invoice Generator": {
+              description: "",
+              for: "Globe Electric",
+              demonstrates: {
+                  "SP2013": "That's what it was created for.",
+                  "HarePoint": "Used to execute server side C# from a workflow.",
+                  "C#": null,
+                  "Visual Studio": null,
+                  "Word": "Target format."
+              }
+          },
+          "[Zoe's Resume] Generator": {
+              description: "Generates the document that you're presumably reading.",
+              "link": "https://github.com/RNLFoof/Zoes-Resume-Generator",
+              demonstrates: {
+                  "Python": "used to generate the LaTex.",
+                  "LaTeX": "used to generate the document, using pdflatex.",
+                  "PyCharm": null,
+                  "GitKraken": null,
+                  "GitHub Desktop": null,
+                  pydantic: "used to generate schema and parse the json5 that contains the actual content",
+                  JSON5: "used to write the actual content"
+              }
           }
-      },
-      "RSRB Classic": {
-          description: "Large, very huge Discord chatbot made with love and spaghetti",
-          demonstrates: {
-              "Python": "that's what it's written in",
-              "Pillow": "used for image and animation generating commands",
-              "Game Maker Language": "I needed and made copies of its lengthdir_[xy] functions",
-              "Regular Expressions": "I forget. they're very broadly useful, you know.",
-              "NLTK": "Used to determine if words are adjectives, nouns, or verbs for use in responses that take chat context into consideration.",
-              "Notepad++": "Largely written in it, before I knew any better"
-          }
-      },
-      "RSRB Rewrite": {
-          description: "Large, very huge Discord chatbot made with love and experience",
-          demonstrates: {
-              "Python": null,
-              "Pillow": "Used for image and animation generating commands",
-              JSON: "it's used to store some of the randomized canned responses",
-              "Regular Expressions": "I forget. they're very broadly useful, you know.",
-              "GitHub Desktop": null
-          }
-      },
-      "Utility Invoice Generator": {
-          description: "",
-          for: "Globe Electric",
-          demonstrates: {
-              "SP2013": "That's what it was created for.",
-              "HarePoint": "Used to execute server side C# from a workflow.",
-              "C#": null,
-              "Visual Studio": null,
-              "Word": "Target format."
-          }
-      }
-      //    "Progress Formatter": {
-      //    }
-  }
+          //    "Progress Formatter": {
+          //    }
+    }
 }

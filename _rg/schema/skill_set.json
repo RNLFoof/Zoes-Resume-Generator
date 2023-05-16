@@ -35,6 +35,9 @@
             "description": "",
             "enum": [
                 "PROGRAMMING",
+                "PROGRAMMING_LANGUAGES",
+                "IDE",
+                "VERSION_CONTROL",
                 "THREED_MODELING",
                 "OFFICE_SOFTWARE",
                 "SHAREPOINT",
