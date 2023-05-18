@@ -2,9 +2,11 @@ import typing
 from typing import Union
 
 from pydantic import BaseModel
+from pydantic.dataclasses import dataclass
 
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.renderables.ChangeEmphasis import ChangeEmphasis
+from _rg.classes.renderables.Demonstrable import Demonsterable
 from _rg.classes.renderables.Heading import Heading
 from _rg.classes.renderables.Indent import Indent
 from _rg.classes.renderables.Renderable import Renderable
@@ -52,8 +54,14 @@ class Education(HistoryItem):
         s += f"{self.completion_description} in {self.end_year}"
         return s
 
+class DailyTask(Demonsterable):
+    def begining(self, render_settings: RenderSettings) -> list[str | Renderable]:
+        return [r"\ldots"] + super().begining(render_settings)
+    def segway(self, render_settings: RenderSettings) -> list[str | Renderable]:
+        return [r", which demonstrates\ldots"]
+
 class Job(HistoryItem):
-    daily_tasks: list[str]
+    daily_tasks: list[DailyTask]
     def description(self) -> str:
         s = super().description()
         s += self.timespan()
@@ -61,11 +69,11 @@ class Job(HistoryItem):
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
         return super().class_specific_render(render_settings) + [
-            "My daily tasks included:",
-            Indent([
-                "shitting\n",
-                "farting\n",
-            ])
+
+                r"My daily tasks included\ldots",
+                Indent(
+                    list(self.daily_tasks)
+                )
         ]
 
     pass

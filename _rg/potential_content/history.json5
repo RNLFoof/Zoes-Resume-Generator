@@ -11,12 +11,13 @@
             completion_description: "AEC Granted",
             building: "John Abbott College",
             start_year: 2018,
-            end_year: 2017
+            end_year: 2019
         },
         {
             name: "High School",
             completion_description: "DEC Granted",
-            building: "St. Thomas High School (Lindsay Place at the time)",
+            building: "St. Thomas High School",
+            building_formerly: "Lindsay Place",
             start_year: 2010,
             end_year: 2015
         },
@@ -28,16 +29,16 @@
             building: "Globe Electric",
             "daily_tasks": [
                 {
-                    "description": "Respond to tickets from users.",
+                    "description": "Responding to tickets from users",
                     "demonstrates": {
                         "Freshdesk": "It's the ticketing software we use.",
                         "SP2013": "I was responsible for maintaining and updating our SP2013 server."
                     }
                 },
                 {
-                    "description": "Maintain and update our SP2013 intranet.",
+                    "description": "Maintaining and updating our SP2013 intranet",
                     "demonstrates": {
-                        "SP2013": null,
+                        "SP2013": "I think you can infer from context.",
                         "C#": "Used to create new and fix existing server side custom behavior."
                     }
                 }
@@ -47,13 +48,28 @@
             name: "Customs Broker",
             start_year: 2019,
             end_year: 2020,
-            building: "Livingston International"
+            building: "Livingston International",
+            "daily_tasks": [{
+                "description": "Entering data into their archaic DOS-based DB",
+                "demonstrates": {
+                    "MS-DOS": "I assume this to be the DOS flavor in question.",
+                    "AHK": "I wrote a script to enter some of the more repetitive actions."
+                }
+            }]
         },
         {
             name: "Web Development Intern",
             start_year: 2019,
             end_year: 2019,
-            building: "Jewish General Hospital"
+            building: "Jewish General Hospital",
+            "daily_tasks": [{
+                "description": "Refactoring HTML from their old website into the format used for their new website",
+                "demonstrates": {
+                    "TYPO3": "The CMS used for their new website.",
+                    "JS": "I wrote a script to automate most of the changes, given the original page.",
+                    "Regex": "Used for the bulk of the automation."
+                }
+            }]
         }
     ]
 }

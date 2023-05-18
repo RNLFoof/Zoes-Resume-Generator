@@ -22,6 +22,34 @@
         "education"
     ],
     "definitions": {
+        "DailyTask": {
+            "title": "DailyTask",
+            "type": "object",
+            "properties": {
+                "description": {
+                    "title": "Description",
+                    "type": "string"
+                },
+                "demonstrates": {
+                    "title": "Demonstrates",
+                    "type": "object",
+                    "additionalProperties": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    }
+                }
+            },
+            "required": [
+                "description",
+                "demonstrates"
+            ]
+        },
         "Job": {
             "title": "Job",
             "type": "object",
@@ -41,11 +69,23 @@
                 "building": {
                     "title": "Building",
                     "type": "string"
+                },
+                "building_formerly": {
+                    "title": "Building Formerly",
+                    "type": "string"
+                },
+                "daily_tasks": {
+                    "title": "Daily Tasks",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DailyTask"
+                    }
                 }
             },
             "required": [
                 "name",
-                "start_year"
+                "start_year",
+                "daily_tasks"
             ]
         },
         "Education": {
@@ -66,6 +106,10 @@
                 },
                 "building": {
                     "title": "Building",
+                    "type": "string"
+                },
+                "building_formerly": {
+                    "title": "Building Formerly",
                     "type": "string"
                 },
                 "completion_description": {

@@ -18,10 +18,6 @@
             "title": "Work",
             "type": "object",
             "properties": {
-                "name": {
-                    "title": "Name",
-                    "type": "string"
-                },
                 "description": {
                     "title": "Description",
                     "type": "string"
@@ -39,6 +35,10 @@
                             }
                         ]
                     }
+                },
+                "name": {
+                    "title": "Name",
+                    "type": "string"
                 }
             },
             "required": [
