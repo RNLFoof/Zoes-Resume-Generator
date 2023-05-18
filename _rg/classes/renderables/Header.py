@@ -11,11 +11,10 @@ from _rg.definitions import IMAGE_DIR
 
 class Header(Renderable):
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [
+        return [rf"\graphicspath{{ {{{pathlib.PureWindowsPath(IMAGE_DIR).as_posix()}}} }}",
             Table(
                 [
                     [
-                        rf"\graphicspath{{ {{{pathlib.PureWindowsPath(IMAGE_DIR).as_posix()}}} }}"
                         r"\SetCell[r=2]{l}\includegraphics[width=24mm]{face}",
                         Concatenate([
                             r"\SetCell[c=3]{l}",
