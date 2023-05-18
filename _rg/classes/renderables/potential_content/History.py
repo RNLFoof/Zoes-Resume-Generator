@@ -10,6 +10,7 @@ from _rg.classes.renderables.Indent import Indent
 from _rg.classes.renderables.Renderable import Renderable
 from _rg.classes.renderables.Table import Table
 from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
+from _rg.general import tex_escape
 
 
 class HistoryItem(Renderable, BaseModel):
@@ -17,19 +18,21 @@ class HistoryItem(Renderable, BaseModel):
     start_year: int
     end_year: Union[int | None]
     building: Union[str | None]
+    building_formerly: Union[str | None]
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
         return [
-            Heading(self.name, 2),
+            Heading(tex_escape(self.name), 2),
             ChangeEmphasis(3),
-            self.timespan(),
+            self.description(),
             "\n"
         ]
 
-    def name_tex(self) -> str:
-        if self.building is None:
-            return self.name
-        return fr"{{ {self.name} \\ {self.building} }}"
+    def description(self) -> str:
+        s = ""
+        if self.building is not None:
+            s += f"{self.building}, "
+        return s
 
     def timespan(self) -> str:
         if self.end_year is None:
@@ -44,8 +47,27 @@ class HistoryItem(Renderable, BaseModel):
 class Education(HistoryItem):
     completion_description: str
 
+    def description(self) -> str:
+        s = super().description()
+        s += f"{self.completion_description} in {self.end_year}"
+        return s
 
 class Job(HistoryItem):
+    daily_tasks: list[str]
+    def description(self) -> str:
+        s = super().description()
+        s += self.timespan()
+        return s
+
+    def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
+        return super().class_specific_render(render_settings) + [
+            "My daily tasks included:",
+            Indent([
+                "shitting\n",
+                "farting\n",
+            ])
+        ]
+
     pass
 
 
