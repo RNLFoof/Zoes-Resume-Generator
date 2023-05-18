@@ -7,7 +7,7 @@ from pydantic import Field
 from _rg.classes.RenderSettings import RenderSettings
 from _rg.classes.enums.Category import Category
 from _rg.classes.enums.Impressiveness import Impressiveness
-from _rg.classes.renderables.ChangeEmphasis import ChangeEmphasis
+from _rg.classes.renderables.WithEmphasis import WithEmphasis
 from _rg.classes.renderables.Heading import Heading
 from _rg.classes.renderables.Indent import Indent
 from _rg.classes.renderables.Renderable import Renderable
@@ -65,13 +65,13 @@ class SkillWithElaboration:
     def tex(self):
         s = ""
         s += "{"
-        s += ChangeEmphasis(2)
+        s += WithEmphasis(2)
         s += self.skill.name
-        s += ChangeEmphasis(3)
-        s += "\nAs demonstrated by my work on\ldots"
+        s += WithEmphasis(3)
+        s += "\nAs demonstrated by my work on:"
         for accomplishment in self.relevant_works:
             explanation = accomplishment.demonstrates[self.skill.name]
-            s += f"\n\ldotsGUY{ChangeEmphasis(4)}({accomplishment.description}),{ChangeEmphasis(3)}\n\nbecause {explanation}"
+            s += f"\n$\$\smallblacksquare$$GUY{WithEmphasis(4)}({accomplishment.description}),{WithEmphasis(3)}\n\nbecause {explanation}"
         s += "}"
         return s
 
@@ -141,19 +141,21 @@ class SkillSet(PotentialContent):
             the_important_bit = [
                 Indent([
                     Heading(category_name, 2),
-                    ChangeEmphasis(3),
                     Indent([
-                        Table(tfc.content)
+                        WithEmphasis(3, [
+                            Table(tfc.content)
+                        ])
                     ])
                 ])
                 for category_name, tfc in tables_for_categories.items()
             ]
         else:
             the_important_bit = [
-                ChangeEmphasis(3),
-                Indent([
-                    Table(list(tables_for_categories.values())[0].content)
-                ])
+                WithEmphasis(3, [
+                    Indent([
+                        Table(list(tables_for_categories.values())[0].content)
+                    ])
+                ]),
             ]
         return [
             Indent([

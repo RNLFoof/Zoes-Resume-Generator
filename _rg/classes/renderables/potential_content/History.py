@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from pydantic.dataclasses import dataclass
 
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.renderables.ChangeEmphasis import ChangeEmphasis
+from _rg.classes.renderables.WithEmphasis import WithEmphasis
 from _rg.classes.renderables.Demonstrable import Demonsterable
 from _rg.classes.renderables.Heading import Heading
 from _rg.classes.renderables.Indent import Indent
@@ -25,8 +25,7 @@ class HistoryItem(Renderable, BaseModel):
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
         return [
             Heading(tex_escape(self.name), 2),
-            ChangeEmphasis(3),
-            self.description(),
+            WithEmphasis(3, [self.description()], no_break=True),
             "\n"
         ]
 
@@ -56,9 +55,9 @@ class Education(HistoryItem):
 
 class DailyTask(Demonsterable):
     def begining(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [r"\ldots"] + super().begining(render_settings)
+        return [r"$\smallblacksquare$"] + super().begining(render_settings)
     def segway(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [r", which demonstrates\ldots"]
+        return [r", which demonstrates:"]
 
 class Job(HistoryItem):
     daily_tasks: list[DailyTask]
@@ -68,13 +67,13 @@ class Job(HistoryItem):
         return s
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return super().class_specific_render(render_settings) + [
-
-                r"My daily tasks included\ldots",
-                Indent(
-                    list(self.daily_tasks)
-                )
-        ]
+        return [WithEmphasis(3,
+                    super().class_specific_render(render_settings) + [
+                    r"My daily tasks included:",
+                    Indent(
+                        list(self.daily_tasks)
+                    )
+        ])]
 
     pass
 
@@ -88,9 +87,13 @@ class History(PotentialContent):
             typing.cast(list[HistoryItem], self.education)
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [
-            Heading("Education & Employment History", 1),
+        return [WithEmphasis(2, [
+            Heading("Employment History", 1),
             Indent(
-                self.all()
+                self.jobs
+            ),
+            Heading("Education", 1),
+            Indent(
+                self.education
             )
-        ]
+        ])]

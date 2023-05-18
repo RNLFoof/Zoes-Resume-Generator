@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from zsil import colors
 
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.renderables.ChangeEmphasis import ChangeEmphasis
+from _rg.classes.renderables.WithEmphasis import WithEmphasis
 from _rg.classes.renderables.Renderable import Renderable
 from _rg.general import tex_escape
 
@@ -26,6 +26,5 @@ class Heading(Renderable):
             letters.append(self.text)
 
         return [
-            ChangeEmphasis(self.steps_in),
-            "".join(letters)  # Line breaks cause gaps, so
+            WithEmphasis(self.steps_in, ["".join(letters)]), # Line breaks cause gaps, so
         ]
