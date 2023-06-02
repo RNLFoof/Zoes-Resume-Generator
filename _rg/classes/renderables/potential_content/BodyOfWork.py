@@ -1,7 +1,7 @@
 from pydantic import BaseModel, validator, Field
 
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.renderables.ChangeEmphasis import ChangeEmphasis
+from _rg.classes.renderables.WithEmphasis import WithEmphasis
 from _rg.classes.renderables.Concatenate import Concatenate
 from _rg.classes.renderables.Demonstrable import Demonsterable
 from _rg.classes.renderables.Heading import Heading
@@ -20,7 +20,7 @@ class Work(Demonsterable):
         ] + super().begining(render_settings)
 
     def segway(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return ["\nMy work on this demonstrates\\ldots"]
+        return ["\nMy work on this demonstrates:"]
 
 class BodyOfWork(PotentialContent):
     works: dict[str, Work]
@@ -32,9 +32,11 @@ class BodyOfWork(PotentialContent):
         return works
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [Indent([
-            Heading("Works", 1),
-            Indent(
-                list(self.works.values())
-            )
+        return [WithEmphasis(2, [
+            Indent([
+                Heading("Works", 1),
+                Indent(
+                    list(self.works.values())
+                )
+        ])
         ])]
