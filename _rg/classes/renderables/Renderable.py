@@ -8,6 +8,7 @@ from zsil import colors
 
 from _rg import definitions
 from _rg.classes.RenderSettings import RenderSettings
+from _rg.general import temp_cd
 
 
 class Renderable:
@@ -43,7 +44,9 @@ class Renderable:
 
     def generate_pdf(self, directory: str, render_settings: RenderSettings):
         self.generate_tex(directory, render_settings)
-        subprocess.run(["pdflatex", "-output-directory=out", f"{directory}/{self.__class__.__name__}.tex"])
+        with temp_cd(
+                directory):  # "...TeX binaries don't allow writing files specified with absolute paths or above the working directory..." https://tex.stackexchange.com/a/328565
+            subprocess.run(["pdflatex", f"{self.__class__.__name__}.tex"])
 
     def generate_tex_section(self, section_name, variables: dict[str, Any]):
         with open(

@@ -2,14 +2,17 @@ import typing
 from typing import Union
 
 from pydantic import BaseModel
+from pydantic.dataclasses import dataclass
 
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.renderables.ChangeEmphasis import ChangeEmphasis
+from _rg.classes.renderables.WithEmphasis import WithEmphasis
+from _rg.classes.renderables.Demonstrable import Demonsterable
 from _rg.classes.renderables.Heading import Heading
 from _rg.classes.renderables.Indent import Indent
 from _rg.classes.renderables.Renderable import Renderable
 from _rg.classes.renderables.Table import Table
 from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
+from _rg.general import tex_escape
 
 
 class HistoryItem(Renderable, BaseModel):
@@ -17,16 +20,22 @@ class HistoryItem(Renderable, BaseModel):
     start_year: int
     end_year: Union[int | None]
     building: Union[str | None]
+    building_formerly: Union[str | None]
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [self.name_tex(), self.date_tex()]
+        return [
+            Heading(tex_escape(self.name), 2),
+            WithEmphasis(3, [self.description()], no_break=True),
+            "\n"
+        ]
 
-    def name_tex(self):
-        if self.building is None:
-            return self.name
-        return fr"{{ {self.name} \\ {self.building} }}"
+    def description(self) -> str:
+        s = ""
+        if self.building is not None:
+            s += f"{self.building}, "
+        return s
 
-    def date_tex(self):
+    def timespan(self) -> str:
         if self.end_year is None:
             end = "Current"
         else:
@@ -39,8 +48,33 @@ class HistoryItem(Renderable, BaseModel):
 class Education(HistoryItem):
     completion_description: str
 
+    def description(self) -> str:
+        s = super().description()
+        s += f"{self.completion_description} in {self.end_year}"
+        return s
+
+class DailyTask(Demonsterable):
+    def begining(self, render_settings: RenderSettings) -> list[str | Renderable]:
+        return [r"$\smallblacksquare$"] + super().begining(render_settings)
+    def segway(self, render_settings: RenderSettings) -> list[str | Renderable]:
+        return [r", which demonstrates:"]
 
 class Job(HistoryItem):
+    daily_tasks: list[DailyTask]
+    def description(self) -> str:
+        s = super().description()
+        s += self.timespan()
+        return s
+
+    def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
+        return [WithEmphasis(3,
+                    super().class_specific_render(render_settings) + [
+                    r"My daily tasks included:",
+                    Indent(
+                        list(self.daily_tasks)
+                    )
+        ])]
+
     pass
 
 
@@ -53,10 +87,13 @@ class History(PotentialContent):
             typing.cast(list[HistoryItem], self.education)
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [Indent([
-            Heading("Education & Employment History", 1),
-            "\n",
-            ChangeEmphasis(3),
-            Table([x.class_specific_render(render_settings) for x in self.all()], horizontal_lines=True,
-                  vertical_lines=True)
+        return [WithEmphasis(2, [
+            Heading("Employment History", 1),
+            Indent(
+                self.jobs
+            ),
+            Heading("Education", 1),
+            Indent(
+                self.education
+            )
         ])]

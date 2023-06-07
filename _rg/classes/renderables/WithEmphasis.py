@@ -7,8 +7,10 @@ from _rg.classes.renderables.Renderable import Renderable
 
 
 @dataclass
-class ChangeEmphasis(Renderable):
+class WithEmphasis(Renderable):
     steps_in: int
+    content: list[str | Renderable]
+    no_break: bool = False
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
         if render_settings is None:
@@ -24,8 +26,12 @@ class ChangeEmphasis(Renderable):
             # current_color = tuple(
             #     [int(band / first_black_step * (first_black_step - steps_in)) for band in highlight_color])
         final_color_string = colors.tuple_to_hex(current_color)
+        total_size = render_settings.text_curve_at(self.steps_in)
+        font_size = total_size * render_settings.margin_to_text_ratio
+        baseline_skip = total_size
         return [
-            fr"\fontsize{{{render_settings.text_curve_at(self.steps_in) * 0.75}mm}}"
-            fr"{{{render_settings.text_curve_at(self.steps_in)}mm}}\selectfont",
-            fr"\color[RGB]{{{str(current_color)[1:-1]}}}"
+            fr"\color[RGB]{{{str(current_color)[1:-1]}}}""\n"fr"{{\fontsize{{{font_size}mm}}{{{baseline_skip}mm}}\selectfont" #+
+            #("" if self.no_break else r"\par""\n")
+            ] + self.content + [
+            r"\par}"
         ]

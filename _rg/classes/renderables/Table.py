@@ -37,7 +37,9 @@ class Row(Renderable):
     table: Table
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        if len(self.data) == self.table.column_count:
+        if len(self.data) == 1:
+            return [Concatenate([fr"\SetCell[c={self.table.column_count}]{{l}}", self.data[0]])]
+        else:
             sub_l = []
             first = True
             for cell in self.data:
@@ -46,10 +48,6 @@ class Row(Renderable):
                 sub_l.append(cell)
                 first = False
             return sub_l
-        elif len(self.data) == 1:
-            return [Concatenate([fr"\SetCell[c={self.table.column_count}]{{l}}", self.data[0]])]
-        else:
-            raise NotImplementedError()
 
     def __str__(self):
         return f"row containing {self.data}"

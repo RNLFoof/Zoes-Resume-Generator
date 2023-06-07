@@ -1,27 +1,23 @@
 {
-    "title": "AccomplishmentSet",
+    "title": "BodyOfWork",
     "type": "object",
     "properties": {
-        "accomplishments": {
-            "title": "Accomplishments",
+        "works": {
+            "title": "Works",
             "type": "object",
             "additionalProperties": {
-                "$ref": "#/definitions/Accomplishment"
+                "$ref": "#/definitions/Work"
             }
         }
     },
     "required": [
-        "accomplishments"
+        "works"
     ],
     "definitions": {
-        "Accomplishment": {
-            "title": "Accomplishment",
+        "Work": {
+            "title": "Work",
             "type": "object",
             "properties": {
-                "name": {
-                    "title": "Name",
-                    "type": "string"
-                },
                 "description": {
                     "title": "Description",
                     "type": "string"
@@ -30,8 +26,19 @@
                     "title": "Demonstrates",
                     "type": "object",
                     "additionalProperties": {
-                        "type": "string"
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
                     }
+                },
+                "name": {
+                    "title": "Name",
+                    "type": "string"
                 }
             },
             "required": [

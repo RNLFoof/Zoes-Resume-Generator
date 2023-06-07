@@ -113,7 +113,7 @@ class Impressiveness(Enum):
         Ex. GML, Power Automate
     """
 
-    EXPANSIVE = 3, """
+    EXPANSIVE = 2.5, """
         It's BIG. Can you explore it? Uh, kinda. You mostly just Google the thing you want to do.
         Ex. PyCharm
     """

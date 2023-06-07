@@ -35,8 +35,12 @@
             "description": "",
             "enum": [
                 "PROGRAMMING",
+                "PROGRAMMING_LANGUAGES",
+                "IDE",
+                "VERSION_CONTROL",
                 "THREED_MODELING",
                 "OFFICE_SOFTWARE",
+                "SHAREPOINT",
                 "MISCELLANEOUS"
             ]
         },
@@ -58,6 +62,10 @@
                 },
                 "category": {
                     "$ref": "#/definitions/Category"
+                },
+                "default_usage": {
+                    "title": "Default Usage",
+                    "type": "string"
                 }
             },
             "required": [
