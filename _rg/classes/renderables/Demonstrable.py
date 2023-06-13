@@ -42,9 +42,7 @@ class Demonsterable(Renderable, BaseModel):
         return value
 
     def begining(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [
-            WithEmphasis(3, [self.description])
-        ]
+        return [self.description]
 
     def segway(self, render_settings: RenderSettings) -> list[str | Renderable]:
         raise NotImplemented()

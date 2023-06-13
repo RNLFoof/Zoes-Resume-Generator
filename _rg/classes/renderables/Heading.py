@@ -21,10 +21,14 @@ class Heading(Renderable):
                 current_color = colors.mergecolors(render_settings.start_color_at(self.steps_in),
                                                    render_settings.secondary_color,
                                                    text_progress)
-                letters.append(fr"\color[RGB]{{{str(current_color)[1:-1]}}}{{{tex_escape(letter)}}}")
+                no_page_break = "" # r"\nopagebreak " if letter_index <= 0 else ""
+                letters.append(fr"\color[RGB]{{{str(current_color)[1:-1]}}}{{{no_page_break}{{{tex_escape(letter)}}}}}")
         else:
             letters.append(self.text)
 
         return [
             WithEmphasis(self.steps_in, ["".join(letters)]), # Line breaks cause gaps, so
         ]
+
+    def __str__(self):
+        return f"{self.__class__.__name__} whose content is {self.text}"

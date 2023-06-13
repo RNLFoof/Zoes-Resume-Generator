@@ -30,7 +30,7 @@ class WithEmphasis(Renderable):
         font_size = total_size * render_settings.margin_to_text_ratio
         baseline_skip = total_size
         return [
-            fr"\color[RGB]{{{str(current_color)[1:-1]}}}""\n"fr"{{\fontsize{{{font_size}mm}}{{{baseline_skip}mm}}\selectfont" #+
+            fr"{{\color[RGB]{{{str(current_color)[1:-1]}}}""\n"fr"\fontsize{{{font_size}mm}}{{{baseline_skip}mm}}\selectfont" #+
             #("" if self.no_break else r"\par""\n")
             ] + self.content + [
             r"\par}"
