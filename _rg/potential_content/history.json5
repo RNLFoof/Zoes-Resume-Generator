@@ -10,8 +10,8 @@
             name: "Internet Programming and Development",
             completion_description: "AEC Granted",
             building: "John Abbott College",
-            start_year: 2018,
-            end_year: 2019
+            start_year: 2018, // mio jump from 2016 to 2018
+            end_year: 2019 // Internship presentations were on 2019/05/21, among other days
         },
         {
             name: "High School",
@@ -24,7 +24,7 @@
     ],
     jobs: [
         {
-            name: "Junior Web Developer",
+            name: "Web Developer",
             start_year: 2020,
             building: "Globe Electric",
             "daily_tasks": [
@@ -40,6 +40,16 @@
                     "demonstrates": {
                         "SP2013": "I think you can infer from context.",
                         "C#": "Used to create new and fix existing server side custom behavior."
+                    }
+                },
+                {
+                    "description": "Migrate our SP2013 content(and its related C# and JavaScript content) to SPO, Power Automate, and Power Apps.",
+                    "demonstrates": {
+                    }
+                },
+                {
+                    "description": "Develop new customizations for our SPO site, through TypeScript, SPFX, PnP, SaSS, and creative workarounds for the limited environment.",
+                    "demonstrates": {
                     }
                 }
             ]

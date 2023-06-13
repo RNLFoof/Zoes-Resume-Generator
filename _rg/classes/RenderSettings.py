@@ -23,10 +23,12 @@ class curve(Enum):
 class RenderSettings:
     title_gradients = True
 
+    margin_to_text_ratio = 0.75
+
     largest_text_size = 24
     first_text_step = 3
     heading_curve = curve.HALVING
-    text_curve = lambda self, x: 0.6 ** x
+    text_curve = lambda self, x: 0.5 ** x
 
     primary_color = color.CELESTE_CYAN.value
     secondary_color = color.CELESTE_PURPLE.value
@@ -34,11 +36,11 @@ class RenderSettings:
 
     skill_elaboration = False
     show_categories = False
-    skill_columns = 3
+    skill_columns = 4
 
     def start_color_at(self, steps_in: int):
         return colors.mergecolors(self.primary_color, self.secondary_color,
-                                  1 - 1/3 ** steps_in)
+                                  1 - 0.6 ** steps_in)
 
     def text_curve_at(self, steps_in: int):
         if steps_in < self.first_text_step:

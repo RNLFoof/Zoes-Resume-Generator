@@ -27,7 +27,7 @@ class Table(Renderable):
             l.append(Row(row_data, self))
             l.append(r"\\" + (r"\hline" if self.horizontal_lines else ""))
 
-        l.append(r"\end{tblr}")
+        l.append(r"\end{tblr}\phantom{}\\") # TODO Without phantom, the next line is flush against the table, but this is totally a hack
         return l
 
 

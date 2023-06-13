@@ -3,8 +3,11 @@
 /_rg/Resume.pdf
 /url_collection.json
 *.pyc
+
 /_rg/out/*
 /output/Resume.aux
 /output/Resume.out
 /output/Resume.log
 /tests/classes/out/
+
+*.log
