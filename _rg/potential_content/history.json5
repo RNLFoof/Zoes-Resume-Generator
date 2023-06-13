@@ -24,7 +24,7 @@
     ],
     jobs: [
         {
-            name: "Junior Web Developer",
+            name: "Web Developer",
             start_year: 2020,
             building: "Globe Electric",
             "daily_tasks": [
