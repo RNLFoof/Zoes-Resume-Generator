@@ -21,7 +21,7 @@ class WithEmphasis(Renderable):
             current_color = black
         else:
             # current_color = tuple([int(band * pow(0.5, steps_in)) for band in highlight_color])
-            current_color = colors.mergecolors(render_settings.primary_color, render_settings.secondary_color,
+            current_color = colors.merge_colors(render_settings.primary_color, render_settings.secondary_color,
                                                self.steps_in / (first_black_step - 1))
             # current_color = tuple(
             #     [int(band / first_black_step * (first_black_step - steps_in)) for band in highlight_color])

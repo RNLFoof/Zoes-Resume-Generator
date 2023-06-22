@@ -18,7 +18,7 @@ class Heading(Renderable):
         if render_settings.title_gradients:
             for letter_index, letter in enumerate(self.text):
                 text_progress = letter_index / (len(self.text) - 1)
-                current_color = colors.mergecolors(render_settings.start_color_at(self.steps_in),
+                current_color = colors.merge_colors(render_settings.start_color_at(self.steps_in),
                                                    render_settings.secondary_color,
                                                    text_progress)
                 no_page_break = "" # r"\nopagebreak " if letter_index <= 0 else ""
