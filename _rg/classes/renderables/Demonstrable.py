@@ -42,7 +42,7 @@ class Demonsterable(Renderable, BaseModel):
         return value
 
     def begining(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [self.description]
+        return [tex_escape(self.description)]
 
     def segway(self, render_settings: RenderSettings) -> list[str | Renderable]:
         raise NotImplemented()
