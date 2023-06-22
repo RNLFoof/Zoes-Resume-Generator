@@ -11,7 +11,7 @@ from _rg.definitions import IMAGE_DIR
 
 class Header(Renderable):
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [rf"\graphicspath{{ {{{pathlib.PureWindowsPath(IMAGE_DIR).as_posix()}}} }}",
+        return [
             Table(
                 [
                     [

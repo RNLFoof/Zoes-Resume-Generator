@@ -27,9 +27,5 @@ class IconLink(Renderable):
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
         return [
-            r"\makeatletter",
-            r"\newcommand*\fsize{\dimexpr\f@size mm\relax}",
-            r"\makeatother",
-            fr"\graphicspath{{ {{{pathlib.PureWindowsPath(IMAGE_DIR).as_posix()}}} }}",
             fr"\includegraphics[width=\fsize]{{ icons/{self.icon_name()} }}"
         ]
