@@ -1,6 +1,7 @@
 import pathlib
 
 from _rg.classes.RenderSettings import RenderSettings
+from _rg.classes.renderables.IconLink import IconLink
 from _rg.classes.renderables.WithEmphasis import WithEmphasis
 from _rg.classes.renderables.Concatenate import Concatenate
 from _rg.classes.renderables.Heading import Heading
@@ -22,13 +23,33 @@ class Header(Renderable):
                         ]),
                         "",
                         "",
+                        Concatenate([
+                            r"\SetCell[r=2]{r}",
+                            WithEmphasis(3, [
+                                Table(
+                                    [
+                                        [
+                                            IconLink("https://github.com/RNLFoof")
+                                        ],
+                                        [
+                                            IconLink("https://www.linkedin.com/in/zoe-zablotsky-598b2018a/")
+                                        ]
+                                    ]
+                                )
+                            ])
+                        ])
+
                     ],
                     [
                         "",
                         WithEmphasis(2, [r"\href{mailto:z.zablotsky@gmail.com}{z.zablotsky@gmail.com}"]),
                         WithEmphasis(2, ["•"]),
                         WithEmphasis(2, [r"\href{tel:+514-566-5567}{(514) 566\-5567}"]),
+                        ""
                     ]
                 ]
-            )
+            , table_params={
+                    "width": r"\linewidth",
+                    "colspec": r"lllX[l]l"
+                })
         ]
