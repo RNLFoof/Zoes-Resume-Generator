@@ -10,16 +10,23 @@ class Table(Renderable):
     data: list[list[Renderable | str]]
     horizontal_lines: bool = False
     vertical_lines: bool = False
+    table_params: dict = None
 
     column_count = None
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
         self.column_count = max(len(row) for row in self.data)
-        l = [rf"\SetTblrInner{{rowsep=0mm, leftsep=1mm, rightsep=4mm}}"]
+
+        if self.table_params is None:
+            self.table_params = {}
         if self.vertical_lines:
-            l.append(fr"\begin{{tblr}}{{|{'l|' * self.column_count}}}")
+            self.table_params.setdefault("colspec", "|" + "l|" * self.column_count)
         else:
-            l.append(fr"\begin{{tblr}}{{{'l' * self.column_count}}}")
+            self.table_params.setdefault("colspec", "l" * self.column_count)
+        table_params_str = ','.join(f"{table_param[0]}={{{table_param[1]}}}" for table_param in self.table_params.items())
+
+        l = [rf"\SetTblrInner{{rowsep=0mm, leftsep=1mm, rightsep=4mm}}"]
+        l.append(fr"\begin{{tblr}}{{{table_params_str}}}")
         if self.horizontal_lines:
             l.append(r"\hline")
 
