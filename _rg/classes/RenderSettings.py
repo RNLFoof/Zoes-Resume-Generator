@@ -32,14 +32,14 @@ class RenderSettings:
 
     primary_color = color.CELESTE_CYAN.value
     secondary_color = color.CELESTE_PURPLE.value
-    link_color = color.AZURE.value
+    link_color = color.CELESTE_CYAN.value
 
     skill_elaboration = False
     show_categories = False
     skill_columns = 4
 
     def start_color_at(self, steps_in: int):
-        return colors.mergecolors(self.primary_color, self.secondary_color,
+        return colors.merge_colors(self.primary_color, self.secondary_color,
                                   1 - 0.6 ** steps_in)
 
     def text_curve_at(self, steps_in: int):
