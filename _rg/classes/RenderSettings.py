@@ -32,7 +32,7 @@ class RenderSettings:
 
     primary_color = color.CELESTE_CYAN.value
     secondary_color = color.CELESTE_PURPLE.value
-    link_color = color.AZURE.value
+    link_color = color.CELESTE_CYAN.value
 
     skill_elaboration = False
     show_categories = False
