@@ -8,7 +8,7 @@ import typeguard as typeguard
 from zsil import colors
 
 from _rg import definitions
-from _rg.classes.RenderSettings import RenderSettings
+from _rg.classes.RenderSettings import RenderSettings, RenderMode
 from _rg.definitions import IMAGE_DIR
 from _rg.general import temp_cd
 
@@ -29,7 +29,10 @@ class Renderable:
         output = re.sub(r"^", "\t", output, flags=re.MULTILINE)
         render_description = f"render of {str(self)[:100]}"
         typeguard.check_type(output, str)
-        return f"%begin {render_description}\n{output}\n%end {render_description}"
+        if render_settings.render_mode == RenderMode.PDF:
+            return f"%begin {render_description}\n{output}\n%end {render_description}"
+        else:
+            return output
 
     def generate_tex(self, directory: str, render_settings: RenderSettings):
         global_variables = {
@@ -62,5 +65,15 @@ class Renderable:
             s = s.replace(f"__{name}__", value)
         return s
 
+    def generate_txt(self, directory: str, render_settings: RenderSettings):
+        with open(f"{directory}/{self.__class__.__name__}.txt", "w", encoding="UTF8") as f:
+            f.write(self.render_wrapper(render_settings))
+
     def __str__(self):
         return self.__class__.__name__
+
+    def generate_file(self, directory: str, render_settings: RenderSettings):
+        if render_settings.render_mode == RenderMode.PDF:
+            self.generate_pdf(directory, render_settings)
+        else:
+            self.generate_txt(directory, render_settings)

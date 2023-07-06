@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from zsil import colors
 
-from _rg.classes.RenderSettings import RenderSettings
+from _rg.classes.RenderSettings import RenderSettings, RenderMode
 from _rg.classes.renderables.Renderable import Renderable
 
 
@@ -13,6 +13,9 @@ class WithEmphasis(Renderable):
     no_break: bool = False
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
+        if render_settings.render_mode != RenderMode.PDF:
+            return self.content
+
         if render_settings is None:
             render_settings = RenderSettings()
         black = (0, 0, 0)
