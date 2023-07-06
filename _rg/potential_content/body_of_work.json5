@@ -3,40 +3,43 @@
           "Golf 2": {
               "description": 'GMTK 2021 Game Jam entry(72h to make a game). We ranked 81st in the fun category and 116th overall out of 5712 entries.',
               "demonstrates": {
-                  'GameMaker Studio 2': "that's what it was created in",
-                  'Game Maker Language': "that's what it's written in"
+                  'GameMaker Studio 2': "that's what it was created in, also used for some of the graphics",
+                  'Game Maker Language': null,
+                  "GitHub Desktop": null,
+                  "GIMP": "Used for some of the graphics.",
               },
-              link: "https://itch.io/jam/gmtk-2021/rate/1081786"
+              links: [
+                  "https://itch.io/jam/gmtk-2021/rate/1081786"
+              ],
           },
-          "Zoe's Stupid UKG Dimensions Destroyer": {
+          "UKG Dimensions to Google Calendar Converter": {
               "description": "Converts UKG Dimensions calendar events to Google Calendar events.",
               "demonstrates": {
-                  "Node.js": "that's what it runs in",
-                  "TypeScript": "that's what it's written in",
+                  "Node.js": null,
+                  "TypeScript": null,
                   "HTML": "the data is extracted from UKGD's HTML",
-                  "VS Code": "written in it",
-                  "Google Calendar API": ""
-              }
+                  "VS Code": null,
+                  "Google Calendar API": "Google Calendar is where the data goes and the API is used to make that happen"
+              },
+              links: [
+                  "https://github.com/RNLFoof/UkgDimensionsToGoogleCalendarConverter"
+              ]
           },
-          "RSRB Classic": {
-              description: "Large, very huge Discord chatbot made with love and spaghetti",
-              demonstrates: {
-                  "Python": "that's what it's written in",
-                  "Pillow": "used for image and animation generating commands",
-                  "Game Maker Language": "I needed and made copies of its lengthdir_[xy] functions",
-                  "Regular Expressions": "I forget. they're very broadly useful, you know.",
-                  "NLTK": "Used to determine if words are adjectives, nouns, or verbs for use in responses that take chat context into consideration.",
-                  "Notepad++": "Largely written in it, before I knew any better"
-              }
-          },
-          "RSRB Rewrite": {
-              description: "Large, very huge Discord chatbot made with love and experience",
+          "Rock 'em Sock 'em RoBot": {
+              description: 'Two Discord chat bots, "Classic" and "Rewrite", made with love for a friend group I\'m in.',
               demonstrates: {
                   "Python": null,
-                  "Pillow": "Used for image and animation generating commands",
-                  JSON: "it's used to store some of the randomized canned responses",
+                  "Pillow": "used for image and animation generating commands",
+                  ImageMagick: "Used for a content aware scaling command.",
+                  "Game Maker Language": "used its particle system for some of the graphics, and made copies of its /lengthdir_[xy]/ functions before I had a better handle on trig.",
                   "Regular Expressions": "I forget. they're very broadly useful, you know.",
-                  "GitHub Desktop": null
+                  "NLTK": "Used to determine if words are adjectives, nouns, or verbs for use in responses that take chat context into consideration.",
+                  "Notepad++": "Largely written in it, before I knew any better",
+                  GIMP: "Used for some of the graphics.",
+                  JSON: "used to store some of the randomized canned responses",
+                  "discord.py": null,
+                  "GitHub Desktop": null,
+                  PyCharm: null
               }
           },
           "Utility Invoice Generator": {
@@ -52,16 +55,51 @@
           },
           "[Zoe's Resume] Generator": {
               description: "Generates the document that you're presumably reading.",
-              "link": "https://github.com/RNLFoof/Zoes-Resume-Generator",
+              "links": ["https://github.com/RNLFoof/Zoes-Resume-Generator"],
               demonstrates: {
                   "Python": "used to generate the LaTex.",
                   "LaTeX": "used to generate the document, using pdflatex.",
+                  "TeXworks": "used to debug and to more generally get a handle on LaTeX.",
                   "PyCharm": null,
                   "GitKraken": null,
                   "GitHub Desktop": null,
+                  "Git": null,
                   pydantic: "used to generate schema and parse the json5 that contains the actual content",
-                  JSON5: "used to write the actual content"
+                  JSON5: "used to write the actual content",
+                  "JSON Schema": "generated by pydantic to make editing the json5 content easier",
+                  "JSON": "houses the json schema",
+                  "Regular Expressions": "Isolates the second level domain name from URLs in order to pick the corresponding link icon, which is named accordingly.",
+                  // selenium, html someday, when indeed is done. ahk?
               }
+          },
+          "zsil": {
+              description: "An image library for Python that I created to house my image behavior as I created it for other projects.",
+              "demonstrates": {
+                  Python: null,
+                  Pillow: "The basis for most of the image behavior.",
+                  ImageMagick: "Used in a few places alongside Pillow."
+              },
+              links: [
+                  "https://github.com/RNLFoof/zsil/"
+              ]
+          },
+          "Gloomhaven Soundboard Deck": {
+              description: "Inventory and modifier deck manager for Gloomhaven, a tabletop RPG, in which card has >=1 associated sound effects.",
+              "demonstrates": {
+                  Kotlin: null,
+                  "Android Studio": null,
+                  Python: "Used to normalize sounds and images to use as resources.",
+                  Pillow: "Used to normalize images to use as resources.",
+                  GIMP: "Used to create some of the graphics.",
+                  JSON: "Used to store enemy data, and for saving and loading.",
+                  "GitKraken": null,
+                  "GitHub Desktop": null,
+                  "Git": null,
+                  // "Regular Expressions": null,
+              },
+              links: [
+                  "https://github.com/RNLFoof/GloomhavenSoundboardDeck"
+              ]
           }
           //    "Progress Formatter": {
           //    }

@@ -164,7 +164,7 @@
       impressiveness: "SPECIALIZABLE",
       competence: 1.5,
       "exists within": "JavaScript",
-      category: "PROGRAMMING"
+      category: "ENVIRONMENT"
     },
     Pillow: {
       impressiveness: "DEEP",
@@ -378,6 +378,11 @@
       competence: 3,
       category: "IDE"
     },
+    "Android Studio": {
+      impressiveness: "DEEP",
+      competence: 4,
+      category: "IDE"
+    },
     "GitKraken": {
       impressiveness: "DEEP",
       competence: 3,
@@ -398,6 +403,32 @@
       competence: 3,
       category: "PROGRAMMING",
       link: "https://docs.pydantic.dev/latest/"
+    },
+    ImageMagick: {
+      impressiveness: "EXPANSIVE",
+      competence: 1.5,
+      category: "PROGRAMMING" // Hm. Is it really?
+    },
+    GIMP: {
+      "competence": 3.5,
+      "impressiveness": "MAKE_OR_BREAK",
+      "category": "IMAGE_EDITING_SOFTWARE"
+    },
+    "discord.py": {
+      competence: 5,
+      impressiveness: "INTUITIVE_WITH_CONTEXT",
+      category: "PROGRAMMING",
+      default_usage: "used for connectivity with Discord"
+    },
+    "Selenium": {
+      "competence": 2,
+      "impressiveness": "INTUITIVE_WITH_CONTEXT",
+      "category": "PROGRAMMING"
+    },
+    "TeXworks": {
+      "competence": 4,
+      "impressiveness": "DEEP",
+      "category": "OFFICE_SOFTWARE" // Is it really?
     }
   }
 }
