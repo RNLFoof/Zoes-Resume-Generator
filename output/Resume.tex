@@ -11,8 +11,11 @@
 \geometry{top=5mm,left=0mm,right=0mm, bottom=4mm}
 
 \usepackage{xcolor}
-\definecolor{primarycolor}{HTML}{375fad}
-\definecolor{secondarycolor}{HTML}{998da3}
+\definecolor{primarycolor}{HTML}{3abde1}
+\definecolor{secondarycolor}{HTML}{6c1da9}
+
+\usepackage{amsmath}%
+\usepackage{fdsymbol}%
 
 \usepackage{textcomp}
 
@@ -35,6 +38,13 @@
 \usepackage[strict]{changepage}
 \pagenumbering{gobble}
 \usepackage{calc}
+\usepackage{anyfontsize}
+\graphicspath{{S:/Code/Resume/_rg/images/}}
+
+\makeatletter
+\newcommand*\fsize{\dimexpr\f@size mm\relax}
+\makeatother
+
 \begin{document}
 %begin render of Resume
 	%begin render of Header

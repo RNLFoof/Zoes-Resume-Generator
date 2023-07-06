@@ -1,4 +1,5 @@
 import os
+import pathlib
 import re
 import subprocess
 from typing import Self, Any
@@ -8,6 +9,7 @@ from zsil import colors
 
 from _rg import definitions
 from _rg.classes.RenderSettings import RenderSettings
+from _rg.definitions import IMAGE_DIR
 from _rg.general import temp_cd
 
 
@@ -33,6 +35,7 @@ class Renderable:
         global_variables = {
             "primary_color": colors.tuple_to_hex(render_settings.primary_color),
             "secondary_color": colors.tuple_to_hex(render_settings.secondary_color),
+            "graphics_path": pathlib.PureWindowsPath(IMAGE_DIR).as_posix()
         }
 
         with open(f"{directory}/{self.__class__.__name__}.tex", "w", encoding="UTF8") as f:
