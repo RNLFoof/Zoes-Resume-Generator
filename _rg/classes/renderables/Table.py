@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from functools import reduce
 
-from _rg.classes.RenderSettings import RenderSettings, RenderMode
+from _rg.classes.RenderSettings import RenderSettings, RenderFormat
 from _rg.classes.renderables.Concatenate import Concatenate
 from _rg.classes.renderables.Renderable import Renderable
 
@@ -16,7 +16,7 @@ class Table(Renderable):
     column_count = None
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        if render_settings.render_mode != RenderMode.PDF:
+        if render_settings.render_format != RenderFormat.LATEX:
             return reduce(lambda a, b: a + b, self.data)  # Sum doesn't work on lists
 
         self.column_count = max(len(row) for row in self.data)

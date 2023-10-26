@@ -1,17 +1,16 @@
 from dataclasses import dataclass
-from typing import Callable, Optional
-
 from pydantic import BaseModel, validator
 from pydantic import Field
+from typing import Callable, Optional
 
-from _rg.classes.RenderSettings import RenderSettings
+from _rg.classes.RenderSettings import RenderSettings, RenderFormat
 from _rg.classes.enums.Category import Category
 from _rg.classes.enums.Impressiveness import Impressiveness
-from _rg.classes.renderables.WithEmphasis import WithEmphasis
 from _rg.classes.renderables.Heading import Heading
 from _rg.classes.renderables.Indent import Indent
 from _rg.classes.renderables.Renderable import Renderable
 from _rg.classes.renderables.Table import Table
+from _rg.classes.renderables.WithEmphasis import WithEmphasis
 from _rg.classes.renderables.potential_content.BodyOfWork import Work, BodyOfWork
 from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
 from _rg.general import tex_escape
@@ -35,6 +34,7 @@ class Skill(Renderable, BaseModel):
     competence: float
     impressiveness: Impressiveness
     category: Category
+    aliases: list[str] = []
     default_usage_overwrite: Optional[str] = Field(None, alias="default_usage")
 
     def generic_value(self) -> float:
@@ -48,6 +48,8 @@ class Skill(Renderable, BaseModel):
         return self.impressiveness.number * self.competence
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
+        if render_settings.render_format == RenderFormat.INDEED_HTML:
+            return ["&bull;" + tex_escape(x) for x in [self.name] + self.aliases]
         return [tex_escape(self.name)]
 
     @property

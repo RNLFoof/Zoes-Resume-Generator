@@ -1,7 +1,7 @@
 import os
 from argparse import ArgumentParser
 
-from _rg.classes.RenderSettings import RenderSettings, RenderMode
+from _rg.classes.RenderSettings import RenderSettings, RenderFormat
 from _rg.classes.renderables.Resume import Resume
 from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
 from definitions import ROOT_DIR
@@ -17,8 +17,8 @@ def generate_parser() -> ArgumentParser:
                              f"rather than the default({PROD_OUTPUT_DIRECTORY})",
                         action="store_const", const=DEV_OUTPUT_DIRECTORY)
     parser.add_argument("-o", "--output-mode",
-                        choices=[x.name.lower() for x in RenderMode],
-                        default=RenderMode.PARSABLE)
+                        choices=[x.name.lower() for x in RenderFormat],
+                        default=RenderFormat.LATEX)
     return parser
 
 

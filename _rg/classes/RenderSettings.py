@@ -18,10 +18,11 @@ class curve(Enum):
     HALVING = lambda self, x: 0.5 ** x
     THREE_QUARTERING = lambda self, x: 0.75 ** x
 
-class RenderMode(Enum):
-    PDF = 0,
-    TEXT = 1,
-    PARSABLE = 2
+
+class RenderFormat(Enum):
+    LATEX = 0,
+    MARKDOWN = 1,
+    INDEED_HTML = 2,
 
 @dataclass
 class RenderSettings:
@@ -42,7 +43,7 @@ class RenderSettings:
     show_categories = False
     skill_columns = 4
 
-    render_mode = RenderMode.PDF
+    render_format = RenderFormat.INDEED_HTML
 
     def start_color_at(self, steps_in: int):
         return colors.merge_colors(self.primary_color, self.secondary_color,
