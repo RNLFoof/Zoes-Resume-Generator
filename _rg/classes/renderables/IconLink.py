@@ -4,7 +4,7 @@ import re
 from dataclasses import dataclass
 
 from PIL import Image
-from cool_stuff import transfer_alpha
+from zsil.cool_stuff import transfer_alpha
 
 from _rg import definitions
 from _rg.classes.RenderSettings import RenderSettings
@@ -25,6 +25,7 @@ class IconLink(Renderable):
         color_image = Image.new("RGBA", alpha_image.size, render_settings.link_color)
         generated_image = transfer_alpha(alpha_image, color_image)
         generated_image.save(self.generated_icon_path())
+        return generated_image
 
     def icon_name(self) -> str:
         """Returns the name of the relevant icon, which is the second level domain name of the url.
