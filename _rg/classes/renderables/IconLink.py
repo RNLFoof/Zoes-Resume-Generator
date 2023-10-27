@@ -17,6 +17,7 @@ class IconLink(Renderable):
 
     def original_icon_path(self) -> str:
         return os.path.join(os.path.join(definitions.IMAGE_DIR, "original_icons", self.icon_name() + ".png"))
+
     def generated_icon_path(self) -> str:
         return os.path.join(os.path.join(definitions.IMAGE_DIR, "generated_icons", self.icon_name() + ".png"))
 
