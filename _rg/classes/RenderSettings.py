@@ -43,7 +43,7 @@ class RenderSettings:
     show_categories = False
     skill_columns = 4
 
-    render_format = RenderFormat.INDEED_HTML
+    render_format = RenderFormat.LATEX
 
     def start_color_at(self, steps_in: int):
         return colors.merge_colors(self.primary_color, self.secondary_color,
