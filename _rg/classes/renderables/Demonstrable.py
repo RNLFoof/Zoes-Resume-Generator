@@ -1,18 +1,18 @@
+import re
+from typing import Annotated
 
 from pydantic import BaseModel, Field, validator
 
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.renderables.WithEmphasis import WithEmphasis
-from _rg.classes.renderables.Concatenate import Concatenate
-from _rg.classes.renderables.Heading import Heading
 from _rg.classes.renderables.Indent import Indent
 from _rg.classes.renderables.Renderable import Renderable
+from _rg.classes.renderables.WithEmphasis import WithEmphasis
 from _rg.general import tex_escape
 
 
 class Demonsterable(Renderable, BaseModel):
     description: str
-    demonstrates: dict[str, str | None]
+    demonstrates: Annotated[dict[str, str | None], Field(minProperties=1)]
 
     class Config:
         # A little silly. https://github.com/pydantic/pydantic/issues/5755
@@ -38,11 +38,15 @@ class Demonsterable(Renderable, BaseModel):
         from _rg.classes.renderables.potential_content.SkillSet import SkillSet
         for k, v in value.items():
             if v is None:
-                value[k] = SkillSet.summon().skills[k].default_usage
+                try:
+                    value[k] = SkillSet.summon().skills[k].default_usage
+                except KeyError:
+                    maybe_it_was = [maybe for maybe in SkillSet.summon().skills if maybe.lower() == k.lower()]
+                    raise KeyError(f"No skill called {k}. Guesses: {maybe_it_was}.")
         return value
 
     def begining(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [tex_escape(self.description)]
+        return [r"\nopagebreak", tex_escape(self.description)]
 
     def segway(self, render_settings: RenderSettings) -> list[str | Renderable]:
         raise NotImplemented()
@@ -54,9 +58,17 @@ class Demonsterable(Renderable, BaseModel):
                 self.segway(render_settings) + \
                 [
                     Indent([
-                        fr"$\smallblacksquare$ \textit{{{tex_escape(skill_name)}}}: {tex_escape(because)}" + "\n"
+                        fr"$\smallblacksquare$ \textit{{{tex_escape(skill_name)}}}: {self.clean_up_because(because)}" + "\n"
                         for skill_name, because in self.demonstrates.items()
                     ])
                 ]
             )
         ]
+
+    @staticmethod
+    def clean_up_because(because: str):
+        if not re.search("[.!?]$", because):
+            because += "."
+        slightly_cleaner_description = because[0].upper() + because[1:]
+        because = tex_escape(because)
+        return because

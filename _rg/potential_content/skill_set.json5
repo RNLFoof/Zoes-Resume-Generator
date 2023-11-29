@@ -54,7 +54,8 @@
     Godot: {
       impressiveness: "MAKE_OR_BREAK",
       competence: 2,
-      category: "PROGRAMMING"
+      category: "PROGRAMMING",
+      default_usage: "That's what it was made in"
     },
     "Google Calendar": {
       impressiveness: "INTUITIVE",
@@ -164,7 +165,7 @@
       impressiveness: "SPECIALIZABLE",
       competence: 1.5,
       "exists within": "JavaScript",
-      category: "PROGRAMMING"
+      category: "ENVIRONMENT"
     },
     Pillow: {
       impressiveness: "DEEP",
@@ -234,11 +235,11 @@
       ],
       category: "SHAREPOINT"
     },
-    "SPO": {
+    "SharePoint Online": {
       impressiveness: "SPECIALIZABLE",
       competence: 3,
       aliases: [
-        "SharePoint Online"
+        "SPO"
       ],
       subset_of: [
         "SharePoint"
@@ -368,7 +369,7 @@
       competence: 1.5,
       category: "PROGRAMMING"
     },
-    "VS Code": {
+    "Visual Studio Code": {
       impressiveness: "EXPANSIVE",
       competence: 3.5,
       category: "IDE"
@@ -376,6 +377,11 @@
     "Visual Studio": {
       impressiveness: "EXPANSIVE",
       competence: 3,
+      category: "IDE"
+    },
+    "Android Studio": {
+      impressiveness: "DEEP",
+      competence: 4,
       category: "IDE"
     },
     "GitKraken": {
@@ -398,6 +404,73 @@
       competence: 3,
       category: "PROGRAMMING",
       link: "https://docs.pydantic.dev/latest/"
+    },
+    ImageMagick: {
+      impressiveness: "EXPANSIVE",
+      competence: 1.5,
+      category: "PROGRAMMING" // Hm. Is it really?
+    },
+    GIMP: {
+      "competence": 3.5,
+      "impressiveness": "MAKE_OR_BREAK",
+      "category": "IMAGE_EDITING_SOFTWARE"
+    },
+    "discord.py": {
+      competence: 5,
+      impressiveness: "INTUITIVE_WITH_CONTEXT",
+      category: "PROGRAMMING",
+      default_usage: "Used for connectivity with Discord"
+    },
+    "Selenium": {
+      "competence": 2,
+      "impressiveness": "INTUITIVE_WITH_CONTEXT",
+      "category": "PROGRAMMING"
+    },
+    "TeXworks": {
+      "competence": 4,
+      "impressiveness": "DEEP",
+      "category": "OFFICE_SOFTWARE" // Is it really?
+    },
+    "SPFX": {
+      "competence": 3,
+      "impressiveness": "DEEP",
+      "category": "PROGRAMMING",
+      default_usage: "Used to modify SharePoint"
+    },
+    "React": {
+      "competence": 3,
+      "impressiveness": "DEEP",
+      "category": "FRAMEWORK"
+    },
+    "Yargs": {
+      "competence": 3,
+      "impressiveness": "DEEP",
+      "category": "LIBRARY",
+      "default_usage": "Used as the basis for the CLI",
+      "link": "https://www.npmjs.com/package/yargs"
+    },
+    "PnPjs": {
+      "competence": 4,
+      "impressiveness": "DEEP",
+      "category": "LIBRARY",
+      "default_usage": "Used for interaction with SharePoint.",
+      "link": "https://pnp.github.io/pnpjs/"
+    },
+    "PnP CLI": {
+      "competence": 4,
+      "impressiveness": "DEEP",
+      "category": "LIBRARY",
+      // I mean, I use it as one.....
+      "default_usage": "Used for interaction with SharePoint, mostly programatically.",
+      "link": "https://pnp.github.io/cli-microsoft365/"
+    },
+    "Sass": {
+      competence: 4,
+      impressiveness: "DEEP",
+      category: "PROGRAMMING_LANGUAGES",
+      default_usage: "Used for styling."
     }
+    // Cloud Architecture
+    // CI/CD
   }
 }

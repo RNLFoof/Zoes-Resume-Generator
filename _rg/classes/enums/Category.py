@@ -59,11 +59,24 @@ class Category(Enum):
 
     @property
     def default_usage(self):
-        if self._default_usage is not None:
-            return self._default_usage
-        if self.subcategory_of is not None:
-            return self.subcategory_of.default_usage
-        raise Exception("No default usage!")
+        group_desc = "Layers of lackings of default usages."
+        potential_exception = Exception(f"No default usage for {self.name}!")
+        try:
+            if self._default_usage is not None:
+                return self._default_usage
+            if self.subcategory_of is not None:
+                return self.subcategory_of.default_usage
+        except Exception as deeper_exception:
+            if isinstance(deeper_exception, ExceptionGroup):
+                raise ExceptionGroup(group_desc, [
+                    potential_exception
+                ] + list(deeper_exception.exceptions))
+            else:
+                raise ExceptionGroup(group_desc, [
+                    potential_exception,
+                    deeper_exception
+                ])
+        raise potential_exception
 
     @property
     def subcategory_of(self):
@@ -74,11 +87,15 @@ class Category(Enum):
 
     PROGRAMMING = init_wrapper()
     PROGRAMMING_LANGUAGES = init_wrapper(default_usage="That's what it's written in", subcategory_of=PROGRAMMING)
-    IDE = init_wrapper(default_usage="That's the editor I used", subcategory_of=PROGRAMMING,
+    FRAMEWORK = init_wrapper(default_usage="That's the framework used", subcategory_of=PROGRAMMING)
+    IDE = init_wrapper(default_usage="That's the IDE I used", subcategory_of=PROGRAMMING,
                        display_name="Integrated Development Environments")
+    LIBRARY = init_wrapper(default_usage="A library used for its intended purpose", subcategory_of=PROGRAMMING)
+    ENVIRONMENT = init_wrapper(default_usage="That's the environment it runs in", subcategory_of=PROGRAMMING)
     VERSION_CONTROL = init_wrapper(default_usage="Used for version control", subcategory_of=PROGRAMMING)
     THREED_MODELING = init_wrapper(default_usage="That's what it's modeled in",
                                    display_name="3D Modeling and Printing")
     OFFICE_SOFTWARE = init_wrapper()
     SHAREPOINT = init_wrapper(subcategory_of=OFFICE_SOFTWARE)
+    IMAGE_EDITING_SOFTWARE = init_wrapper()
     MISCELLANEOUS = init_wrapper()

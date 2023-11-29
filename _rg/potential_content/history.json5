@@ -45,11 +45,18 @@
                 {
                     "description": "Migrate our SP2013 content(and its related C# and JavaScript content) to SPO, Power Automate, and Power Apps.",
                     "demonstrates": {
+                        "SP2013": "Required reading and understanding the behavior in its workflows.",
+                        "Harepoint": "Was used to extend the functionality of the workflows I needed to recreate.",
+                        //TODO AAAAA
                     }
                 },
                 {
-                    "description": "Develop new customizations for our SPO site, through TypeScript, SPFX, PnP, SaSS, and creative workarounds for the limited environment.",
+                    "description": "Develop new customizations for our SPO site, with many creative workarounds for the limited environment.",
                     "demonstrates": {
+                        "SharePoint Online": "It's the recipient of these changes",
+                        TypeScript: null,
+                        SPFX: null,
+                        Sass: null
                     }
                 }
             ]

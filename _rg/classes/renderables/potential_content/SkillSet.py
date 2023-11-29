@@ -1,17 +1,17 @@
 from dataclasses import dataclass
-from typing import Callable, Optional
+from typing import Callable, Optional, Annotated
 
 from pydantic import BaseModel, validator
 from pydantic import Field
 
-from _rg.classes.RenderSettings import RenderSettings
+from _rg.classes.RenderSettings import RenderSettings, RenderFormat
 from _rg.classes.enums.Category import Category
 from _rg.classes.enums.Impressiveness import Impressiveness
-from _rg.classes.renderables.WithEmphasis import WithEmphasis
 from _rg.classes.renderables.Heading import Heading
 from _rg.classes.renderables.Indent import Indent
 from _rg.classes.renderables.Renderable import Renderable
 from _rg.classes.renderables.Table import Table
+from _rg.classes.renderables.WithEmphasis import WithEmphasis
 from _rg.classes.renderables.potential_content.BodyOfWork import Work, BodyOfWork
 from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
 from _rg.general import tex_escape
@@ -35,6 +35,7 @@ class Skill(Renderable, BaseModel):
     competence: float
     impressiveness: Impressiveness
     category: Category
+    aliases: list[str] = []
     default_usage_overwrite: Optional[str] = Field(None, alias="default_usage")
 
     def generic_value(self) -> float:
@@ -48,13 +49,18 @@ class Skill(Renderable, BaseModel):
         return self.impressiveness.number * self.competence
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
+        if render_settings.render_format == RenderFormat.INDEED_HTML:
+            return ["&bull;" + tex_escape(x) for x in [self.name] + self.aliases]
         return [tex_escape(self.name)]
 
     @property
     def default_usage(self) -> str:
         if self.default_usage_overwrite is not None:
             return self.default_usage_overwrite
-        return self.category.default_usage
+        try:
+            return self.category.default_usage
+        except Exception as exception:
+            raise ExceptionGroup(f"No default usage for {self.name} nor its category.", [exception])
 
 
 @dataclass
@@ -88,7 +94,7 @@ class SkillSet(PotentialContent):
     --------
     Skill : Specificity on what information is associated with a skill.
     """
-    skills: dict[str, Skill]
+    skills: Annotated[dict[str, Skill], Field(minProperties=1)]
 
     @validator('skills')
     def __get_validators__(cls, skills: dict[str, Skill]):

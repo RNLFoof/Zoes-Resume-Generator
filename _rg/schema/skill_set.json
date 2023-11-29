@@ -5,6 +5,7 @@
     "properties": {
         "skills": {
             "title": "Skills",
+            "minProperties": 1,
             "type": "object",
             "additionalProperties": {
                 "$ref": "#/definitions/Skill"
@@ -36,11 +37,15 @@
             "enum": [
                 "PROGRAMMING",
                 "PROGRAMMING_LANGUAGES",
+                "FRAMEWORK",
                 "IDE",
+                "LIBRARY",
+                "ENVIRONMENT",
                 "VERSION_CONTROL",
                 "THREED_MODELING",
                 "OFFICE_SOFTWARE",
                 "SHAREPOINT",
+                "IMAGE_EDITING_SOFTWARE",
                 "MISCELLANEOUS"
             ]
         },
@@ -62,6 +67,14 @@
                 },
                 "category": {
                     "$ref": "#/definitions/Category"
+                },
+                "aliases": {
+                    "title": "Aliases",
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "default_usage": {
                     "title": "Default Usage",

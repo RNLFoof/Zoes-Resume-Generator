@@ -19,6 +19,11 @@ class curve(Enum):
     THREE_QUARTERING = lambda self, x: 0.75 ** x
 
 
+class RenderFormat(Enum):
+    LATEX = 0,
+    MARKDOWN = 1,
+    INDEED_HTML = 2,
+
 @dataclass
 class RenderSettings:
     title_gradients = True
@@ -37,6 +42,8 @@ class RenderSettings:
     skill_elaboration = False
     show_categories = False
     skill_columns = 4
+
+    render_format = RenderFormat.LATEX
 
     def start_color_at(self, steps_in: int):
         return colors.merge_colors(self.primary_color, self.secondary_color,

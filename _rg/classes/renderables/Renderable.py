@@ -2,13 +2,13 @@ import os
 import pathlib
 import re
 import subprocess
-from typing import Self, Any
-
 import typeguard as typeguard
+from pyhtml2pdf import converter
+from typing import Self, Any
 from zsil import colors
 
 from _rg import definitions
-from _rg.classes.RenderSettings import RenderSettings
+from _rg.classes.RenderSettings import RenderSettings, RenderFormat
 from _rg.definitions import IMAGE_DIR
 from _rg.general import temp_cd
 
@@ -26,10 +26,16 @@ class Renderable:
             typeguard.check_type(output[n], str)
 
         output = "\n".join(output)
-        output = re.sub(r"^", "\t", output, flags=re.MULTILINE)
+
+        if render_settings.render_format == RenderFormat.LATEX:
+            output = re.sub(r"^", "\t", output, flags=re.MULTILINE)
+
         render_description = f"render of {str(self)[:100]}"
         typeguard.check_type(output, str)
-        return f"%begin {render_description}\n{output}\n%end {render_description}"
+        if render_settings.render_format == RenderFormat.LATEX:
+            return f"%begin {render_description}\n{output}\n%end {render_description}"
+        else:
+            return output
 
     def generate_tex(self, directory: str, render_settings: RenderSettings):
         global_variables = {
@@ -62,5 +68,30 @@ class Renderable:
             s = s.replace(f"__{name}__", value)
         return s
 
+    def generate_markdown(self, directory: str, render_settings: RenderSettings):
+        with open(f"{directory}/{self.__class__.__name__}.md", "w", encoding="UTF8") as f:
+            f.write(self.render_wrapper(render_settings))
+
+    def generate_indeed_html(self, directory: str, render_settings: RenderSettings):
+        filename_sans_suffix = f"{directory}/{self.__class__.__name__}-indeed"
+        with open(filename_sans_suffix + ".html", "w", encoding="UTF8") as f:
+            write_this = self.render_wrapper(render_settings)
+            write_this = write_this.replace("\n\n", "\n").replace("\n\n", "\n")
+            write_this = re.sub(r"^(.*?)$", r"<p><span>\1</span></p>", write_this, flags=re.MULTILINE)
+            write_this = f'<html><head><meta content="text/html; charset=UTF-8" http-equiv="content-type" /></head><body>\n' \
+                         f'{write_this}\n' \
+                         f'</body></html>'
+            f.write(write_this)
+
+        converter.convert(f'file:///{filename_sans_suffix}.html', f'{filename_sans_suffix}.pdf')
+
     def __str__(self):
         return self.__class__.__name__
+
+    def generate_file(self, directory: str, render_settings: RenderSettings):
+        if render_settings.render_format == RenderFormat.LATEX:
+            self.generate_pdf(directory, render_settings)
+        elif render_settings.render_format == RenderFormat.MARKDOWN:
+            self.generate_markdown(directory, render_settings)
+        elif render_settings.render_format == RenderFormat.INDEED_HTML:
+            self.generate_indeed_html(directory, render_settings)

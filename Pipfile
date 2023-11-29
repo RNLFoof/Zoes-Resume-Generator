@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pydantic = "1.10.13"
+zsil = { editable = true, ref = "62291f5", git = "https://github.com/RNLFoof/zsil" }  # pipenv install -e git+https://github.com/RNLFoof/zsil@62291f5#egg=zsil
+typeguard = "*"
+pyhtml2pdf = "*"
+json5 = "*"
+
+[dev-packages]
+pytest = "*"
+pytest-assume = "*"
+# These are for the incomplete scraping stuff. Maybe move them up to packages someday
+selenium = "*"
+ahk = "*"
+
+[requires]
+python_version = "3.11"
+python_full_version = "3.11.3"
