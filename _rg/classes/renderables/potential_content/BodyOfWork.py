@@ -1,14 +1,12 @@
-from pydantic import BaseModel, validator, Field
+from pydantic import validator, Field
 
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.renderables.WithEmphasis import WithEmphasis
-from _rg.classes.renderables.Concatenate import Concatenate
 from _rg.classes.renderables.Demonstrable import Demonsterable
 from _rg.classes.renderables.Heading import Heading
 from _rg.classes.renderables.Indent import Indent
 from _rg.classes.renderables.Renderable import Renderable
+from _rg.classes.renderables.WithEmphasis import WithEmphasis
 from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
-from _rg.general import tex_escape
 
 
 class Work(Demonsterable):
@@ -20,7 +18,7 @@ class Work(Demonsterable):
         ] + super().begining(render_settings)
 
     def segway(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return ["\nMy work on this demonstrates:"]
+        return ["\n\\nopagebreak\nMy work on this demonstrates:"]
 
 class BodyOfWork(PotentialContent):
     works: dict[str, Work]

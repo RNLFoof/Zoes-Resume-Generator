@@ -1,3 +1,4 @@
+import re
 from typing import Annotated
 
 from pydantic import BaseModel, Field, validator
@@ -45,7 +46,7 @@ class Demonsterable(Renderable, BaseModel):
         return value
 
     def begining(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        return [tex_escape(self.description)]
+        return [r"\nopagebreak", tex_escape(self.description)]
 
     def segway(self, render_settings: RenderSettings) -> list[str | Renderable]:
         raise NotImplemented()
@@ -57,9 +58,17 @@ class Demonsterable(Renderable, BaseModel):
                 self.segway(render_settings) + \
                 [
                     Indent([
-                        fr"$\smallblacksquare$ \textit{{{tex_escape(skill_name)}}}: {tex_escape(because)}" + "\n"
+                        fr"$\smallblacksquare$ \textit{{{tex_escape(skill_name)}}}: {self.clean_up_because(because)}" + "\n"
                         for skill_name, because in self.demonstrates.items()
                     ])
                 ]
             )
         ]
+
+    @staticmethod
+    def clean_up_because(because: str):
+        if not re.search("[.!?]$", because):
+            because += "."
+        slightly_cleaner_description = because[0].upper() + because[1:]
+        because = tex_escape(because)
+        return because
