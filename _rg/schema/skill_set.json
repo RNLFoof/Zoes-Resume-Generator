@@ -37,7 +37,9 @@
             "enum": [
                 "PROGRAMMING",
                 "PROGRAMMING_LANGUAGES",
+                "FRAMEWORK",
                 "IDE",
+                "LIBRARY",
                 "ENVIRONMENT",
                 "VERSION_CONTROL",
                 "THREED_MODELING",

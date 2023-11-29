@@ -74,8 +74,10 @@ class Category(Enum):
 
     PROGRAMMING = init_wrapper()
     PROGRAMMING_LANGUAGES = init_wrapper(default_usage="That's what it's written in", subcategory_of=PROGRAMMING)
+    FRAMEWORK = init_wrapper(default_usage="That's the framework used", subcategory_of=PROGRAMMING)
     IDE = init_wrapper(default_usage="That's the IDE I used", subcategory_of=PROGRAMMING,
                        display_name="Integrated Development Environments")
+    LIBRARY = init_wrapper(default_usage="A library used for its intended purpose", subcategory_of=PROGRAMMING)
     ENVIRONMENT = init_wrapper(default_usage="That's the environment it runs in", subcategory_of=PROGRAMMING)
     VERSION_CONTROL = init_wrapper(default_usage="Used for version control", subcategory_of=PROGRAMMING)
     THREED_MODELING = init_wrapper(default_usage="That's what it's modeled in",

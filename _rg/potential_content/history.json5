@@ -51,8 +51,12 @@
                     }
                 },
                 {
-                    "description": "Develop new customizations for our SPO site, through TypeScript, SPFX, PnP, SaSS, and creative workarounds for the limited environment.",
-                    "demonstrates": {//TODO AAAAA
+                    "description": "Develop new customizations for our SPO site, with many creative workarounds for the limited environment.",
+                    "demonstrates": {
+                        "SharePoint Online": "It's the recipient of these changes",
+                        TypeScript: null,
+                        SPFX: null,
+                        Sass: null
                     }
                 }
             ]
