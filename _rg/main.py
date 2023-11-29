@@ -1,10 +1,10 @@
 import os
 from argparse import ArgumentParser
 
-from classes.RenderSettings import RenderSettings, RenderFormat
-from classes.renderables.Resume import Resume
-from classes.renderables.potential_content.PotentialContent import PotentialContent
-from definitions import ROOT_DIR
+from _rg.classes.RenderSettings import RenderSettings, RenderFormat
+from _rg.classes.renderables.Resume import Resume
+from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
+from _rg.definitions import ROOT_DIR
 
 PROD_OUTPUT_DIRECTORY = os.path.join(ROOT_DIR, "../output")
 DEV_OUTPUT_DIRECTORY = os.path.join(ROOT_DIR, "out")

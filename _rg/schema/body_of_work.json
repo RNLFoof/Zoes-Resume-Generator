@@ -24,6 +24,7 @@
                 },
                 "demonstrates": {
                     "title": "Demonstrates",
+                    "minProperties": 1,
                     "type": "object",
                     "additionalProperties": {
                         "anyOf": [

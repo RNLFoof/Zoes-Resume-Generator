@@ -5,6 +5,7 @@
     "properties": {
         "skills": {
             "title": "Skills",
+            "minProperties": 1,
             "type": "object",
             "additionalProperties": {
                 "$ref": "#/definitions/Skill"
@@ -65,14 +66,14 @@
                 "category": {
                     "$ref": "#/definitions/Category"
                 },
-              "aliases": {
-                "title": "Aliases",
-                "default": [],
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
+                "aliases": {
+                    "title": "Aliases",
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "default_usage": {
                     "title": "Default Usage",
                     "type": "string"

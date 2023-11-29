@@ -1,7 +1,8 @@
 from dataclasses import dataclass
+from typing import Callable, Optional, Annotated
+
 from pydantic import BaseModel, validator
 from pydantic import Field
-from typing import Callable, Optional
 
 from _rg.classes.RenderSettings import RenderSettings, RenderFormat
 from _rg.classes.enums.Category import Category
@@ -90,7 +91,7 @@ class SkillSet(PotentialContent):
     --------
     Skill : Specificity on what information is associated with a skill.
     """
-    skills: dict[str, Skill]
+    skills: Annotated[dict[str, Skill], Field(minProperties=1)]
 
     @validator('skills')
     def __get_validators__(cls, skills: dict[str, Skill]):

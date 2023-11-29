@@ -1,18 +1,17 @@
+from typing import Annotated
 
 from pydantic import BaseModel, Field, validator
 
 from _rg.classes.RenderSettings import RenderSettings
-from _rg.classes.renderables.WithEmphasis import WithEmphasis
-from _rg.classes.renderables.Concatenate import Concatenate
-from _rg.classes.renderables.Heading import Heading
 from _rg.classes.renderables.Indent import Indent
 from _rg.classes.renderables.Renderable import Renderable
+from _rg.classes.renderables.WithEmphasis import WithEmphasis
 from _rg.general import tex_escape
 
 
 class Demonsterable(Renderable, BaseModel):
     description: str
-    demonstrates: dict[str, str | None]
+    demonstrates: Annotated[dict[str, str | None], Field(minProperties=1)]
 
     class Config:
         # A little silly. https://github.com/pydantic/pydantic/issues/5755
