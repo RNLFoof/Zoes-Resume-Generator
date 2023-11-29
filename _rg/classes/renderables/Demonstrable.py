@@ -37,7 +37,11 @@ class Demonsterable(Renderable, BaseModel):
         from _rg.classes.renderables.potential_content.SkillSet import SkillSet
         for k, v in value.items():
             if v is None:
-                value[k] = SkillSet.summon().skills[k].default_usage
+                try:
+                    value[k] = SkillSet.summon().skills[k].default_usage
+                except KeyError:
+                    maybe_it_was = [maybe for maybe in SkillSet.summon().skills if maybe.lower() == k.lower()]
+                    raise KeyError(f"No skill called {k}. Guesses: {maybe_it_was}.")
         return value
 
     def begining(self, render_settings: RenderSettings) -> list[str | Renderable]:

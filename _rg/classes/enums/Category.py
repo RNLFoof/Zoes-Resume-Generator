@@ -59,11 +59,24 @@ class Category(Enum):
 
     @property
     def default_usage(self):
-        if self._default_usage is not None:
-            return self._default_usage
-        if self.subcategory_of is not None:
-            return self.subcategory_of.default_usage
-        raise Exception(f"No default usage for {self.name}!")
+        group_desc = "Layers of lackings of default usages."
+        potential_exception = Exception(f"No default usage for {self.name}!")
+        try:
+            if self._default_usage is not None:
+                return self._default_usage
+            if self.subcategory_of is not None:
+                return self.subcategory_of.default_usage
+        except Exception as deeper_exception:
+            if isinstance(deeper_exception, ExceptionGroup):
+                raise ExceptionGroup(group_desc, [
+                    potential_exception
+                ] + list(deeper_exception.exceptions))
+            else:
+                raise ExceptionGroup(group_desc, [
+                    potential_exception,
+                    deeper_exception
+                ])
+        raise potential_exception
 
     @property
     def subcategory_of(self):

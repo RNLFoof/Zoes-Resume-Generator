@@ -57,7 +57,10 @@ class Skill(Renderable, BaseModel):
     def default_usage(self) -> str:
         if self.default_usage_overwrite is not None:
             return self.default_usage_overwrite
-        return self.category.default_usage
+        try:
+            return self.category.default_usage
+        except Exception as exception:
+            raise ExceptionGroup(f"No default usage for {self.name} nor its category.", [exception])
 
 
 @dataclass
