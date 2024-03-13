@@ -1,14 +1,13 @@
 import typing
-from pydantic import BaseModel
-from pydantic.dataclasses import dataclass
 from typing import Union
+
+from pydantic import BaseModel
 
 from _rg.classes.RenderSettings import RenderSettings, RenderFormat
 from _rg.classes.renderables.Demonstrable import Demonsterable
 from _rg.classes.renderables.Heading import Heading
 from _rg.classes.renderables.Indent import Indent
 from _rg.classes.renderables.Renderable import Renderable
-from _rg.classes.renderables.Table import Table
 from _rg.classes.renderables.WithEmphasis import WithEmphasis
 from _rg.classes.renderables.potential_content.PotentialContent import PotentialContent
 from _rg.general import tex_escape
@@ -33,7 +32,7 @@ class HistoryItem(Renderable, BaseModel):
         if self.building is not None:
             s += f"{self.building}"
 
-            if render_settings.render_format != RenderFormat.INDEED_HTML:
+            if render_settings.render_format != RenderFormat.FOR_ROBOTS:
                 s += ", "
 
         return s
@@ -46,7 +45,7 @@ class HistoryItem(Renderable, BaseModel):
         if self.start_year == end:
             return str(end)
 
-        if render_settings.render_format in [RenderFormat.MARKDOWN, RenderFormat.INDEED_HTML]:
+        if render_settings.render_format in [RenderFormat.MARKDOWN, RenderFormat.FOR_ROBOTS]:
             seprator = " to "
         else:
             seprator = "-"
@@ -57,8 +56,8 @@ class HistoryItem(Renderable, BaseModel):
 class Education(HistoryItem):
     completion_description: str
 
-    def description(self, render_settings: RenderSettings) -> str:
-        if render_settings.render_format == RenderFormat.INDEED_HTML:
+    def description(self, render_settings: RenderSettings) -> list[str | None] | str:
+        if render_settings.render_format == RenderFormat.FOR_ROBOTS:
             return [f"{self.completion_description} {self.name}", self.building, self.timespan(render_settings)]
 
         s = super().description(render_settings)
@@ -78,14 +77,14 @@ class Job(HistoryItem):
 
         s = super().description(render_settings)
 
-        if render_settings.render_format == RenderFormat.INDEED_HTML:
+        if render_settings.render_format == RenderFormat.FOR_ROBOTS:
             s += "\n"
 
         s += self.timespan(render_settings)
         return s
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        if render_settings.render_format in [RenderFormat.MARKDOWN, RenderFormat.INDEED_HTML]:
+        if render_settings.render_format in [RenderFormat.MARKDOWN, RenderFormat.FOR_ROBOTS]:
             return super().class_specific_render(render_settings)
 
         return [WithEmphasis(3,
@@ -106,7 +105,7 @@ class History(PotentialContent):
             typing.cast(list[HistoryItem], self.education)
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        if render_settings.render_format in [RenderFormat.INDEED_HTML]:
+        if render_settings.render_format in [RenderFormat.FOR_ROBOTS]:
             return [WithEmphasis(2, [
                 Heading("Work Experience", 1),
                 Indent(

@@ -22,7 +22,7 @@ class curve(Enum):
 class RenderFormat(Enum):
     LATEX = 0,
     MARKDOWN = 1,
-    INDEED_HTML = 2,
+    FOR_ROBOTS = 2,
 
 @dataclass
 class RenderSettings:

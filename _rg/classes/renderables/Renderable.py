@@ -2,9 +2,10 @@ import os
 import pathlib
 import re
 import subprocess
+from typing import Self, Any
+
 import typeguard as typeguard
 from pyhtml2pdf import converter
-from typing import Self, Any
 from zsil import colors
 
 from _rg import definitions
@@ -72,8 +73,8 @@ class Renderable:
         with open(f"{directory}/{self.__class__.__name__}.md", "w", encoding="UTF8") as f:
             f.write(self.render_wrapper(render_settings))
 
-    def generate_indeed_html(self, directory: str, render_settings: RenderSettings):
-        filename_sans_suffix = f"{directory}/{self.__class__.__name__}-indeed"
+    def generate_for_robots(self, directory: str, render_settings: RenderSettings):
+        filename_sans_suffix = f"{directory}/{self.__class__.__name__}-for-robots"
         with open(filename_sans_suffix + ".html", "w", encoding="UTF8") as f:
             write_this = self.render_wrapper(render_settings)
             write_this = write_this.replace("\n\n", "\n").replace("\n\n", "\n")
@@ -93,5 +94,5 @@ class Renderable:
             self.generate_pdf(directory, render_settings)
         elif render_settings.render_format == RenderFormat.MARKDOWN:
             self.generate_markdown(directory, render_settings)
-        elif render_settings.render_format == RenderFormat.INDEED_HTML:
-            self.generate_indeed_html(directory, render_settings)
+        elif render_settings.render_format == RenderFormat.FOR_ROBOTS:
+            self.generate_for_robots(directory, render_settings)

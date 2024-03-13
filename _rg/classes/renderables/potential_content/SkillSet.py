@@ -49,7 +49,7 @@ class Skill(Renderable, BaseModel):
         return self.impressiveness.number * self.competence
 
     def class_specific_render(self, render_settings: RenderSettings) -> list[str | Renderable]:
-        if render_settings.render_format == RenderFormat.INDEED_HTML:
+        if render_settings.render_format == RenderFormat.FOR_ROBOTS:
             return ["&bull;" + tex_escape(x) for x in [self.name] + self.aliases]
         return [tex_escape(self.name)]
 
@@ -71,13 +71,11 @@ class SkillWithElaboration:
     def tex(self):
         s = ""
         s += "{"
-        s += WithEmphasis(2)
-        s += self.skill.name
-        s += WithEmphasis(3)
-        s += "\nAs demonstrated by my work on:"
+        s += WithEmphasis(2, [self.skill.name])
+        s += WithEmphasis(3, ["\nAs demonstrated by my work on:"])
         for accomplishment in self.relevant_works:
             explanation = accomplishment.demonstrates[self.skill.name]
-            s += f"\n$\$\smallblacksquare$$GUY{WithEmphasis(4)}({accomplishment.description}),{WithEmphasis(3)}\n\nbecause {explanation}"
+            s += f"\n$\$\smallblacksquare$$GUY{WithEmphasis(4, ['(' + accomplishment.description + '),'])}{WithEmphasis(3, ['because' + explanation])}"
         s += "}"
         return s
 

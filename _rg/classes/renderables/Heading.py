@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from zsil import colors
 
 from _rg.classes.RenderSettings import RenderSettings, RenderFormat
@@ -20,7 +21,7 @@ class Heading(Renderable):
             output.append(f"{'#' * (self.steps_in + 1)} {self.text.upper()}")
             return output
 
-        if render_settings.render_format == RenderFormat.INDEED_HTML:
+        if render_settings.render_format == RenderFormat.FOR_ROBOTS:
             return [self.text]
 
         letters = []
