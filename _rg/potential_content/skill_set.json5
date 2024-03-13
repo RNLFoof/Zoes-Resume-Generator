@@ -461,7 +461,7 @@
       "impressiveness": "DEEP",
       "category": "LIBRARY",
       // I mean, I use it as one.....
-      "default_usage": "Used for interaction with SharePoint, mostly programatically.",
+      "default_usage": "Used for interaction with SharePoint, mostly programmatically.",
       "link": "https://pnp.github.io/cli-microsoft365/"
     },
     "Sass": {
@@ -469,8 +469,40 @@
       impressiveness: "DEEP",
       category: "PROGRAMMING_LANGUAGES",
       default_usage: "Used for styling."
+    },
+    "REST APIs": {
+      competence: 4,
+      category: "PROGRAMMING_LANGUAGES",
+      "impressiveness": "INTUITIVE"
     }
     // Cloud Architecture
     // CI/CD
+    //  Data Modeling
+    //Databases
+    //Development Tools
+    // Git
+    // English
+    // Software Solutions
+    // Remote Work
+    // Skill Development
+    // Attention to Detail
+    // Analytical Skills
+    // Communication
+    // End user Training
+    // Knowledge Sharing
+    // Microsoft Dynamics 365
+    // user training
+    //  Code Review
+    //Coding Standards
+    //Digital Authentication
+    // Functional Design
+    // Design Specifications
+    //  ASP.NET
+    //Azure DevOps Services (maybe?)
+    //Database Design
+    // Shell Scripting
+    // JSDom
+    // lodash
+    // Google Workspace
   }
 }

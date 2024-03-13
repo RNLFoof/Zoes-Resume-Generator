@@ -7,9 +7,12 @@
                 'Game Maker Language': null,
                 "GitHub Desktop": null,
                 "GIMP": "Used for some of the graphics.",
+                "Git": "Used for version control, and got experience with using version control on software that doesn't expect you to.",
+                "GitHub": null,
             },
             links: [
-                "https://itch.io/jam/gmtk-2021/rate/1081786"
+                "https://itch.io/jam/gmtk-2021/rate/1081786",
+                "https://github.com/thejanjan/gmtk-2021"
             ],
         },
         "UKG Dimensions to Google Calendar Converter": {
@@ -19,8 +22,94 @@
                 "TypeScript": null,
                 "HTML": "the data is extracted from UKGD's HTML",
                 "Visual Studio Code": null,
-                "Google Calendar API": "Google Calendar is where the data goes and the API is used to make that happen"
+                "Google Calendar API": "Google Calendar is where the data goes and the API is used to make that happen",
+                "Regular Expressions": "Used to extract start and end times from the UKGD side",
+                "Git": null,
+                "GitHub": null,
+                "GitHub Desktop": null,
+                "Google Calendar": "Kind of inherently, for a project about importing into Google Calendar.",
+                "Google Cloud Platform": "Includes, and is used to access, the Google Calendar API.",
+                JSON: "Used to store tokens and credentials",
+                JavaScript: "Inherently, through the use of TS.",
             },
+            "demonstaten't": [
+                ".NET",
+                "AutoHotKey",
+                "C#",
+                "Django",
+                "GDScript",
+                "Game Maker Language",
+                "GameMaker",
+                "GameMaker Studio 2",
+                "Godot",
+                "Google",
+                "Calendar",
+                "Google",
+                "Calendar",
+                "API",
+                "Google",
+                "Cloud",
+                "Platform",
+                "Hue Manager",
+                "JSON",
+                "JSON Schema",
+                "JSON5",
+                "JavaScript",
+                "NLTK",
+                "Node",
+                "js",
+                "Pillow",
+                "Python",
+                "Regular",
+                "Expressions",
+                "SP2013",
+                "SharePoint Online",
+                "TypeScript",
+                "jQuery",
+                "Microsoft Authentication Library",
+                "PHP",
+                "XML",
+                "HTML",
+                "CSS",
+                "Bootstrap",
+                "SQL",
+                "SQLite",
+                "Java",
+                "Kotlin",
+                "JavaFX",
+                "Tasker",
+                "UltiMaker Cura",
+                "WinDbg",
+                "Git",
+                "GitHub",
+                "GitHub",
+                "Desktop",
+                "Notepad++",
+                "PyCharm",
+                "Miniconda",
+                "Conda",
+                "Visual",
+                "Studio",
+                "Code",
+                "Visual Studio",
+                "Android Studio",
+                "GitKraken",
+                "HarePoint",
+                "LaTeX",
+                "pydantic",
+                "ImageMagick",
+                "GIMP",
+                "discord.py",
+                "Selenium",
+                "TeXworks",
+                "SPFX",
+                "React",
+                "Yargs",
+                "PnPjs",
+                "PnP CLI",
+                "Sass",
+                "REST APIs"
+            ],
             links: [
                 "https://github.com/RNLFoof/UkgDimensionsToGoogleCalendarConverter"
             ]
@@ -39,18 +128,74 @@
                 JSON: "used to store some of the randomized canned responses",
                 "discord.py": null,
                 "GitHub Desktop": null,
-                PyCharm: null
-            }
+                PyCharm: null,
+                "Git": null,
+                "GitHub": null,
+                "REST APIs": "The bots have commands for image searching and getting COVID stats, which call REST APIs to work."
+            },
+            "demonstaten't": [
+                ".NET",
+                "AutoHotKey",
+                "C#",
+                "Django",
+                "GDScript",
+                "GameMaker",
+                "GameMaker Studio 2",
+                "Godot",
+                "Google Calendar",
+                "Google Calendar API",
+                "Google Cloud Platform",
+                "Hue Manager",
+                "JSON Schema",
+                "JSON5",
+                "JavaScript",
+                "Node.js",
+                "SP2013",
+                "SharePoint Online",
+                "TypeScript",
+                "jQuery",
+                "Microsoft Authentication Library",
+                "PHP",
+                "XML",
+                "HTML",
+                "CSS",
+                "Bootstrap",
+                "SQL",
+                "SQLite",
+                "Java",
+                "Kotlin",
+                "JavaFX",
+                "Tasker",
+                "UltiMaker Cura",
+                "WinDbg",
+                "Miniconda",
+                "Conda",
+                "Visual Studio Code",
+                "Visual Studio",
+                "Android Studio",
+                "GitKraken",
+                "HarePoint",
+                "LaTeX",
+                "pydantic",
+                "Selenium",
+                "TeXworks",
+                "SPFX",
+                "React",
+                "Yargs",
+                "PnPjs",
+                "PnP CLI",
+                "Sass"
+            ]
         },
         "Utility Invoice Generator": {
-            description: "",
+            description: "Script that generates, uploads, and mails off an invoice word document based on SP2013 items.",
             for: "Globe Electric",
             demonstrates: {
-                "SP2013": "That's what it was created for.",
+                "SP2013": "That's what it was created for, as part of a workflow.",
                 "HarePoint": "Used to execute server side C# from a workflow.",
                 "C#": null,
                 "Visual Studio": null,
-                "Word": "Target format."
+                "Word": "That's the target format."
             }
         },
         "[Zoe's Resume] Generator": {
@@ -86,7 +231,7 @@
             ]
         },
         "Gloomhaven Soundboard Deck": {
-            description: "Inventory and modifier deck manager for Gloomhaven, a tabletop RPG, in which card has >=1 associated sound effects.",
+            description: "Inventory and modifier deck manager for Gloomhaven, a tabletop RPG, in which each card has >=1 associated sound effects.",
             "demonstrates": {
                 Kotlin: null,
                 "Android Studio": null,
@@ -303,3 +448,44 @@
         //        }
     }
 }
+
+/*
+    ".NET"
+    "C#"
+    "Game Maker Language"
+    "GameMaker"
+    "GameMaker Studio 2"
+    "Google Calendar"
+    "Google Calendar API"
+    "Google Cloud Platform"
+    "Hue Manager"
+    "JSON Schema"
+    "Node.js"
+    "Regular Expressions"
+    "SP2013"
+    "SharePoint Online"
+    "Microsoft Authentication Library"
+    "UltiMaker Cura"
+    "WinDbg"
+    "Git"
+    "GitHub"
+    "GitHub Desktop"
+    "Notepad++"
+    "PyCharm"
+    "Miniconda"
+    "Conda"
+    "Visual Studio Code"
+    "Visual Studio"
+    "Android Studio"
+    "GitKraken"
+    "discord.py"
+    "Selenium"
+    "TeXworks"
+    "SPFX"
+    "React"
+    "Yargs"
+    "PnPjs"
+    "PnP CLI"
+    "Sass"
+    "REST APIs"
+*/
